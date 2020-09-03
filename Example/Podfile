@@ -1,0 +1,17 @@
+platform :ios, '9.0'
+
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'JSLayoutSizeFitExample' do
+  pod 'JSLayoutSizeFit', :path => '..'
+  pod 'QMUIKit'
+  pod 'Masonry'
+  pod 'LookinServer', :configurations => ['Debug']
+  pod 'MLeaksFinder', :configurations => ['Debug']
+end
+
+target 'JSLayoutSizeFitExampleMacOS' do
+  pod 'QMUIKit'
+end
+
+
