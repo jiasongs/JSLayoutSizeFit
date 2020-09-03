@@ -115,6 +115,9 @@
         return [fitCache CGFloatForKey:key];
     }
     __kindof UIView *templateView = [self __js_templateViewForClass:viewClass];
+    if ([templateView respondsToSelector:@selector(prepareForReuse)]) {
+        [templateView prepareForReuse];
+    }
     if (configuration) {
         configuration(templateView);
     }
