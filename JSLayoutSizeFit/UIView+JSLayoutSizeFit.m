@@ -11,8 +11,17 @@
 
 @implementation UIView (JSLayoutSizeFit)
 
-JSSynthesizeBOOLProperty(js_isTemplateLayoutView, setJs_isTemplateLayoutView)
 JSSynthesizeBOOLProperty(js_enforceFrameLayout, setJs_enforceFrameLayout)
 JSSynthesizeIdStrongProperty(js_widthFenceConstraint, setJs_widthFenceConstraint)
+
+- (nullable __kindof UIView *)js_templateContentView {
+    UIView *contentView = nil;
+    if ([self isKindOfClass:UITableViewCell.class]) {
+        contentView = [(UITableViewCell *)self contentView];
+    } else if ([self isKindOfClass:UITableViewHeaderFooterView.class]) {
+        contentView = [(UITableViewHeaderFooterView *)self contentView];
+    }
+    return contentView;
+}
 
 @end

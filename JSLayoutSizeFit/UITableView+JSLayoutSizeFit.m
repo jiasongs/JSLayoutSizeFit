@@ -140,7 +140,20 @@
         } else {
             templateView = [[viewClass alloc] initWithFrame:CGRectZero];
         }
-        templateView.js_isTemplateLayoutView = true;
+        UIView *contentView = templateView.js_templateContentView;
+        if (contentView) {
+            NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0];
+            if (@available(iOS 10.2, *)) {
+                widthFenceConstraint.priority = UILayoutPriorityRequired - 1;
+                NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:templateView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0];
+                NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:templateView attribute:NSLayoutAttributeRight multiplier:1.0 constant:0];
+                NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:templateView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
+                NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:templateView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+                [templateView addConstraints:@[leftConstraint, rightConstraint, topConstraint, bottomConstraint]];
+            }
+            [contentView addConstraint:widthFenceConstraint];
+            contentView.js_widthFenceConstraint = widthFenceConstraint;
+        }
         [self.js_templateViews setObject:templateView forKey:viewClassString];
     }
     return templateView;
@@ -150,12 +163,7 @@
 
 - (CGFloat)__js_systemFittingHeightForTemplateView:(__kindof UIView *)templateView contentWidth:(CGFloat)contentWidth {
     NSAssert(contentWidth != 0, @"contentWidth不能为0!");
-    UIView *contentView = nil;
-    if ([templateView isKindOfClass:UITableViewCell.class]) {
-        contentView = [(UITableViewCell *)templateView contentView];
-    } else if ([templateView isKindOfClass:UITableViewHeaderFooterView.class]) {
-        contentView = [(UITableViewHeaderFooterView *)templateView contentView];
-    }
+    UIView *contentView = templateView.js_templateContentView;
     if (templateView.js_width != contentWidth) {
         templateView.js_width = contentWidth;
     }
@@ -166,21 +174,10 @@
     if (templateView.js_enforceFrameLayout) {
         fittingHeight = [templateView sizeThatFits:CGSizeMake(contentWidth, CGFLOAT_MIN)].height;
     } else {
-        if (!contentView.js_widthFenceConstraint) {
-            contentView.js_widthFenceConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:contentWidth];
-            if (@available(iOS 10.2, *)) {
-                contentView.js_widthFenceConstraint.priority = UILayoutPriorityRequired - 1;
-                NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:contentView.superview attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0];
-                NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:contentView.superview attribute:NSLayoutAttributeRight multiplier:1.0 constant:0];
-                NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:contentView.superview attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
-                NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:contentView.superview attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
-                [templateView addConstraints:@[leftConstraint, rightConstraint, topConstraint, bottomConstraint]];
-            }
-            [contentView addConstraint:contentView.js_widthFenceConstraint];
-        }
-        if (contentView.js_widthFenceConstraint.constant != contentWidth) {
+        if (contentView && contentView.js_widthFenceConstraint.constant != contentWidth) {
             contentView.js_widthFenceConstraint.constant = contentWidth;
             [contentView setNeedsUpdateConstraints];
+            [templateView setNeedsUpdateConstraints];
         }
         fittingHeight = [(contentView ? : templateView) systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     }

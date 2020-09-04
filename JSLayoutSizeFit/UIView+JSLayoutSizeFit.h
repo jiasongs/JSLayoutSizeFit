@@ -12,9 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (JSLayoutSizeFit)
 
-@property (nonatomic, assign) BOOL js_isTemplateLayoutView;
 @property (nonatomic, assign) BOOL js_enforceFrameLayout;
 @property (nonatomic, strong) NSLayoutConstraint *js_widthFenceConstraint;
+@property (nonatomic, readonly, nullable) __kindof UIView *js_templateContentView;
 
 @end
 

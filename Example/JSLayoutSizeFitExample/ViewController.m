@@ -42,13 +42,13 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return [tableView js_heightForHeaderFooterViewClass:ITTestHeaderFooterView.class cacheByKey:@(section) configuration:^(__kindof ITTestHeaderFooterView * _Nonnull headerFooterView) {
+    return [tableView js_heightForHeaderFooterViewClass:ITTestHeaderFooterView.class contentWidth:0 cacheByKey:@(section) configuration:^(__kindof ITTestHeaderFooterView * _Nonnull headerFooterView) {
         [headerFooterView updateViewWithData:@{} inSection:section];
     }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [tableView js_heightForCellClass:ITTestTableViewCell.class cacheByKey:indexPath.js_sizeFitCacheKey configuration:^(__kindof ITTestTableViewCell *cell) {
+    return [tableView js_heightForCellClass:ITTestTableViewCell.class contentWidth:0 cacheByKey:indexPath.js_sizeFitCacheKey configuration:^(__kindof ITTestTableViewCell *cell) {
         [cell updateCellWithData:@{} atIndexPath:indexPath];
     }];
 }
