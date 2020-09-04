@@ -121,7 +121,7 @@
     if (configuration) {
         configuration(templateView);
     }
-    CGFloat height = [self __js_systemFittingHeightForTemplateView:templateView contentWidth:contentWidth ? : [self js_containerWidth]];
+    CGFloat height = [self __js_systemFittingHeightForTemplateView:templateView contentWidth:contentWidth ? : [self __js_containerWidth]];
     if (key) {
         [fitCache setCGFloat:height forKey:key];
     }
@@ -167,7 +167,7 @@
     if (templateView.js_width != contentWidth) {
         templateView.js_width = contentWidth;
     }
-    if (contentView.js_width != contentWidth) {
+    if (contentView && contentView.js_width != contentWidth) {
         contentView.js_width = contentWidth;
     }
     CGFloat fittingHeight = 0;
@@ -188,7 +188,7 @@
     return fittingHeight;
 }
 
-- (CGFloat)js_containerWidth {
+- (CGFloat)__js_containerWidth {
     CGFloat contentWidth = (self.js_width ? : self.superview.js_width) ? : CGRectGetWidth(UIScreen.mainScreen.bounds);
     UIEdgeInsets contentInset = self.contentInset;
     if (@available(iOS 11.0, *)) {
@@ -201,7 +201,7 @@
 #pragma mark - 懒加载
 
 - (JSLayoutSizeFitCache *)js_rowHeightFitCache {
-    CGFloat containerWidth = [self js_containerWidth];
+    CGFloat containerWidth = [self __js_containerWidth];
 #if TARGET_OS_MACCATALYST
     containerWidth = 0;
 #endif
@@ -214,7 +214,7 @@
 }
 
 - (JSLayoutSizeFitCache *)js_sectionHeightFitCache {
-    CGFloat containerWidth = [self js_containerWidth];
+    CGFloat containerWidth = [self __js_containerWidth];
 #if TARGET_OS_MACCATALYST
     containerWidth = 0;
 #endif
