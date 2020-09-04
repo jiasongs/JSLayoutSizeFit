@@ -11,6 +11,7 @@
 #import "JSLayoutSizeFitCache.h"
 #import "UIView+JSLayout.h"
 #import "UIView+JSLayoutSizeFit.h"
+#import "JSCommonDefines.h"
 
 @interface UITableView (__JSLayoutSizeFit)
 
@@ -185,7 +186,7 @@
     if ([templateView isKindOfClass:UITableViewCell.class] && self.separatorStyle != UITableViewCellSeparatorStyleNone) {
         fittingHeight += 1.0 / UIScreen.mainScreen.scale;
     }
-    return fittingHeight;
+    return JSCGFlat(fittingHeight);
 }
 
 - (CGFloat)__js_containerWidth {
