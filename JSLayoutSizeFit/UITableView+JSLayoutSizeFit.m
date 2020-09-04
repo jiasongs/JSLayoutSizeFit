@@ -96,7 +96,7 @@
                                   cacheByKey:(nullable id)key
                                configuration:(ConfigurationHeaderFooter)configuration {
     if (![viewClass isSubclassOfClass:UITableViewHeaderFooterView.class]) {
-        NSAssert(false, @"cellClass必须是UITableViewHeaderFooterView类或者其子类");
+        NSAssert(false, @"viewClass必须是UITableViewHeaderFooterView类或者其子类");
     }
     return [self __js_heightForViewClass:viewClass
                             contentWidth:contentWidth
