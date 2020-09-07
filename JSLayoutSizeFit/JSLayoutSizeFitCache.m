@@ -40,20 +40,18 @@
 
 #pragma mark - Remove
 
-- (void)removeForKey:(NSString *)key {
+- (void)removeValueForKey:(NSString *)key {
     [self.cacheDictionary removeObjectForKey:key];
 }
 
-- (void)removeAllKey {
+- (void)removeAllValues {
     [self.cacheDictionary removeAllObjects];
 }
 
 #pragma mark - CGFloat
 
 - (void)setCGFloat:(CGFloat)value forKey:(NSString *)key {
-    if (key) {
-        [self setObject:@(value) forKey:key];
-    }
+    [self setObject:@(value) forKey:key];
 }
 
 - (CGFloat)CGFloatForKey:(NSString *)key {

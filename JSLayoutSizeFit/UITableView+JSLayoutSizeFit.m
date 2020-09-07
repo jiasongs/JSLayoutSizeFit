@@ -25,92 +25,92 @@
 
 #pragma mark - UITableViewCell
 
-- (CGFloat)js_heightForCellClass:(Class)cellClass
-                   configuration:(ConfigurationCell)configuration {
-    return [self js_heightForCellClass:cellClass
-                          contentWidth:0
-                            cacheByKey:nil
-                         configuration:configuration];
+- (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
+                          configuration:(nullable ConfigurationCell)configuration {
+    return [self js_fittingHeightForCellClass:cellClass
+                                 contentWidth:0
+                                   cacheByKey:nil
+                                configuration:configuration];
 }
 
-- (CGFloat)js_heightForCellClass:(Class)cellClass
-                      cacheByKey:(nullable id)key
-                   configuration:(ConfigurationCell)configuration {
-    return [self js_heightForCellClass:cellClass
-                          contentWidth:0
-                            cacheByKey:key
-                         configuration:configuration];
+- (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
+                             cacheByKey:(nullable id)key
+                          configuration:(nullable ConfigurationCell)configuration {
+    return [self js_fittingHeightForCellClass:cellClass
+                                 contentWidth:0
+                                   cacheByKey:key
+                                configuration:configuration];
 }
 
-- (CGFloat)js_heightForCellClass:(Class)cellClass
-                    contentWidth:(CGFloat)contentWidth
-                   configuration:(ConfigurationCell)configuration {
-    return [self js_heightForCellClass:cellClass
-                          contentWidth:contentWidth
-                            cacheByKey:nil
-                         configuration:configuration];
+- (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
+                           contentWidth:(CGFloat)contentWidth
+                          configuration:(nullable ConfigurationCell)configuration {
+    return [self js_fittingHeightForCellClass:cellClass
+                                 contentWidth:contentWidth
+                                   cacheByKey:nil
+                                configuration:configuration];
 }
 
-- (CGFloat)js_heightForCellClass:(Class)cellClass
-                    contentWidth:(CGFloat)contentWidth
-                      cacheByKey:(nullable id)key
-                   configuration:(ConfigurationCell)configuration {
+- (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
+                           contentWidth:(CGFloat)contentWidth
+                             cacheByKey:(nullable id)key
+                          configuration:(nullable ConfigurationCell)configuration {
     if (![cellClass isSubclassOfClass:UITableViewCell.class]) {
         NSAssert(false, @"cellClass必须是UITableViewCell类或者其子类");
     }
-    return [self __js_heightForViewClass:cellClass
-                            contentWidth:contentWidth
-                              cacheByKey:key
-                           configuration:configuration];
+    return [self __js_fittingHeightForViewClass:cellClass
+                                   contentWidth:contentWidth
+                                     cacheByKey:key
+                                  configuration:configuration];
 }
 
 #pragma mark - UITableViewHeaderFooterView
 
-- (CGFloat)js_heightForHeaderFooterViewClass:(Class)viewClass
-                               configuration:(ConfigurationHeaderFooter)configuration {
-    return [self js_heightForHeaderFooterViewClass:viewClass
-                                      contentWidth:0
-                                        cacheByKey:nil
-                                     configuration:configuration];
+- (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
+                                      configuration:(nullable ConfigurationHeaderFooter)configuration {
+    return [self js_fittingHeightForHeaderFooterViewClass:viewClass
+                                             contentWidth:0
+                                               cacheByKey:nil
+                                            configuration:configuration];
 }
 
-- (CGFloat)js_heightForHeaderFooterViewClass:(Class)viewClass
-                                  cacheByKey:(nullable id)key
-                               configuration:(ConfigurationHeaderFooter)configuration {
-    return [self js_heightForHeaderFooterViewClass:viewClass
-                                      contentWidth:0
-                                        cacheByKey:key
-                                     configuration:configuration];
+- (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
+                                         cacheByKey:(nullable id)key
+                                      configuration:(nullable ConfigurationHeaderFooter)configuration {
+    return [self js_fittingHeightForHeaderFooterViewClass:viewClass
+                                             contentWidth:0
+                                               cacheByKey:key
+                                            configuration:configuration];
 }
 
-- (CGFloat)js_heightForHeaderFooterViewClass:(Class)viewClass
-                                contentWidth:(CGFloat)contentWidth
-                               configuration:(ConfigurationHeaderFooter)configuration {
-    return [self js_heightForHeaderFooterViewClass:viewClass
-                                      contentWidth:contentWidth
-                                        cacheByKey:nil
-                                     configuration:configuration];
+- (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
+                                       contentWidth:(CGFloat)contentWidth
+                                      configuration:(nullable ConfigurationHeaderFooter)configuration {
+    return [self js_fittingHeightForHeaderFooterViewClass:viewClass
+                                             contentWidth:contentWidth
+                                               cacheByKey:nil
+                                            configuration:configuration];
 }
 
-- (CGFloat)js_heightForHeaderFooterViewClass:(Class)viewClass
-                                contentWidth:(CGFloat)contentWidth
-                                  cacheByKey:(nullable id)key
-                               configuration:(ConfigurationHeaderFooter)configuration {
+- (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
+                                       contentWidth:(CGFloat)contentWidth
+                                         cacheByKey:(nullable id)key
+                                      configuration:(nullable ConfigurationHeaderFooter)configuration {
     if (![viewClass isSubclassOfClass:UITableViewHeaderFooterView.class]) {
         NSAssert(false, @"viewClass必须是UITableViewHeaderFooterView类或者其子类");
     }
-    return [self __js_heightForViewClass:viewClass
-                            contentWidth:contentWidth
-                              cacheByKey:key
-                           configuration:configuration];
+    return [self __js_fittingHeightForViewClass:viewClass
+                                   contentWidth:contentWidth
+                                     cacheByKey:key
+                                  configuration:configuration];
 }
 
 #pragma mark - 通用
 
-- (CGFloat)__js_heightForViewClass:(Class)viewClass
-                      contentWidth:(CGFloat)contentWidth
-                        cacheByKey:(nullable id)key
-                     configuration:(void(^)(__kindof UIView *))configuration {
+- (CGFloat)__js_fittingHeightForViewClass:(Class)viewClass
+                             contentWidth:(CGFloat)contentWidth
+                               cacheByKey:(nullable id)key
+                            configuration:(nullable void(^)(__kindof UIView *))configuration {
     JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UITableViewCell.class] ? self.js_rowHeightFitCache : self.js_sectionHeightFitCache;
     if (key && [fitCache containsKey:key]) {
         return [fitCache CGFloatForKey:key];
@@ -135,9 +135,9 @@
     NSString *viewClassString = NSStringFromClass(viewClass);
     __kindof UIView *templateView = [self.js_templateViews objectForKey:viewClassString];
     if (!templateView) {
-        NSString *nibPath = [[NSBundle mainBundle] pathForResource:viewClassString ofType:@"nib"];
+        NSString *nibPath = [[NSBundle bundleForClass:viewClass] pathForResource:viewClassString ofType:@"nib"];
         if (nibPath) {
-            templateView = [NSBundle.mainBundle loadNibNamed:viewClassString owner:nil options:nil].firstObject;
+            templateView = [[NSBundle bundleForClass:viewClass] loadNibNamed:viewClassString owner:nil options:nil].firstObject;
         } else {
             templateView = [[viewClass alloc] initWithFrame:CGRectZero];
         }
@@ -246,12 +246,12 @@
 }
 
 - (NSMutableDictionary *)js_templateViews {
-    NSMutableDictionary *templateCells = objc_getAssociatedObject(self, _cmd);
-    if (!templateCells) {
-        templateCells = [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self, _cmd, templateCells, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    NSMutableDictionary *templateViews = objc_getAssociatedObject(self, _cmd);
+    if (!templateViews) {
+        templateViews = [NSMutableDictionary dictionary];
+        objc_setAssociatedObject(self, _cmd, templateViews, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
-    return templateCells;
+    return templateViews;
 }
 
 @end

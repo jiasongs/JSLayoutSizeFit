@@ -16,8 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setObject:(id)object forKey:(NSString *)key;
 - (nullable id)objectForKey:(NSString *)key;
 
-- (void)removeForKey:(NSString *)key;
-- (void)removeAllKey;
+- (void)removeValueForKey:(NSString *)key;
+- (void)removeAllValues;
 
 - (void)setCGFloat:(CGFloat)value forKey:(NSString *)key;
 - (CGFloat)CGFloatForKey:(NSString *)key;
