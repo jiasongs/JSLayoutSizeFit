@@ -26,7 +26,7 @@
 #pragma mark - UITableViewCell
 
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
-                          configuration:(nullable ConfigurationCell)configuration {
+                          configuration:(nullable JSConfigurationCell)configuration {
     return [self js_fittingHeightForCellClass:cellClass
                                  contentWidth:0
                                    cacheByKey:nil
@@ -34,8 +34,8 @@
 }
 
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
-                             cacheByKey:(nullable id)key
-                          configuration:(nullable ConfigurationCell)configuration {
+                             cacheByKey:(nullable id<NSCopying>)key
+                          configuration:(nullable JSConfigurationCell)configuration {
     return [self js_fittingHeightForCellClass:cellClass
                                  contentWidth:0
                                    cacheByKey:key
@@ -44,7 +44,7 @@
 
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
                            contentWidth:(CGFloat)contentWidth
-                          configuration:(nullable ConfigurationCell)configuration {
+                          configuration:(nullable JSConfigurationCell)configuration {
     return [self js_fittingHeightForCellClass:cellClass
                                  contentWidth:contentWidth
                                    cacheByKey:nil
@@ -53,8 +53,8 @@
 
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
                            contentWidth:(CGFloat)contentWidth
-                             cacheByKey:(nullable id)key
-                          configuration:(nullable ConfigurationCell)configuration {
+                             cacheByKey:(nullable id<NSCopying>)key
+                          configuration:(nullable JSConfigurationCell)configuration {
     if (![cellClass isSubclassOfClass:UITableViewCell.class]) {
         NSAssert(false, @"cellClass必须是UITableViewCell类或者其子类");
     }
@@ -67,7 +67,7 @@
 #pragma mark - UITableViewHeaderFooterView
 
 - (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
-                                      configuration:(nullable ConfigurationHeaderFooter)configuration {
+                                      configuration:(nullable JSConfigurationHeaderFooter)configuration {
     return [self js_fittingHeightForHeaderFooterViewClass:viewClass
                                              contentWidth:0
                                                cacheByKey:nil
@@ -75,8 +75,8 @@
 }
 
 - (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
-                                         cacheByKey:(nullable id)key
-                                      configuration:(nullable ConfigurationHeaderFooter)configuration {
+                                         cacheByKey:(nullable id<NSCopying>)key
+                                      configuration:(nullable JSConfigurationHeaderFooter)configuration {
     return [self js_fittingHeightForHeaderFooterViewClass:viewClass
                                              contentWidth:0
                                                cacheByKey:key
@@ -85,7 +85,7 @@
 
 - (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
                                        contentWidth:(CGFloat)contentWidth
-                                      configuration:(nullable ConfigurationHeaderFooter)configuration {
+                                      configuration:(nullable JSConfigurationHeaderFooter)configuration {
     return [self js_fittingHeightForHeaderFooterViewClass:viewClass
                                              contentWidth:contentWidth
                                                cacheByKey:nil
@@ -94,8 +94,8 @@
 
 - (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
                                        contentWidth:(CGFloat)contentWidth
-                                         cacheByKey:(nullable id)key
-                                      configuration:(nullable ConfigurationHeaderFooter)configuration {
+                                         cacheByKey:(nullable id<NSCopying>)key
+                                      configuration:(nullable JSConfigurationHeaderFooter)configuration {
     if (![viewClass isSubclassOfClass:UITableViewHeaderFooterView.class]) {
         NSAssert(false, @"viewClass必须是UITableViewHeaderFooterView类或者其子类");
     }
@@ -109,7 +109,7 @@
 
 - (CGFloat)__js_fittingHeightForViewClass:(Class)viewClass
                              contentWidth:(CGFloat)contentWidth
-                               cacheByKey:(nullable id)key
+                               cacheByKey:(nullable id<NSCopying>)key
                             configuration:(nullable void(^)(__kindof UIView *))configuration {
     JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UITableViewCell.class] ? self.js_rowHeightFitCache : self.js_sectionHeightFitCache;
     if (key && [fitCache containsKey:key]) {

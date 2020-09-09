@@ -18,20 +18,20 @@
 
 #pragma mark - Base
 
-- (BOOL)containsKey:(id)key {
+- (BOOL)containsKey:(id<NSCopying>)key {
     if (key) {
         return [self.cacheDictionary objectForKey:key] != nil;
     }
     return false;
 }
 
-- (void)setObject:(id)object forKey:(NSString *)key {
+- (void)setObject:(id)object forKey:(id<NSCopying>)key {
     if (key && object) {
         [self.cacheDictionary setObject:object forKey:key];
     }
 }
 
-- (nullable id)objectForKey:(NSString *)key {
+- (nullable id)objectForKey:(id<NSCopying>)key {
     if (key) {
         return [self.cacheDictionary objectForKey:key];
     }
@@ -40,7 +40,7 @@
 
 #pragma mark - Remove
 
-- (void)removeValueForKey:(NSString *)key {
+- (void)removeValueForKey:(id<NSCopying>)key {
     [self.cacheDictionary removeObjectForKey:key];
 }
 
@@ -50,13 +50,13 @@
 
 #pragma mark - CGFloat
 
-- (void)setCGFloat:(CGFloat)value forKey:(NSString *)key {
+- (void)setCGFloat:(CGFloat)value forKey:(id<NSCopying>)key {
     [self setObject:@(value) forKey:key];
 }
 
-- (CGFloat)CGFloatForKey:(NSString *)key {
+- (CGFloat)CGFloatForKey:(id<NSCopying>)key {
     id value = [self objectForKey:key];
-    if ([value isKindOfClass:NSNumber.class] || [value isKindOfClass:NSString.class]) {
+    if ([value isKindOfClass:NSValue.class] || [value isKindOfClass:NSString.class]) {
 #if CGFLOAT_IS_DOUBLE
         return [value doubleValue];
 #else
@@ -68,13 +68,13 @@
 
 #pragma mark - CGSize
 
-- (void)setCGSize:(CGSize)value forKey:(NSString *)key {
+- (void)setCGSize:(CGSize)value forKey:(id<NSCopying>)key {
     [self setObject:[NSValue valueWithCGSize:value] forKey:key];
 }
 
-- (CGSize)CGSizeForKey:(NSString *)key {
+- (CGSize)CGSizeForKey:(id<NSCopying>)key {
     id value = [self objectForKey:key];
-    if ([value isKindOfClass:NSValue.class]) {
+    if ([value isKindOfClass:NSValue.class] || [value isKindOfClass:NSString.class]) {
         return [value CGSizeValue];
     }
     return CGSizeZero;

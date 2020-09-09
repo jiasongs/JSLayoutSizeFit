@@ -12,18 +12,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JSLayoutSizeFitCache : NSObject
 
-- (BOOL)containsKey:(id)key;
-- (void)setObject:(id)object forKey:(NSString *)key;
-- (nullable id)objectForKey:(NSString *)key;
+- (BOOL)containsKey:(id<NSCopying>)key;
+- (void)setObject:(id)object forKey:(id<NSCopying>)key;
+- (nullable id)objectForKey:(id<NSCopying>)key;
 
-- (void)removeValueForKey:(NSString *)key;
+- (void)removeValueForKey:(id<NSCopying>)key;
 - (void)removeAllValues;
 
-- (void)setCGFloat:(CGFloat)value forKey:(NSString *)key;
-- (CGFloat)CGFloatForKey:(NSString *)key;
+- (void)setCGFloat:(CGFloat)value forKey:(id<NSCopying>)key;
+- (CGFloat)CGFloatForKey:(id<NSCopying>)key;
 
-- (void)setCGSize:(CGSize)value forKey:(NSString *)key;
-- (CGSize)CGSizeForKey:(NSString *)key;
+- (void)setCGSize:(CGSize)value forKey:(id<NSCopying>)key;
+- (CGSize)CGSizeForKey:(id<NSCopying>)key;
 
 @end
 
