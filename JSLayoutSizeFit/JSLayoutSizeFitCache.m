@@ -20,7 +20,7 @@
 
 - (BOOL)containsKey:(id<NSCopying>)key {
     if (key) {
-        return [self.cacheDictionary objectForKey:key] != nil;
+        return [self.cacheDictionary.allKeys containsObject:key];
     }
     return false;
 }
