@@ -7,24 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03B39F016E48874FFC899D90 /* libPods-JSLayoutSizeFitExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F53F095B7E16A1098D4FF61 /* libPods-JSLayoutSizeFitExample.a */; };
-		424B2A73D7358ADC656B8AAE /* libPods-JSLayoutSizeFitExampleMacOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 141E365C629B8F04F3C31CBB /* libPods-JSLayoutSizeFitExampleMacOS.a */; };
+		03B39F016E48874FFC899D90 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		7289B4446918704FB3A3B674 /* libPods-JSLayoutSizeFitExampleMacOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 141E365C629B8F04F3C31CBB /* libPods-JSLayoutSizeFitExampleMacOS.a */; };
+		7A51877A25160DD000238305 /* ITTestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51877625160DD000238305 /* ITTestTableViewCell.m */; };
+		7A51877C25160DD000238305 /* ITTestHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51877725160DD000238305 /* ITTestHeaderFooterView.m */; };
+		7A51878625160E3B00238305 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51878525160E3A00238305 /* main.m */; };
+		7A5187AC2516100000238305 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFE32500F3B70065F9E7 /* ViewController.m */; };
+		7A5187AD2516100000238305 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */; };
+		7A5187AE2516100000238305 /* ITTestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51877625160DD000238305 /* ITTestTableViewCell.m */; };
+		7A5187AF2516100000238305 /* ITTestHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51877725160DD000238305 /* ITTestHeaderFooterView.m */; };
+		7A5187B02516100000238305 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51878525160E3A00238305 /* main.m */; };
+		7A5187B12516100000238305 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFEE2500F3B80065F9E7 /* main.m */; };
+		7A5187B52516100000238305 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFEA2500F3B80065F9E7 /* LaunchScreen.storyboard */; };
+		7A5187B62516100000238305 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFE82500F3B80065F9E7 /* Assets.xcassets */; };
+		7A5187B72516100000238305 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFE52500F3B70065F9E7 /* Main.storyboard */; };
 		7AFACFDE2500F3B70065F9E7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */; };
 		7AFACFE42500F3B70065F9E7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFE32500F3B70065F9E7 /* ViewController.m */; };
 		7AFACFE72500F3B70065F9E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFE52500F3B70065F9E7 /* Main.storyboard */; };
 		7AFACFE92500F3B80065F9E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFE82500F3B80065F9E7 /* Assets.xcassets */; };
 		7AFACFEC2500F3B80065F9E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFEA2500F3B80065F9E7 /* LaunchScreen.storyboard */; };
 		7AFACFEF2500F3B80065F9E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFEE2500F3B80065F9E7 /* main.m */; };
-		7AFACFF72500F4310065F9E7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFE32500F3B70065F9E7 /* ViewController.m */; };
-		7AFACFF82500F4310065F9E7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */; };
-		7AFACFF92500F4310065F9E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFEE2500F3B80065F9E7 /* main.m */; };
-		7AFACFFC2500F4310065F9E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFEA2500F3B80065F9E7 /* LaunchScreen.storyboard */; };
-		7AFACFFD2500F4310065F9E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFE82500F3B80065F9E7 /* Assets.xcassets */; };
-		7AFACFFE2500F4310065F9E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFE52500F3B70065F9E7 /* Main.storyboard */; };
-		7AFAD0092500F4F40065F9E7 /* ITTestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFAD0062500F4F30065F9E7 /* ITTestTableViewCell.m */; };
-		7AFAD00A2500F4F40065F9E7 /* ITTestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFAD0062500F4F30065F9E7 /* ITTestTableViewCell.m */; };
-		7AFAD00B2500F4F40065F9E7 /* ITTestHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFAD0072500F4F30065F9E7 /* ITTestHeaderFooterView.m */; };
-		7AFAD00C2500F4F40065F9E7 /* ITTestHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFAD0072500F4F30065F9E7 /* ITTestHeaderFooterView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +34,14 @@
 		141E365C629B8F04F3C31CBB /* libPods-JSLayoutSizeFitExampleMacOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JSLayoutSizeFitExampleMacOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC44CEAB95C704609B5FD73 /* Pods-JSLayoutSizeFitExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSLayoutSizeFitExample.release.xcconfig"; path = "Target Support Files/Pods-JSLayoutSizeFitExample/Pods-JSLayoutSizeFitExample.release.xcconfig"; sourceTree = "<group>"; };
 		668076EAF43047220F6CA478 /* Pods-JSLayoutSizeFitExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSLayoutSizeFitExample.debug.xcconfig"; path = "Target Support Files/Pods-JSLayoutSizeFitExample/Pods-JSLayoutSizeFitExample.debug.xcconfig"; sourceTree = "<group>"; };
-		6F53F095B7E16A1098D4FF61 /* libPods-JSLayoutSizeFitExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JSLayoutSizeFitExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A51877625160DD000238305 /* ITTestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ITTestTableViewCell.m; path = JSLayoutSizeFitExample/View/ITTestTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		7A51877725160DD000238305 /* ITTestHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ITTestHeaderFooterView.m; path = JSLayoutSizeFitExample/View/ITTestHeaderFooterView.m; sourceTree = SOURCE_ROOT; };
+		7A51877825160DD000238305 /* ITTestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ITTestTableViewCell.h; path = JSLayoutSizeFitExample/View/ITTestTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		7A51877925160DD000238305 /* ITTestHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ITTestHeaderFooterView.h; path = JSLayoutSizeFitExample/View/ITTestHeaderFooterView.h; sourceTree = SOURCE_ROOT; };
+		7A51878525160E3A00238305 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7A51879025160E6E00238305 /* JSLayoutSizeFitExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSLayoutSizeFitExample.entitlements; sourceTree = "<group>"; };
+		7A5187BD2516100000238305 /* JSLayoutSizeFitExampleMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSLayoutSizeFitExampleMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A5187C52516103400238305 /* MacOSInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MacOSInfo.plist; sourceTree = "<group>"; };
 		7AFACFD92500F3B70065F9E7 /* JSLayoutSizeFitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSLayoutSizeFitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AFACFDC2500F3B70065F9E7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -43,30 +52,23 @@
 		7AFACFEB2500F3B80065F9E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7AFACFED2500F3B80065F9E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AFACFEE2500F3B80065F9E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7AFAD0022500F4310065F9E7 /* JSLayoutSizeFitExampleMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSLayoutSizeFitExampleMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AFAD0032500F4310065F9E7 /* JSLayoutSizeFitExample copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "JSLayoutSizeFitExample copy-Info.plist"; path = "/Volumes/2TB/Projects/JSLayoutSizeFit/Example/JSLayoutSizeFitExample copy-Info.plist"; sourceTree = "<absolute>"; };
-		7AFAD0042500F4400065F9E7 /* JSLayoutSizeFitExampleMacOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSLayoutSizeFitExampleMacOS.entitlements; sourceTree = "<group>"; };
-		7AFAD0052500F4F30065F9E7 /* ITTestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ITTestTableViewCell.h; path = ../ITTestTableViewCell.h; sourceTree = "<group>"; };
-		7AFAD0062500F4F30065F9E7 /* ITTestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ITTestTableViewCell.m; path = ../ITTestTableViewCell.m; sourceTree = "<group>"; };
-		7AFAD0072500F4F30065F9E7 /* ITTestHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ITTestHeaderFooterView.m; path = ../ITTestHeaderFooterView.m; sourceTree = "<group>"; };
-		7AFAD0082500F4F40065F9E7 /* ITTestHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ITTestHeaderFooterView.h; path = ../ITTestHeaderFooterView.h; sourceTree = "<group>"; };
 		E91E6ACBB1FB10F4B8B46CC3 /* Pods-JSLayoutSizeFitExampleMacOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSLayoutSizeFitExampleMacOS.debug.xcconfig"; path = "Target Support Files/Pods-JSLayoutSizeFitExampleMacOS/Pods-JSLayoutSizeFitExampleMacOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7A5187B22516100000238305 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7289B4446918704FB3A3B674 /* libPods-JSLayoutSizeFitExampleMacOS.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AFACFD62500F3B70065F9E7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03B39F016E48874FFC899D90 /* libPods-JSLayoutSizeFitExample.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AFACFFA2500F4310065F9E7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				424B2A73D7358ADC656B8AAE /* libPods-JSLayoutSizeFitExampleMacOS.a in Frameworks */,
+				03B39F016E48874FFC899D90 /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,19 +89,27 @@
 		67E67D7FB22F99F8601BB814 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6F53F095B7E16A1098D4FF61 /* libPods-JSLayoutSizeFitExample.a */,
 				141E365C629B8F04F3C31CBB /* libPods-JSLayoutSizeFitExampleMacOS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7A51878225160E1D00238305 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7A51877925160DD000238305 /* ITTestHeaderFooterView.h */,
+				7A51877725160DD000238305 /* ITTestHeaderFooterView.m */,
+				7A51877825160DD000238305 /* ITTestTableViewCell.h */,
+				7A51877625160DD000238305 /* ITTestTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		7AFACFD02500F3B70065F9E7 = {
 			isa = PBXGroup;
 			children = (
-				7AFAD0042500F4400065F9E7 /* JSLayoutSizeFitExampleMacOS.entitlements */,
 				7AFACFDB2500F3B70065F9E7 /* JSLayoutSizeFitExample */,
 				7AFACFDA2500F3B70065F9E7 /* Products */,
-				7AFAD0032500F4310065F9E7 /* JSLayoutSizeFitExample copy-Info.plist */,
 				50CA4471235B1CAB0A8FA788 /* Pods */,
 				67E67D7FB22F99F8601BB814 /* Frameworks */,
 			);
@@ -109,7 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				7AFACFD92500F3B70065F9E7 /* JSLayoutSizeFitExample.app */,
-				7AFAD0022500F4310065F9E7 /* JSLayoutSizeFitExampleMacOS.app */,
+				7A5187BD2516100000238305 /* JSLayoutSizeFitExampleMacOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,34 +127,45 @@
 		7AFACFDB2500F3B70065F9E7 /* JSLayoutSizeFitExample */ = {
 			isa = PBXGroup;
 			children = (
+				7A51879025160E6E00238305 /* JSLayoutSizeFitExample.entitlements */,
+				7A51878225160E1D00238305 /* View */,
 				7AFACFDC2500F3B70065F9E7 /* AppDelegate.h */,
 				7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */,
 				7AFACFE22500F3B70065F9E7 /* ViewController.h */,
 				7AFACFE32500F3B70065F9E7 /* ViewController.m */,
-				7AFAD00D2500F4F70065F9E7 /* View */,
 				7AFACFE52500F3B70065F9E7 /* Main.storyboard */,
 				7AFACFE82500F3B80065F9E7 /* Assets.xcassets */,
 				7AFACFEA2500F3B80065F9E7 /* LaunchScreen.storyboard */,
 				7AFACFED2500F3B80065F9E7 /* Info.plist */,
+				7A5187C52516103400238305 /* MacOSInfo.plist */,
+				7A51878525160E3A00238305 /* main.m */,
 				7AFACFEE2500F3B80065F9E7 /* main.m */,
 			);
 			path = JSLayoutSizeFitExample;
 			sourceTree = "<group>";
 		};
-		7AFAD00D2500F4F70065F9E7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				7AFAD0052500F4F30065F9E7 /* ITTestTableViewCell.h */,
-				7AFAD0062500F4F30065F9E7 /* ITTestTableViewCell.m */,
-				7AFAD0082500F4F40065F9E7 /* ITTestHeaderFooterView.h */,
-				7AFAD0072500F4F30065F9E7 /* ITTestHeaderFooterView.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7A5187A92516100000238305 /* JSLayoutSizeFitExampleMacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A5187BA2516100000238305 /* Build configuration list for PBXNativeTarget "JSLayoutSizeFitExampleMacOS" */;
+			buildPhases = (
+				7A5187AA2516100000238305 /* [CP] Check Pods Manifest.lock */,
+				7A5187AB2516100000238305 /* Sources */,
+				7A5187B22516100000238305 /* Frameworks */,
+				7A5187B42516100000238305 /* Resources */,
+				7A5187B92516100000238305 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JSLayoutSizeFitExampleMacOS;
+			productName = JSLayoutSizeFitExample;
+			productReference = 7A5187BD2516100000238305 /* JSLayoutSizeFitExampleMacOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 		7AFACFD82500F3B70065F9E7 /* JSLayoutSizeFitExample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AFACFF22500F3B80065F9E7 /* Build configuration list for PBXNativeTarget "JSLayoutSizeFitExample" */;
@@ -163,25 +184,6 @@
 			name = JSLayoutSizeFitExample;
 			productName = JSLayoutSizeFitExample;
 			productReference = 7AFACFD92500F3B70065F9E7 /* JSLayoutSizeFitExample.app */;
-			productType = "com.apple.product-type.application";
-		};
-		7AFACFF52500F4310065F9E7 /* JSLayoutSizeFitExampleMacOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7AFACFFF2500F4310065F9E7 /* Build configuration list for PBXNativeTarget "JSLayoutSizeFitExampleMacOS" */;
-			buildPhases = (
-				7591F880563E189A61363956 /* [CP] Check Pods Manifest.lock */,
-				7AFACFF62500F4310065F9E7 /* Sources */,
-				7AFACFFA2500F4310065F9E7 /* Frameworks */,
-				7AFACFFB2500F4310065F9E7 /* Resources */,
-				B4CF829537779501C0C3A5F6 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = JSLayoutSizeFitExampleMacOS;
-			productName = JSLayoutSizeFitExample;
-			productReference = 7AFAD0022500F4310065F9E7 /* JSLayoutSizeFitExampleMacOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -212,12 +214,22 @@
 			projectRoot = "";
 			targets = (
 				7AFACFD82500F3B70065F9E7 /* JSLayoutSizeFitExample */,
-				7AFACFF52500F4310065F9E7 /* JSLayoutSizeFitExampleMacOS */,
+				7A5187A92516100000238305 /* JSLayoutSizeFitExampleMacOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7A5187B42516100000238305 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A5187B52516100000238305 /* LaunchScreen.storyboard in Resources */,
+				7A5187B62516100000238305 /* Assets.xcassets in Resources */,
+				7A5187B72516100000238305 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AFACFD72500F3B70065F9E7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -225,16 +237,6 @@
 				7AFACFEC2500F3B80065F9E7 /* LaunchScreen.storyboard in Resources */,
 				7AFACFE92500F3B80065F9E7 /* Assets.xcassets in Resources */,
 				7AFACFE72500F3B70065F9E7 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AFACFFB2500F4310065F9E7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7AFACFFC2500F4310065F9E7 /* LaunchScreen.storyboard in Resources */,
-				7AFACFFD2500F4310065F9E7 /* Assets.xcassets in Resources */,
-				7AFACFFE2500F4310065F9E7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,7 +282,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JSLayoutSizeFitExample/Pods-JSLayoutSizeFitExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7591F880563E189A61363956 /* [CP] Check Pods Manifest.lock */ = {
+		7A5187AA2516100000238305 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -302,7 +304,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B4CF829537779501C0C3A5F6 /* [CP] Copy Pods Resources */ = {
+		7A5187B92516100000238305 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -339,27 +341,29 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7A5187AB2516100000238305 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A5187AC2516100000238305 /* ViewController.m in Sources */,
+				7A5187AD2516100000238305 /* AppDelegate.m in Sources */,
+				7A5187AE2516100000238305 /* ITTestTableViewCell.m in Sources */,
+				7A5187AF2516100000238305 /* ITTestHeaderFooterView.m in Sources */,
+				7A5187B02516100000238305 /* main.m in Sources */,
+				7A5187B12516100000238305 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AFACFD52500F3B70065F9E7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				7AFACFE42500F3B70065F9E7 /* ViewController.m in Sources */,
 				7AFACFDE2500F3B70065F9E7 /* AppDelegate.m in Sources */,
-				7AFAD00B2500F4F40065F9E7 /* ITTestHeaderFooterView.m in Sources */,
+				7A51877A25160DD000238305 /* ITTestTableViewCell.m in Sources */,
+				7A51877C25160DD000238305 /* ITTestHeaderFooterView.m in Sources */,
+				7A51878625160E3B00238305 /* main.m in Sources */,
 				7AFACFEF2500F3B80065F9E7 /* main.m in Sources */,
-				7AFAD0092500F4F40065F9E7 /* ITTestTableViewCell.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AFACFF62500F4310065F9E7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7AFACFF72500F4310065F9E7 /* ViewController.m in Sources */,
-				7AFACFF82500F4310065F9E7 /* AppDelegate.m in Sources */,
-				7AFAD00C2500F4F40065F9E7 /* ITTestHeaderFooterView.m in Sources */,
-				7AFACFF92500F4310065F9E7 /* main.m in Sources */,
-				7AFAD00A2500F4F40065F9E7 /* ITTestTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +389,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		7A5187BB2516100000238305 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E91E6ACBB1FB10F4B8B46CC3 /* Pods-JSLayoutSizeFitExampleMacOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JSLayoutSizeFitExample/JSLayoutSizeFitExample.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KJ6AEY5JEH;
+				INFOPLIST_FILE = JSLayoutSizeFitExample/MacOSInfo.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jiasong.JSLayoutSizeFitExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		7A5187BC2516100000238305 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EB805FB35A0CAE2D31C45CB /* Pods-JSLayoutSizeFitExampleMacOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JSLayoutSizeFitExample/JSLayoutSizeFitExample.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KJ6AEY5JEH;
+				INFOPLIST_FILE = JSLayoutSizeFitExample/MacOSInfo.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jiasong.JSLayoutSizeFitExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
 		7AFACFF02500F3B80065F9E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -500,6 +546,7 @@
 			baseConfigurationReference = 668076EAF43047220F6CA478 /* Pods-JSLayoutSizeFitExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JSLayoutSizeFitExample/JSLayoutSizeFitExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KJ6AEY5JEH;
 				INFOPLIST_FILE = JSLayoutSizeFitExample/Info.plist;
@@ -510,6 +557,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jiasong.JSLayoutSizeFitExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -519,6 +567,7 @@
 			baseConfigurationReference = 2EC44CEAB95C704609B5FD73 /* Pods-JSLayoutSizeFitExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JSLayoutSizeFitExample/JSLayoutSizeFitExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KJ6AEY5JEH;
 				INFOPLIST_FILE = JSLayoutSizeFitExample/Info.plist;
@@ -529,55 +578,23 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jiasong.JSLayoutSizeFitExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		7AFAD0002500F4310065F9E7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E91E6ACBB1FB10F4B8B46CC3 /* Pods-JSLayoutSizeFitExampleMacOS.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = JSLayoutSizeFitExampleMacOS.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KJ6AEY5JEH;
-				INFOPLIST_FILE = "JSLayoutSizeFitExample copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jiasong.JSLayoutSizeFitExample;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTS_MACCATALYST = YES;
-				TARGETED_DEVICE_FAMILY = 2;
-			};
-			name = Debug;
-		};
-		7AFAD0012500F4310065F9E7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EB805FB35A0CAE2D31C45CB /* Pods-JSLayoutSizeFitExampleMacOS.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = JSLayoutSizeFitExampleMacOS.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KJ6AEY5JEH;
-				INFOPLIST_FILE = "JSLayoutSizeFitExample copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jiasong.JSLayoutSizeFitExample;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTS_MACCATALYST = YES;
-				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7A5187BA2516100000238305 /* Build configuration list for PBXNativeTarget "JSLayoutSizeFitExampleMacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A5187BB2516100000238305 /* Debug */,
+				7A5187BC2516100000238305 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7AFACFD42500F3B70065F9E7 /* Build configuration list for PBXProject "JSLayoutSizeFitExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -592,15 +609,6 @@
 			buildConfigurations = (
 				7AFACFF32500F3B80065F9E7 /* Debug */,
 				7AFACFF42500F3B80065F9E7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7AFACFFF2500F4310065F9E7 /* Build configuration list for PBXNativeTarget "JSLayoutSizeFitExampleMacOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7AFAD0002500F4310065F9E7 /* Debug */,
-				7AFAD0012500F4310065F9E7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

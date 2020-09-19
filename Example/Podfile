@@ -11,7 +11,9 @@ target 'JSLayoutSizeFitExample' do
 end
 
 target 'JSLayoutSizeFitExampleMacOS' do
+  pod 'JSLayoutSizeFit', :path => '..'
   pod 'QMUIKit'
+  pod 'Masonry'
 end
 
 
