@@ -25,16 +25,9 @@
     return self;
 }
 
-- (void)updateCellWithData:(id)data atIndexPath:(NSIndexPath *)atIndexPath {
-    NSMutableString *label = [NSMutableString string];
-    NSString *text = @"IT之家8月12日消息近期华为消费者业务CEO余承东在中国信息化百人会2020年峰会上表示华为倡议从根技术做起打造新生态";
-    //获取一个随机整数范围在：[0,100]包括0，包括100
-    NSInteger index = atIndexPath.row;
-    for (int i = 0; i < atIndexPath.row + 100; i++) {
-        NSString *temp = [text substringWithRange:NSMakeRange(index, 1)];
-        [label appendString:temp];
-    }
-    self.titleLabel.text = label;
+- (void)updateCellWithData:(NSDictionary *)data atIndexPath:(NSIndexPath *)atIndexPath {
+    NSDictionary *linkerInfo = [data objectForKey:@"likerInfo"];
+    self.titleLabel.text = [NSString stringWithFormat:@"%@-%@-%@-%@", [linkerInfo objectForKey:@"userId"],[linkerInfo objectForKey:@"nickName"],[data objectForKey:@"likeId"],[data objectForKey:@"content"]];
 }
 
 - (UIImageView *)headerImageView {

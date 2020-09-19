@@ -9,24 +9,39 @@
 /* Begin PBXBuildFile section */
 		03B39F016E48874FFC899D90 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		7289B4446918704FB3A3B674 /* libPods-JSLayoutSizeFitExampleMacOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 141E365C629B8F04F3C31CBB /* libPods-JSLayoutSizeFitExampleMacOS.a */; };
-		7A51877A25160DD000238305 /* ITTestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51877625160DD000238305 /* ITTestTableViewCell.m */; };
-		7A51877C25160DD000238305 /* ITTestHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51877725160DD000238305 /* ITTestHeaderFooterView.m */; };
 		7A51878625160E3B00238305 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51878525160E3A00238305 /* main.m */; };
 		7A5187AC2516100000238305 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFE32500F3B70065F9E7 /* ViewController.m */; };
 		7A5187AD2516100000238305 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */; };
-		7A5187AE2516100000238305 /* ITTestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51877625160DD000238305 /* ITTestTableViewCell.m */; };
-		7A5187AF2516100000238305 /* ITTestHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51877725160DD000238305 /* ITTestHeaderFooterView.m */; };
 		7A5187B02516100000238305 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51878525160E3A00238305 /* main.m */; };
 		7A5187B12516100000238305 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFEE2500F3B80065F9E7 /* main.m */; };
 		7A5187B52516100000238305 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFEA2500F3B80065F9E7 /* LaunchScreen.storyboard */; };
 		7A5187B62516100000238305 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFE82500F3B80065F9E7 /* Assets.xcassets */; };
 		7A5187B72516100000238305 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFE52500F3B70065F9E7 /* Main.storyboard */; };
+		7A51886125162CFC00238305 /* ITTestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51885E25162CFC00238305 /* ITTestTableViewCell.m */; };
+		7A51886225162CFC00238305 /* ITTestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51885E25162CFC00238305 /* ITTestTableViewCell.m */; };
+		7A51886325162CFC00238305 /* ITTestHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51885F25162CFC00238305 /* ITTestHeaderFooterView.m */; };
+		7A51886425162CFC00238305 /* ITTestHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51885F25162CFC00238305 /* ITTestHeaderFooterView.m */; };
+		7A51886B25162D5700238305 /* JSTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51886925162D5700238305 /* JSTableViewController.m */; };
+		7A51886C25162D5700238305 /* JSTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51886925162D5700238305 /* JSTableViewController.m */; };
+		7A51886D25162D5700238305 /* JSTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A51886A25162D5700238305 /* JSTableViewController.xib */; };
+		7A51886E25162D5700238305 /* JSTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A51886A25162D5700238305 /* JSTableViewController.xib */; };
+		7A51887925162F3C00238305 /* JSCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A51887625162F3C00238305 /* JSCollectionViewController.xib */; };
+		7A51887A25162F3C00238305 /* JSCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A51887625162F3C00238305 /* JSCollectionViewController.xib */; };
+		7A51888E2516303800238305 /* JSTestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51888C2516303800238305 /* JSTestCollectionViewCell.m */; };
+		7A51888F2516303800238305 /* JSTestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51888C2516303800238305 /* JSTestCollectionViewCell.m */; };
+		7A518898251630D900238305 /* JSTestCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A518897251630D900238305 /* JSTestCollectionReusableView.m */; };
+		7A518899251630D900238305 /* JSTestCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A518897251630D900238305 /* JSTestCollectionReusableView.m */; };
+		7A5188C5251633AE00238305 /* JSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5188C4251633AE00238305 /* JSCollectionViewController.m */; };
+		7A5188C6251633AE00238305 /* JSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5188C4251633AE00238305 /* JSCollectionViewController.m */; };
+		7AAAD55B251645BB009C4B7E /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 7AAAD55A251645BB009C4B7E /* data.json */; };
+		7AAAD55C251645BB009C4B7E /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 7AAAD55A251645BB009C4B7E /* data.json */; };
 		7AFACFDE2500F3B70065F9E7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */; };
 		7AFACFE42500F3B70065F9E7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFE32500F3B70065F9E7 /* ViewController.m */; };
 		7AFACFE72500F3B70065F9E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFE52500F3B70065F9E7 /* Main.storyboard */; };
 		7AFACFE92500F3B80065F9E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFE82500F3B80065F9E7 /* Assets.xcassets */; };
 		7AFACFEC2500F3B80065F9E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFEA2500F3B80065F9E7 /* LaunchScreen.storyboard */; };
 		7AFACFEF2500F3B80065F9E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFEE2500F3B80065F9E7 /* main.m */; };
+		EC08A1182F5304F18B13BFCD /* libPods-JSLayoutSizeFitExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C953C47884616DE59BB38783 /* libPods-JSLayoutSizeFitExample.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,14 +49,25 @@
 		141E365C629B8F04F3C31CBB /* libPods-JSLayoutSizeFitExampleMacOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JSLayoutSizeFitExampleMacOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC44CEAB95C704609B5FD73 /* Pods-JSLayoutSizeFitExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSLayoutSizeFitExample.release.xcconfig"; path = "Target Support Files/Pods-JSLayoutSizeFitExample/Pods-JSLayoutSizeFitExample.release.xcconfig"; sourceTree = "<group>"; };
 		668076EAF43047220F6CA478 /* Pods-JSLayoutSizeFitExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSLayoutSizeFitExample.debug.xcconfig"; path = "Target Support Files/Pods-JSLayoutSizeFitExample/Pods-JSLayoutSizeFitExample.debug.xcconfig"; sourceTree = "<group>"; };
-		7A51877625160DD000238305 /* ITTestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ITTestTableViewCell.m; path = JSLayoutSizeFitExample/View/ITTestTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		7A51877725160DD000238305 /* ITTestHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ITTestHeaderFooterView.m; path = JSLayoutSizeFitExample/View/ITTestHeaderFooterView.m; sourceTree = SOURCE_ROOT; };
-		7A51877825160DD000238305 /* ITTestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ITTestTableViewCell.h; path = JSLayoutSizeFitExample/View/ITTestTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		7A51877925160DD000238305 /* ITTestHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ITTestHeaderFooterView.h; path = JSLayoutSizeFitExample/View/ITTestHeaderFooterView.h; sourceTree = SOURCE_ROOT; };
 		7A51878525160E3A00238305 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7A51879025160E6E00238305 /* JSLayoutSizeFitExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSLayoutSizeFitExample.entitlements; sourceTree = "<group>"; };
 		7A5187BD2516100000238305 /* JSLayoutSizeFitExampleMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSLayoutSizeFitExampleMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A5187C52516103400238305 /* MacOSInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MacOSInfo.plist; sourceTree = "<group>"; };
+		7A51885425162CB600238305 /* JSTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTableViewController.h; sourceTree = "<group>"; };
+		7A51885D25162CFC00238305 /* ITTestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITTestTableViewCell.h; sourceTree = "<group>"; };
+		7A51885E25162CFC00238305 /* ITTestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITTestTableViewCell.m; sourceTree = "<group>"; };
+		7A51885F25162CFC00238305 /* ITTestHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITTestHeaderFooterView.m; sourceTree = "<group>"; };
+		7A51886025162CFC00238305 /* ITTestHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITTestHeaderFooterView.h; sourceTree = "<group>"; };
+		7A51886925162D5700238305 /* JSTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTableViewController.m; sourceTree = "<group>"; };
+		7A51886A25162D5700238305 /* JSTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSTableViewController.xib; sourceTree = "<group>"; };
+		7A51887425162F3C00238305 /* JSCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSCollectionViewController.h; sourceTree = "<group>"; };
+		7A51887625162F3C00238305 /* JSCollectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JSCollectionViewController.xib; sourceTree = "<group>"; };
+		7A51888B2516303800238305 /* JSTestCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTestCollectionViewCell.h; sourceTree = "<group>"; };
+		7A51888C2516303800238305 /* JSTestCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTestCollectionViewCell.m; sourceTree = "<group>"; };
+		7A518896251630D900238305 /* JSTestCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTestCollectionReusableView.h; sourceTree = "<group>"; };
+		7A518897251630D900238305 /* JSTestCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTestCollectionReusableView.m; sourceTree = "<group>"; };
+		7A5188C4251633AE00238305 /* JSCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSCollectionViewController.m; sourceTree = "<group>"; };
+		7AAAD55A251645BB009C4B7E /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		7AFACFD92500F3B70065F9E7 /* JSLayoutSizeFitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSLayoutSizeFitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AFACFDC2500F3B70065F9E7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -52,6 +78,7 @@
 		7AFACFEB2500F3B80065F9E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7AFACFED2500F3B80065F9E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AFACFEE2500F3B80065F9E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C953C47884616DE59BB38783 /* libPods-JSLayoutSizeFitExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JSLayoutSizeFitExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91E6ACBB1FB10F4B8B46CC3 /* Pods-JSLayoutSizeFitExampleMacOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSLayoutSizeFitExampleMacOS.debug.xcconfig"; path = "Target Support Files/Pods-JSLayoutSizeFitExampleMacOS/Pods-JSLayoutSizeFitExampleMacOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +96,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03B39F016E48874FFC899D90 /* (null) in Frameworks */,
+				EC08A1182F5304F18B13BFCD /* libPods-JSLayoutSizeFitExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				141E365C629B8F04F3C31CBB /* libPods-JSLayoutSizeFitExampleMacOS.a */,
+				C953C47884616DE59BB38783 /* libPods-JSLayoutSizeFitExample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -97,12 +126,61 @@
 		7A51878225160E1D00238305 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7A51877925160DD000238305 /* ITTestHeaderFooterView.h */,
-				7A51877725160DD000238305 /* ITTestHeaderFooterView.m */,
-				7A51877825160DD000238305 /* ITTestTableViewCell.h */,
-				7A51877625160DD000238305 /* ITTestTableViewCell.m */,
+				7A51886025162CFC00238305 /* ITTestHeaderFooterView.h */,
+				7A51885F25162CFC00238305 /* ITTestHeaderFooterView.m */,
+				7A51885D25162CFC00238305 /* ITTestTableViewCell.h */,
+				7A51885E25162CFC00238305 /* ITTestTableViewCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		7A51885225162C7700238305 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				7A51878225160E1D00238305 /* View */,
+				7A51885325162C8B00238305 /* ViewController */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		7A51885325162C8B00238305 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7A51885425162CB600238305 /* JSTableViewController.h */,
+				7A51886925162D5700238305 /* JSTableViewController.m */,
+				7A51886A25162D5700238305 /* JSTableViewController.xib */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		7A51887125162F0100238305 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				7A51887225162F0E00238305 /* View */,
+				7A51887325162F1600238305 /* ViewController */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		7A51887225162F0E00238305 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7A518896251630D900238305 /* JSTestCollectionReusableView.h */,
+				7A518897251630D900238305 /* JSTestCollectionReusableView.m */,
+				7A51888B2516303800238305 /* JSTestCollectionViewCell.h */,
+				7A51888C2516303800238305 /* JSTestCollectionViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7A51887325162F1600238305 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7A51887425162F3C00238305 /* JSCollectionViewController.h */,
+				7A5188C4251633AE00238305 /* JSCollectionViewController.m */,
+				7A51887625162F3C00238305 /* JSCollectionViewController.xib */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		7AFACFD02500F3B70065F9E7 = {
@@ -128,11 +206,13 @@
 			isa = PBXGroup;
 			children = (
 				7A51879025160E6E00238305 /* JSLayoutSizeFitExample.entitlements */,
-				7A51878225160E1D00238305 /* View */,
+				7A51885225162C7700238305 /* TableView */,
+				7A51887125162F0100238305 /* CollectionView */,
 				7AFACFDC2500F3B70065F9E7 /* AppDelegate.h */,
 				7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */,
 				7AFACFE22500F3B70065F9E7 /* ViewController.h */,
 				7AFACFE32500F3B70065F9E7 /* ViewController.m */,
+				7AAAD55A251645BB009C4B7E /* data.json */,
 				7AFACFE52500F3B70065F9E7 /* Main.storyboard */,
 				7AFACFE82500F3B80065F9E7 /* Assets.xcassets */,
 				7AFACFEA2500F3B80065F9E7 /* LaunchScreen.storyboard */,
@@ -225,8 +305,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A5187B52516100000238305 /* LaunchScreen.storyboard in Resources */,
+				7AAAD55C251645BB009C4B7E /* data.json in Resources */,
 				7A5187B62516100000238305 /* Assets.xcassets in Resources */,
+				7A51886E25162D5700238305 /* JSTableViewController.xib in Resources */,
 				7A5187B72516100000238305 /* Main.storyboard in Resources */,
+				7A51887A25162F3C00238305 /* JSCollectionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,8 +318,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AFACFEC2500F3B80065F9E7 /* LaunchScreen.storyboard in Resources */,
+				7AAAD55B251645BB009C4B7E /* data.json in Resources */,
 				7AFACFE92500F3B80065F9E7 /* Assets.xcassets in Resources */,
+				7A51886D25162D5700238305 /* JSTableViewController.xib in Resources */,
 				7AFACFE72500F3B70065F9E7 /* Main.storyboard in Resources */,
+				7A51887925162F3C00238305 /* JSCollectionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,12 +431,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A51886225162CFC00238305 /* ITTestTableViewCell.m in Sources */,
 				7A5187AC2516100000238305 /* ViewController.m in Sources */,
 				7A5187AD2516100000238305 /* AppDelegate.m in Sources */,
-				7A5187AE2516100000238305 /* ITTestTableViewCell.m in Sources */,
-				7A5187AF2516100000238305 /* ITTestHeaderFooterView.m in Sources */,
+				7A5188C6251633AE00238305 /* JSCollectionViewController.m in Sources */,
+				7A51886425162CFC00238305 /* ITTestHeaderFooterView.m in Sources */,
 				7A5187B02516100000238305 /* main.m in Sources */,
+				7A51886C25162D5700238305 /* JSTableViewController.m in Sources */,
 				7A5187B12516100000238305 /* main.m in Sources */,
+				7A518899251630D900238305 /* JSTestCollectionReusableView.m in Sources */,
+				7A51888F2516303800238305 /* JSTestCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,12 +448,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A51886125162CFC00238305 /* ITTestTableViewCell.m in Sources */,
 				7AFACFE42500F3B70065F9E7 /* ViewController.m in Sources */,
 				7AFACFDE2500F3B70065F9E7 /* AppDelegate.m in Sources */,
-				7A51877A25160DD000238305 /* ITTestTableViewCell.m in Sources */,
-				7A51877C25160DD000238305 /* ITTestHeaderFooterView.m in Sources */,
+				7A5188C5251633AE00238305 /* JSCollectionViewController.m in Sources */,
+				7A51886325162CFC00238305 /* ITTestHeaderFooterView.m in Sources */,
 				7A51878625160E3B00238305 /* main.m in Sources */,
+				7A51886B25162D5700238305 /* JSTableViewController.m in Sources */,
 				7AFACFEF2500F3B80065F9E7 /* main.m in Sources */,
+				7A518898251630D900238305 /* JSTestCollectionReusableView.m in Sources */,
+				7A51888E2516303800238305 /* JSTestCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,16 +23,8 @@
     return self;
 }
 
-- (void)updateViewWithData:(id)data inSection:(NSInteger)section {
-    NSMutableString *label = [NSMutableString string];
-    NSString *text = @"IT之家8月12日消息近期华为消费者业务CEO余承东在中国信息化百人会2020年峰会上表示华为倡议从根技术做起打造新生态";
-    //获取一个随机整数范围在：[0,100]包括0，包括100
-    NSInteger index = section;
-    for (int i = 0; i < section + 100; i++) {
-        NSString *temp = [text substringWithRange:NSMakeRange(index, 1)];
-        [label appendString:temp];
-    }
-    self.nameLabel.text = label;
+- (void)updateViewWithData:(NSDictionary *)data inSection:(NSInteger)section {
+    self.nameLabel.text = [data objectForKey:@"content"];
 }
 
 - (UILabel *)nameLabel {
