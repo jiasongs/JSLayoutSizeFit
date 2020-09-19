@@ -124,7 +124,7 @@
 #pragma mark - 计算高度
 
 - (CGFloat)__js_systemFittingHeightForTemplateView:(__kindof UIView *)templateView contentWidth:(CGFloat)contentWidth {
-    NSAssert(contentWidth != 0, @"contentWidth不能为0!");
+    NSAssert(contentWidth != 0, @"contentWidth需大于0!");
     UIView *contentView = templateView.js_templateContentView;
     if (!contentView) {
         NSAssert(false, @"理论上contentView不可能为nil, 需要观察下哪里出问题了");
