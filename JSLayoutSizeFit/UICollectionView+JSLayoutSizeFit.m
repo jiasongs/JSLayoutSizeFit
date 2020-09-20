@@ -64,16 +64,7 @@
     if (templateView.js_enforceFrameLayout) {
         fittingSize = [templateView sizeThatFits:CGSizeMake(JSLayoutSizeFitInvalidDimension, JSLayoutSizeFitInvalidDimension)];
     } else {
-        UIView *contentView = templateView.js_templateContentView;
-//        [contentView js_addWidthFenceConstraintIfNeeded];
-//        NSLayoutConstraint *widthConstraint = contentView.js_widthFenceConstraint;
-//        if (widthConstraint.constant != 0) {
-//            widthConstraint.constant = 0;
-//            [contentView setNeedsUpdateConstraints];
-//            [contentView.superview setNeedsUpdateConstraints];
-//        }
-        UILabel *label = contentView.subviews.firstObject;
-        fittingSize = [label systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        fittingSize = [templateView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     }
     return fittingSize;
 }
