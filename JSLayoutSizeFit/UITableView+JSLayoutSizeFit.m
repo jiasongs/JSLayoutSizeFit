@@ -139,10 +139,9 @@
     if (templateView.js_enforceFrameLayout) {
         fittingHeight = [templateView sizeThatFits:CGSizeMake(contentWidth, JSLayoutSizeFitInvalidDimension)].height;
     } else {
-        [contentView js_addWidthFenceConstraintIfNeeded];
-        NSLayoutConstraint *widthConstraint = contentView.js_widthFenceConstraint;
-        if (widthConstraint.constant != contentWidth) {
-            widthConstraint.constant = contentWidth;
+        [contentView js_addFenceConstraintIfNeeded];
+        if (contentView.js_fenceConstraint.constant != contentWidth) {
+            contentView.js_fenceConstraint.constant = contentWidth;
             [contentView setNeedsUpdateConstraints];
             [contentView.superview setNeedsUpdateConstraints];
         }

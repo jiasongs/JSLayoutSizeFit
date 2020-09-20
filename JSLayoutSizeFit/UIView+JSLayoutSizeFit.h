@@ -16,9 +16,9 @@ UIKIT_EXTERN CGFloat const JSLayoutSizeFitInvalidDimension;
 @property (nonatomic, assign) BOOL js_enforceFrameLayout;
 @property (nonatomic, assign, getter=js_isFromTemplateView) BOOL js_fromTemplateView;
 @property (nullable, nonatomic, readonly) __kindof UIView *js_templateContentView;
-@property (nullable, nonatomic, readonly) NSLayoutConstraint *js_widthFenceConstraint;
+@property (nullable, nonatomic, readonly) NSLayoutConstraint *js_fenceConstraint;
 
-- (void)js_addWidthFenceConstraintIfNeeded;
+- (void)js_addFenceConstraintIfNeeded;
 
 @end
 

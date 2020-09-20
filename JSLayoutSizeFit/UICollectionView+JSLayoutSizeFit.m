@@ -64,14 +64,6 @@
     if (templateView.js_enforceFrameLayout) {
         fittingSize = [templateView sizeThatFits:CGSizeMake(JSLayoutSizeFitInvalidDimension, JSLayoutSizeFitInvalidDimension)];
     } else {
-        UIView *contentView = templateView.js_templateContentView;
-//        if (contentView.superview) {
-//            NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:contentView.superview attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0];
-//            NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:contentView.superview attribute:NSLayoutAttributeRight multiplier:1.0 constant:0];
-//            NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:contentView.superview attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
-//            NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:contentView.superview attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
-//            [contentView.superview addConstraints:@[leftConstraint, rightConstraint, topConstraint, bottomConstraint]];
-//        }
         fittingSize = [templateView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     }
     return fittingSize;

@@ -43,11 +43,10 @@
 #pragma mark - UICollectionViewDelegate
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-        return CGSizeMake(collectionView.js_templateContainerWidth, 40);
-//    return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionReusableView.class cacheByKey:@(section) configuration:^(__kindof JSTestCollectionReusableView *reusableView) {
-//        NSDictionary *dic = [self.dataSource objectAtIndex:section];
-//        [reusableView updateViewWithData:dic atIndexPath:[NSIndexPath indexPathForItem:0 inSection:section]];
-//    }];
+    return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionReusableView.class cacheByKey:@(section) configuration:^(__kindof JSTestCollectionReusableView *reusableView) {
+        NSDictionary *dic = [self.dataSource objectAtIndex:section];
+        [reusableView updateViewWithData:dic atIndexPath:[NSIndexPath indexPathForItem:0 inSection:section]];
+    }];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -91,6 +90,7 @@
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;

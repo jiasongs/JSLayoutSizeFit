@@ -36,6 +36,7 @@
         _titleLabel.layer.borderWidth = 1;
         _titleLabel.layer.borderColor = UIColor.blackColor.CGColor;
         _titleLabel.numberOfLines = 0;
+        _titleLabel.preferredMaxLayoutWidth = CGFLOAT_MAX;
     }
     return _titleLabel;
 }
