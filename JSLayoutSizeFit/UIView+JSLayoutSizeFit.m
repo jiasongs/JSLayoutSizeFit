@@ -6,7 +6,8 @@
 //
 
 #import "UIView+JSLayoutSizeFit.h"
-#import <JSCommonDefines.h>
+/// JSCoreKit
+#import "JSCommonDefines.h"
 
 CGFloat const JSLayoutSizeFitInvalidDimension = -1;
 
