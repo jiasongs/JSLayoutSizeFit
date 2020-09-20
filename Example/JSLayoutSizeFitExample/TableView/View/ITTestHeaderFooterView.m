@@ -16,8 +16,8 @@
         [self.contentView addSubview:self.nameLabel];
         [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.equalTo(self.contentView).offset(10);
-            make.right.equalTo(self.contentView.mas_right).offset(-10);
-            make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
+            make.right.equalTo(self.contentView.mas_right).offset(-10).priorityHigh();
+            make.bottom.equalTo(self.contentView.mas_bottom).offset(-10).priorityHigh();
         }];
     }
     return self;
