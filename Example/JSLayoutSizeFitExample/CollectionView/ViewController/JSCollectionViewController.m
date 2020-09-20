@@ -24,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = false;
     [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top).offset(NavigationContentTop);
@@ -42,15 +43,15 @@
 #pragma mark - UICollectionViewDelegate
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(collectionView.js_templateContainerWidth, 40);
-//    return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionReusableView.class contentWidth:collectionView.js_templateContainerWidth cacheByKey:@(section) configuration:^(__kindof JSTestCollectionReusableView * reusableView) {
+        return CGSizeMake(collectionView.js_templateContainerWidth, 40);
+//    return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionReusableView.class cacheByKey:@(section) configuration:^(__kindof JSTestCollectionReusableView *reusableView) {
 //        NSDictionary *dic = [self.dataSource objectAtIndex:section];
 //        [reusableView updateViewWithData:dic atIndexPath:[NSIndexPath indexPathForItem:0 inSection:section]];
 //    }];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionViewCell.class contentHeight:40 cacheByKey:indexPath.js_sizeFitCacheKey configuration:^(__kindof JSTestCollectionViewCell * _Nonnull reusableView) {
+    return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionViewCell.class cacheByKey:indexPath.js_sizeFitCacheKey configuration:^(__kindof JSTestCollectionViewCell * _Nonnull reusableView) {
         NSDictionary *dic = [self.dataSource objectAtIndex:indexPath.section];
         NSArray *array = [dic objectForKey:@"likeList"];
         [reusableView updateCellWithData:[array objectAtIndex:indexPath.row] atIndexPath:indexPath];

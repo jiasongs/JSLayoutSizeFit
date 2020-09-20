@@ -157,7 +157,7 @@
         });
         fittingHeight += pixelOne;
     }
-    return JSCGFlat(fittingHeight);
+    return fittingHeight;
 }
 
 @end

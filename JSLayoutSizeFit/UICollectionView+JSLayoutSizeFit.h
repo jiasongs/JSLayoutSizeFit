@@ -13,12 +13,9 @@ typedef void(^JSConfigurationReusableView)(__kindof UICollectionReusableView *re
 
 @interface UICollectionView (JSLayoutSizeFit)
 
-- (CGSize)js_fittingSizeForReusableViewClass:(Class)cellClass
-                                contentWidth:(CGFloat)contentWidth
-                                  cacheByKey:(nullable id<NSCopying>)key
+- (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
                                configuration:(nullable JSConfigurationReusableView)configuration;
-- (CGSize)js_fittingSizeForReusableViewClass:(Class)cellClass
-                               contentHeight:(CGFloat)contentHeight
+- (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration;
 

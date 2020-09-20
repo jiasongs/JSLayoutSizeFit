@@ -19,6 +19,7 @@ CGFloat const JSLayoutSizeFitInvalidDimension = -1;
 @implementation UIView (JSLayoutSizeFit)
 
 JSSynthesizeBOOLProperty(js_enforceFrameLayout, setJs_enforceFrameLayout)
+JSSynthesizeBOOLProperty(js_isFromTemplateView, setJs_fromTemplateView)
 JSSynthesizeIdWeakProperty(js_widthFenceConstraint, setJs_widthFenceConstraint)
 
 - (nullable __kindof UIView *)js_templateContentView {

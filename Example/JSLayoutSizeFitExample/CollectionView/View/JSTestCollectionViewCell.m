@@ -14,32 +14,30 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        [self.contentView addSubview:self.titleButton];
-        [self.titleButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.contentView addSubview:self.titleLabel];
+        [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.bottom.equalTo(self.contentView);
-//            make.width.lessThanOrEqualTo(@(375));
-//            make.height.equalTo(@(40));
+            make.height.equalTo(@(40));
         }];
     }
     return self;
 }
 
 - (void)updateCellWithData:(NSDictionary *)data atIndexPath:(NSIndexPath *)atIndexPath {
-//    [self.titleButton setTitle:[data objectForKey:@"likeId"] forState:UIControlStateNormal];
-    [self.titleButton setTitle:[data objectForKey:@"content"] forState:UIControlStateNormal];
+    //    [self.titleLabel setTitle:[data objectForKey:@"likeId"] forState:UIControlStateNormal];
+    //    [self.titleLabel setTitle:[data objectForKey:@"content"] forState:UIControlStateNormal];
+    //    self.titleLabel.text = [data objectForKey:@"content"];
+    self.titleLabel.text = [data objectForKey:@"likeId"];
 }
 
-- (UIButton *)titleButton {
-    if (!_titleButton) {
-        _titleButton = [[UIButton alloc] init];
-        _titleButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-        [_titleButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-        _titleButton.titleLabel.font = [UIFont systemFontOfSize:14];
-        _titleButton.layer.borderWidth = 1;
-        _titleButton.layer.borderColor = UIColor.blackColor.CGColor;
-        _titleButton.titleLabel.numberOfLines = 0;
+- (UILabel *)titleLabel {
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.layer.borderWidth = 1;
+        _titleLabel.layer.borderColor = UIColor.blackColor.CGColor;
+        _titleLabel.numberOfLines = 0;
     }
-    return _titleButton;
+    return _titleLabel;
 }
 
 @end

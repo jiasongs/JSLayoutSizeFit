@@ -21,13 +21,22 @@
             make.right.equalTo(self.contentView.mas_right).offset(-10);
             make.bottom.equalTo(self.contentView.mas_bottom).offset(-10).priorityHigh();
         }];
+//        [self.contentView addSubview:self.titleButton];
+//        [self.titleButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(self.contentView.mas_top).offset(10);
+//            make.left.equalTo(self.contentView.mas_left).offset(10);
+//            make.right.equalTo(self.contentView.mas_right).offset(-10);
+//            make.bottom.equalTo(self.contentView.mas_bottom).offset(-10).priorityHigh();
+//        }];
     }
     return self;
 }
 
 - (void)updateCellWithData:(NSDictionary *)data atIndexPath:(NSIndexPath *)atIndexPath {
     NSDictionary *linkerInfo = [data objectForKey:@"likerInfo"];
-    self.titleLabel.text = [NSString stringWithFormat:@"%@-%@-%@-%@", [linkerInfo objectForKey:@"userId"],[linkerInfo objectForKey:@"nickName"],[data objectForKey:@"likeId"],[data objectForKey:@"content"]];
+    NSString *title = [NSString stringWithFormat:@"%@-%@-%@-%@", [linkerInfo objectForKey:@"userId"],[linkerInfo objectForKey:@"nickName"],[data objectForKey:@"likeId"],[data objectForKey:@"content"]];
+    self.titleLabel.text = title;
+//    [self.titleButton setTitle:title forState:UIControlStateNormal];
 }
 
 - (UIImageView *)headerImageView {
@@ -44,6 +53,15 @@
         _titleLabel.numberOfLines = 0;
     }
     return _titleLabel;
+}
+
+- (UIButton *)titleButton {
+    if (!_titleButton) {
+        _titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _titleButton.titleLabel.numberOfLines = 0;
+        [_titleButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+    }
+    return _titleButton;
 }
 
 - (UILabel *)timeLabel {

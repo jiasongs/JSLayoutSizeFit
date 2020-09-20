@@ -17,27 +17,19 @@
 #pragma mark - UICollectionViewCell
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
-                                contentWidth:(CGFloat)contentWidth
-                                  cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
-    if (![viewClass isSubclassOfClass:UICollectionReusableView.class]) {
-        NSAssert(false, @"viewClass必须是UICollectionReusableView类或者其子类");
-    }
     return [self __js_fittingSizeForReusableViewClass:viewClass
-                                          contentSize:CGSizeMake(contentWidth, JSLayoutSizeFitInvalidDimension)
-                                           cacheByKey:key
+                                           cacheByKey:nil
                                         configuration:configuration];
 }
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
-                               contentHeight:(CGFloat)contentHeight
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
     if (![viewClass isSubclassOfClass:UICollectionReusableView.class]) {
         NSAssert(false, @"viewClass必须是UICollectionReusableView类或者其子类");
     }
     return [self __js_fittingSizeForReusableViewClass:viewClass
-                                          contentSize:CGSizeMake(JSLayoutSizeFitInvalidDimension, contentHeight)
                                            cacheByKey:key
                                         configuration:configuration];
 }
@@ -45,7 +37,6 @@
 #pragma mark - 通用
 
 - (CGSize)__js_fittingSizeForReusableViewClass:(Class)viewClass
-                                   contentSize:(CGSize)contentSize
                                     cacheByKey:(nullable id<NSCopying>)key
                                  configuration:(nullable JSConfigurationReusableView)configuration {
     JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UICollectionViewCell.class] ? self.js_rowSizeFitCache : self.js_sectionSizeFitCache;
@@ -59,7 +50,7 @@
     if (configuration) {
         configuration(templateView);
     }
-    CGSize size = [self __js_systemFittingSizeForTemplateView:templateView contentSize:contentSize];
+    CGSize size = [self __js_systemFittingSizeForTemplateView:templateView];
     if (key) {
         [fitCache setCGSize:size forKey:key];
     }
@@ -68,48 +59,23 @@
 
 #pragma mark - 计算高度
 
-- (CGSize)__js_systemFittingSizeForTemplateView:(__kindof UIView *)templateView contentSize:(CGSize)contentSize {
-    CGFloat contentWidth = contentSize.width, contentHeight = contentSize.height;
-    if ((contentWidth == JSLayoutSizeFitInvalidDimension && contentHeight == JSLayoutSizeFitInvalidDimension) || (contentWidth != JSLayoutSizeFitInvalidDimension && contentHeight != JSLayoutSizeFitInvalidDimension)) {
-        NSAssert(false, @"contentWidth、contentHeight必须固定其中一个");
-    }
-    UIView *contentView = templateView.js_templateContentView;
-//    
-//    if (contentWidth != JSLayoutSizeFitInvalidDimension) {
-//        if (templateView.js_width != contentWidth) {
-//            templateView.js_width = contentWidth;
-//        }
-//        if (contentView && contentView.js_width != contentWidth) {
-//            contentView.js_width = contentWidth;
-//        }
-//    } else if (contentHeight != JSLayoutSizeFitInvalidDimension) {
-//        if (templateView.js_height != contentHeight) {
-//            templateView.js_height = contentHeight;
-//        }
-//        if (contentView && contentView.js_height != contentHeight) {
-//            contentView.js_height = contentHeight;
-//        }
-//    }
-    templateView.js_width = 375;
-    contentView.js_width = 375;
+- (CGSize)__js_systemFittingSizeForTemplateView:(__kindof UIView *)templateView {
     CGSize fittingSize = CGSizeZero;
     if (templateView.js_enforceFrameLayout) {
-        fittingSize = [templateView sizeThatFits:CGSizeMake(contentWidth, contentHeight)];
+        fittingSize = [templateView sizeThatFits:CGSizeMake(JSLayoutSizeFitInvalidDimension, JSLayoutSizeFitInvalidDimension)];
     } else {
-//        NSLayoutConstraint *heightFenceConstraint = [NSLayoutConstraint constraintWithItem:contentView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:40];
-//        heightFenceConstraint.priority = UILayoutPriorityRequired - 1;
-//        [contentView addConstraint:heightFenceConstraint];
-//        if (contentView && contentView.js_widthFenceConstraint.constant != contentWidth) {
-//            contentView.js_widthFenceConstraint.constant = contentWidth;
+        UIView *contentView = templateView.js_templateContentView;
+//        [contentView js_addWidthFenceConstraintIfNeeded];
+//        NSLayoutConstraint *widthConstraint = contentView.js_widthFenceConstraint;
+//        if (widthConstraint.constant != 0) {
+//            widthConstraint.constant = 0;
 //            [contentView setNeedsUpdateConstraints];
-//            [templateView setNeedsUpdateConstraints];
+//            [contentView.superview setNeedsUpdateConstraints];
 //        }
-        contentView.js_widthFenceConstraint.constant = 100;
-        [contentView setNeedsUpdateConstraints];
-        [templateView setNeedsUpdateConstraints];
-        fittingSize = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        UILabel *label = contentView.subviews.firstObject;
+        fittingSize = [label systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     }
-    return CGSizeMake(JSCGFlat(fittingSize.width), JSCGFlat(fittingSize.height));
+    return fittingSize;
 }
 
 @end

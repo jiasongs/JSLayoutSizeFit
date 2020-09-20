@@ -19,6 +19,7 @@
             make.top.left.equalTo(self).offset(10);
             make.right.equalTo(self.mas_right).offset(-10);
             make.bottom.equalTo(self.mas_bottom).offset(-10);
+            make.width.equalTo(@(375));
         }];
     }
     return self;
