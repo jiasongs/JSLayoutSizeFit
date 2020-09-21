@@ -147,6 +147,15 @@
             [contentView setNeedsUpdateConstraints];
             [contentView.superview setNeedsUpdateConstraints];
         }
+        /// 修复计算不准确的问题
+//        [contentView.subviews enumerateObjectsUsingBlock:^(__kindof UIView *subview, NSUInteger idx, BOOL * _Nonnull stop) {
+//            if ([subview isKindOfClass:UILabel.class]) {
+//                UILabel *label = subview;
+//                if (label.preferredMaxLayoutWidth == 0) {
+//                    label.preferredMaxLayoutWidth = contentWidth;
+//                }
+//            }
+//        }];
         fittingHeight = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     }
     /// 分割线
@@ -159,6 +168,10 @@
         fittingHeight += pixelOne;
     }
     return fittingHeight;
+}
+
+- (void)js_addPreferredMaxLayoutWidthIfNeeded {
+    
 }
 
 @end

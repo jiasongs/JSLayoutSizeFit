@@ -35,7 +35,14 @@
 - (void)updateCellWithData:(NSDictionary *)data atIndexPath:(NSIndexPath *)atIndexPath {
     NSDictionary *linkerInfo = [data objectForKey:@"likerInfo"];
     NSString *title = [NSString stringWithFormat:@"%@-%@-%@-%@", [linkerInfo objectForKey:@"userId"],[linkerInfo objectForKey:@"nickName"],[data objectForKey:@"likeId"],[data objectForKey:@"content"]];
-    self.titleLabel.text = title;
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setFirstLineHeadIndent:0];
+    [paragraphStyle setLineSpacing:8];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"傲丝度hi奥斯迪耦合剂不isad坏事户撒都我安徽搜的和阿萨德能加速的帮你加\n%@", title] attributes:@{NSParagraphStyleAttributeName: paragraphStyle}];
+    NSInteger length = MIN(30, attributedString.length);
+    [attributedString setAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:20]} range:NSMakeRange(0, length)];
+    [attributedString setAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16]} range:NSMakeRange(length, attributedString.length - length)];
+    self.titleLabel.attributedText = attributedString;
 //    [self.titleButton setTitle:title forState:UIControlStateNormal];
 }
 
