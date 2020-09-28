@@ -64,7 +64,7 @@
 - (CGSize)__js_systemFittingSizeForTemplateView:(__kindof UIView *)templateView {
     CGSize fittingSize = CGSizeZero;
     if (templateView.js_enforceFrameLayout) {
-        fittingSize = [templateView sizeThatFits:CGSizeMake(JSLayoutSizeFitInvalidDimension, JSLayoutSizeFitInvalidDimension)];
+        fittingSize = [templateView sizeThatFits:CGSizeMake(JSLayoutSizeFitAutomaticDimension, JSLayoutSizeFitAutomaticDimension)];
     } else {
         fittingSize = [templateView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     }

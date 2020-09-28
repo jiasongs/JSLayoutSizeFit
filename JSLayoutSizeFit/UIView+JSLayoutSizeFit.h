@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-UIKIT_EXTERN CGFloat const JSLayoutSizeFitInvalidDimension;
+UIKIT_EXTERN CGFloat const JSLayoutSizeFitAutomaticDimension;
 
 @interface UIView (JSLayoutSizeFit)
 

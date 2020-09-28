@@ -54,7 +54,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     NSDictionary *dic = [self.dataSource objectAtIndex:section];
     return [tableView js_fittingHeightForHeaderFooterViewClass:ITTestHeaderFooterView.class
-                                                  contentWidth:0
+                                                  contentWidth:tableView.qmui_width ? : JSLayoutSizeFitAutomaticDimension
                                                     cacheByKey:@(section)
                                                  configuration:^(__kindof ITTestHeaderFooterView * _Nonnull headerFooterView) {
         [headerFooterView updateViewWithData:dic inSection:section];
@@ -65,7 +65,7 @@
     NSDictionary *dic = [self.dataSource objectAtIndex:indexPath.section];
     NSArray *array = [dic objectForKey:@"likeList"];
     return [tableView js_fittingHeightForCellClass:ITTestTableViewCell.class
-                                      contentWidth:0
+                                      contentWidth:tableView.qmui_width ? : JSLayoutSizeFitAutomaticDimension
                                         cacheByKey:indexPath.js_sizeFitCacheKey
                                      configuration:^(__kindof ITTestTableViewCell *cell) {
         [cell updateCellWithData:[array objectAtIndex:indexPath.row] atIndexPath:indexPath];

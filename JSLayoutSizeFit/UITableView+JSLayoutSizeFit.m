@@ -22,7 +22,7 @@
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
                           configuration:(nullable JSConfigurationTableViewCell)configuration {
     return [self js_fittingHeightForCellClass:cellClass
-                                 contentWidth:0
+                                 contentWidth:JSLayoutSizeFitAutomaticDimension
                                    cacheByKey:nil
                                 configuration:configuration];
 }
@@ -31,7 +31,7 @@
                              cacheByKey:(nullable id<NSCopying>)key
                           configuration:(nullable JSConfigurationTableViewCell)configuration {
     return [self js_fittingHeightForCellClass:cellClass
-                                 contentWidth:0
+                                 contentWidth:JSLayoutSizeFitAutomaticDimension
                                    cacheByKey:key
                                 configuration:configuration];
 }
@@ -63,7 +63,7 @@
 - (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
                                       configuration:(nullable JSConfigurationHeaderFooterView)configuration {
     return [self js_fittingHeightForHeaderFooterViewClass:viewClass
-                                             contentWidth:0
+                                             contentWidth:JSLayoutSizeFitAutomaticDimension
                                                cacheByKey:nil
                                             configuration:configuration];
 }
@@ -72,7 +72,7 @@
                                          cacheByKey:(nullable id<NSCopying>)key
                                       configuration:(nullable JSConfigurationHeaderFooterView)configuration {
     return [self js_fittingHeightForHeaderFooterViewClass:viewClass
-                                             contentWidth:0
+                                             contentWidth:JSLayoutSizeFitAutomaticDimension
                                                cacheByKey:key
                                             configuration:configuration];
 }
@@ -116,7 +116,8 @@
     if (configuration) {
         configuration(templateView);
     }
-    CGFloat height = [self __js_systemFittingHeightForTemplateView:templateView contentWidth:contentWidth ? : self.js_templateContainerWidth];
+    CGFloat newContentWidth = contentWidth != JSLayoutSizeFitAutomaticDimension ? contentWidth : self.js_templateContainerWidth;
+    CGFloat height = [self __js_systemFittingHeightForTemplateView:templateView contentWidth:newContentWidth];
     if (key) {
         [fitCache setCGFloat:height forKey:key];
     }
@@ -126,7 +127,7 @@
 #pragma mark - 计算高度
 
 - (CGFloat)__js_systemFittingHeightForTemplateView:(__kindof UIView *)templateView contentWidth:(CGFloat)contentWidth {
-    NSAssert(contentWidth != 0, @"contentWidth需大于0!");
+    NSAssert(contentWidth != 0, @"contentWidth必须大于0, 否则计算高度就无意义了!");
     UIView *contentView = templateView.js_templateContentView;
     if (!contentView) {
         NSAssert(false, @"理论上contentView不可能为nil, 需要观察下哪里出问题了");
@@ -139,7 +140,7 @@
     }
     CGFloat fittingHeight = 0;
     if (templateView.js_enforceFrameLayout) {
-        fittingHeight = [templateView sizeThatFits:CGSizeMake(contentWidth, JSLayoutSizeFitInvalidDimension)].height;
+        fittingHeight = [templateView sizeThatFits:CGSizeMake(contentWidth, JSLayoutSizeFitAutomaticDimension)].height;
     } else {
         [contentView js_addFenceConstraintIfNeeded];
         if (contentView.js_fenceConstraint.constant != contentWidth) {

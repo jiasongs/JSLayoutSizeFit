@@ -9,7 +9,7 @@
 /// JSCoreKit
 #import "JSCommonDefines.h"
 
-CGFloat const JSLayoutSizeFitInvalidDimension = -1;
+CGFloat const JSLayoutSizeFitAutomaticDimension = -1000;
 
 @interface UIView (__JSLayoutSizeFit)
 
