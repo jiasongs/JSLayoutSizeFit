@@ -7,8 +7,11 @@
 //
 
 #import "JSLayoutSizeFitCache.h"
+#import <os/lock.h>
 
-@interface JSLayoutSizeFitCache ()
+@interface JSLayoutSizeFitCache () {
+    os_unfair_lock _lock;
+}
 
 @property (nonatomic, strong) NSMutableDictionary *cacheDictionary;
 
@@ -16,36 +19,56 @@
 
 @implementation JSLayoutSizeFitCache
 
+- (instancetype)init {
+    if (self = [super init]) {
+        _lock = OS_UNFAIR_LOCK_INIT;
+        _cacheDictionary = [NSMutableDictionary dictionary];
+    }
+    return self;
+}
+
 #pragma mark - Base
 
 - (BOOL)containsKey:(id<NSCopying>)key {
     if (key) {
-        return [self.cacheDictionary.allKeys containsObject:key];
+        os_unfair_lock_lock(&_lock);
+        BOOL contains = [self.cacheDictionary.allKeys containsObject:key];
+        os_unfair_lock_unlock(&_lock);
+        return contains;
     }
     return false;
 }
 
 - (void)setObject:(id)object forKey:(id<NSCopying>)key {
     if (key && object) {
+        os_unfair_lock_lock(&_lock);
         [self.cacheDictionary setObject:object forKey:key];
+        os_unfair_lock_unlock(&_lock);
     }
 }
 
 - (nullable id)objectForKey:(id<NSCopying>)key {
     if (key) {
-        return [self.cacheDictionary objectForKey:key];
+        os_unfair_lock_lock(&_lock);
+        id value = [self.cacheDictionary objectForKey:key];
+        os_unfair_lock_unlock(&_lock);
+        return value;
     }
     return nil;
 }
 
 #pragma mark - Remove
 
-- (void)removeValueForKey:(id<NSCopying>)key {
+- (void)removeObjectForKey:(id<NSCopying>)key {
+    os_unfair_lock_lock(&_lock);
     [self.cacheDictionary removeObjectForKey:key];
+    os_unfair_lock_unlock(&_lock);
 }
 
-- (void)removeAllValues {
+- (void)removeAllObjects {
+    os_unfair_lock_lock(&_lock);
     [self.cacheDictionary removeAllObjects];
+    os_unfair_lock_unlock(&_lock);
 }
 
 #pragma mark - CGFloat
@@ -78,15 +101,6 @@
         return [value CGSizeValue];
     }
     return CGSizeZero;
-}
-
-#pragma mark - 懒加载
-
-- (NSMutableDictionary *)cacheDictionary {
-    if (!_cacheDictionary) {
-        _cacheDictionary = [NSMutableDictionary dictionary];
-    }
-    return _cacheDictionary;
 }
 
 @end
