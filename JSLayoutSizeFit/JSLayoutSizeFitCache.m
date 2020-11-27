@@ -32,9 +32,9 @@
 
 - (BOOL)containsKey:(id<NSCopying>)key {
     if (key) {
-        JSAddLock(_lock);
+        JSLockAdd(_lock);
         BOOL contains = [self.cacheDictionary.allKeys containsObject:key];
-        JSUnLock(_lock);
+        JSLockRemove(_lock);
         return contains;
     }
     return false;
@@ -42,17 +42,17 @@
 
 - (void)setObject:(id)object forKey:(id<NSCopying>)key {
     if (key && object) {
-        JSAddLock(_lock);
+        JSLockAdd(_lock);
         [self.cacheDictionary setObject:object forKey:key];
-        JSUnLock(_lock);
+        JSLockRemove(_lock);
     }
 }
 
 - (nullable id)objectForKey:(id<NSCopying>)key {
     if (key) {
-        JSAddLock(_lock);
+        JSLockAdd(_lock);
         id value = [self.cacheDictionary objectForKey:key];
-        JSUnLock(_lock);
+        JSLockRemove(_lock);
         return value;
     }
     return nil;
@@ -61,15 +61,15 @@
 #pragma mark - Remove
 
 - (void)removeObjectForKey:(id<NSCopying>)key {
-    JSAddLock(_lock);
+    JSLockAdd(_lock);
     [self.cacheDictionary removeObjectForKey:key];
-    JSUnLock(_lock);
+    JSLockRemove(_lock);
 }
 
 - (void)removeAllObjects {
-    JSAddLock(_lock);
+    JSLockAdd(_lock);
     [self.cacheDictionary removeAllObjects];
-    JSUnLock(_lock);
+    JSLockRemove(_lock);
 }
 
 #pragma mark - CGFloat
