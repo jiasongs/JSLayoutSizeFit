@@ -8,8 +8,9 @@
 
 #import "UITableView+JSLayoutSizeFit.h"
 /// JSCoreKit
-#import "JSCommonDefines.h"
-#import "UIView+JSLayout.h"
+#import "JSCoreCommonDefines.h"
+#import "UIView+JSCoreLayout.h"
+#import "JSCoreHelper.h"
 /// JSLayoutSizeFit
 #import "JSLayoutSizeFitCache.h"
 #import "UIScrollView+JSLayoutSizeFit.h"
@@ -152,12 +153,7 @@
     }
     /// 分割线
     if ([templateView isKindOfClass:UITableViewCell.class] && self.separatorStyle != UITableViewCellSeparatorStyleNone) {
-        static CGFloat pixelOne = 0;
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            pixelOne = 1.0 / UIScreen.mainScreen.scale;
-        });
-        fittingHeight += pixelOne;
+        fittingHeight += [JSCoreHelper pixelOne];
     }
     return fittingHeight;
 }

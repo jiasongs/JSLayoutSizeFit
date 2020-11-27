@@ -7,8 +7,8 @@
 
 #import "UIScrollView+JSLayoutSizeFit.h"
 /// JSCoreKit
-#import "JSCommonDefines.h"
-#import "UIView+JSLayout.h"
+#import "JSCoreCommonDefines.h"
+#import "UIView+JSCoreLayout.h"
 /// JSLayoutSizeFit
 #import "JSLayoutSizeFitCache.h"
 #import "UIView+JSLayoutSizeFit.h"
