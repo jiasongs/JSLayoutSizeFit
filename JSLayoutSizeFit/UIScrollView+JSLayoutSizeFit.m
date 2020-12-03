@@ -47,6 +47,10 @@
     UIEdgeInsets contentInset = self.contentInset;
     if (@available(iOS 11.0, *)) {
         contentInset = self.adjustedContentInset;
+        if (self.insetsLayoutMarginsFromSafeArea) {
+            contentInset.left = self.safeAreaInsets.left;
+            contentInset.right = self.safeAreaInsets.right;
+        }
     }
     contentWidth = contentWidth - (contentInset.left + contentInset.right);
     return contentWidth;
