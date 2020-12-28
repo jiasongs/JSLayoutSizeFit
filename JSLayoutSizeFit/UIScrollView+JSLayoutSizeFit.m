@@ -40,7 +40,7 @@
 #pragma mark - getter
 
 - (CGFloat)js_templateContainerWidth {
-    CGFloat contentWidth = (self.js_width ? : self.superview.js_width) ? : CGRectGetWidth(UIScreen.mainScreen.bounds);
+    CGFloat contentWidth = (self.js_width ? : self.superview.js_width) ? : JSCoreHelper.applicationSize.width;
     UIEdgeInsets contentInset = self.contentInset;
     if (@available(iOS 11.0, *)) {
         contentInset = self.adjustedContentInset;
