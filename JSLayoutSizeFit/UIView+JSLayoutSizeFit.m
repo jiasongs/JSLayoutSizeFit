@@ -6,8 +6,7 @@
 //
 
 #import "UIView+JSLayoutSizeFit.h"
-/// JSCoreKit
-#import "JSCoreCommonDefines.h"
+#import "JSCoreKit.h"
 
 CGFloat const JSLayoutSizeFitAutomaticDimension = -1000;
 

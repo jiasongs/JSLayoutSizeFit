@@ -7,11 +7,7 @@
 //
 
 #import "UITableView+JSLayoutSizeFit.h"
-/// JSCoreKit
-#import "JSCoreCommonDefines.h"
-#import "UIView+JSCoreLayout.h"
-#import "JSCoreHelper.h"
-/// JSLayoutSizeFit
+#import "JSCoreKit.h"
 #import "JSLayoutSizeFitCache.h"
 #import "UIScrollView+JSLayoutSizeFit.h"
 #import "UIView+JSLayoutSizeFit.h"

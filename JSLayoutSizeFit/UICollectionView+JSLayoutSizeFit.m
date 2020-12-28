@@ -6,10 +6,7 @@
 //
 
 #import "UICollectionView+JSLayoutSizeFit.h"
-/// JSCoreKit
-#import "JSCoreCommonDefines.h"
-#import "UIView+JSCoreLayout.h"
-/// JSLayoutSizeFit
+#import "JSCoreKit.h"
 #import "JSLayoutSizeFitCache.h"
 #import "UIScrollView+JSLayoutSizeFit.h"
 #import "UIView+JSLayoutSizeFit.h"

@@ -7,8 +7,7 @@
 //
 
 #import "JSLayoutSizeFitCache.h"
-/// JSCoreKit
-#import "JSCoreCommonDefines.h"
+#import "JSCoreKit.h"
 
 @interface JSLayoutSizeFitCache () {
     JSLockDeclare(_lock);
