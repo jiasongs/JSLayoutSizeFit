@@ -47,7 +47,7 @@
                              cacheByKey:(nullable id<NSCopying>)key
                           configuration:(nullable JSConfigurationTableViewCell)configuration {
     if (![cellClass isSubclassOfClass:UITableViewCell.class]) {
-        NSAssert(false, @"cellClass必须是UITableViewCell类或者其子类");
+        NSAssert(NO, @"cellClass必须是UITableViewCell类或者其子类");
     }
     return [self __js_fittingHeightForViewClass:cellClass
                                    contentWidth:contentWidth
@@ -88,7 +88,7 @@
                                          cacheByKey:(nullable id<NSCopying>)key
                                       configuration:(nullable JSConfigurationHeaderFooterView)configuration {
     if (![viewClass isSubclassOfClass:UITableViewHeaderFooterView.class]) {
-        NSAssert(false, @"viewClass必须是UITableViewHeaderFooterView类或者其子类");
+        NSAssert(NO, @"viewClass必须是UITableViewHeaderFooterView类或者其子类");
     }
     return [self __js_fittingHeightForViewClass:viewClass
                                    contentWidth:contentWidth
@@ -127,7 +127,7 @@
     NSAssert(contentWidth != 0, @"contentWidth必须大于0, 否则计算高度就无意义了!");
     UIView *contentView = templateView.js_templateContentView;
     if (!contentView) {
-        NSAssert(false, @"理论上contentView不可能为nil, 需要观察下哪里出问题了");
+        NSAssert(NO, @"理论上contentView不可能为nil, 需要观察下哪里出问题了");
     }
     if (templateView.js_width != contentWidth) {
         templateView.js_width = contentWidth;
@@ -136,7 +136,7 @@
         contentView.js_width = contentWidth;
     }
     CGFloat fittingHeight = 0;
-    if (templateView.js_enforceFrameLayout) {
+    if (templateView.js_useFrameLayout) {
         fittingHeight = [templateView sizeThatFits:CGSizeMake(contentWidth, JSLayoutSizeFitAutomaticDimension)].height;
     } else {
         [contentView js_addFenceConstraintIfNeeded];

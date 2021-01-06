@@ -9,6 +9,7 @@
 #import "ITTestTableViewCell.h"
 #import <Masonry.h>
 #import <QMUIKit.h>
+#import <JSLayoutSizeFit.h>
 
 @implementation ITTestTableViewCell
 

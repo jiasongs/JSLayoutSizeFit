@@ -36,7 +36,7 @@
         JSLockRemove(_lock);
         return contains;
     }
-    return false;
+    return NO;
 }
 
 - (void)setObject:(id)object forKey:(id<NSCopying>)key {

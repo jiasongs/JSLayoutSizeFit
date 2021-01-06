@@ -31,7 +31,7 @@
         } else {
             templateView = [[viewClass alloc] initWithFrame:CGRectZero];
         }
-        templateView.js_fromTemplateView = true;
+        templateView.js_fromTemplateView = YES;
         [self.js_templateViews setObject:templateView forKey:viewClassString];
     }
     return templateView;

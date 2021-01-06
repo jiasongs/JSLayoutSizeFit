@@ -26,7 +26,7 @@
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
     if (![viewClass isSubclassOfClass:UICollectionReusableView.class]) {
-        NSAssert(false, @"viewClass必须是UICollectionReusableView类或者其子类");
+        NSAssert(NO, @"viewClass必须是UICollectionReusableView类或者其子类");
     }
     return [self __js_fittingSizeForReusableViewClass:viewClass
                                            cacheByKey:key
@@ -60,7 +60,7 @@
 
 - (CGSize)__js_systemFittingSizeForTemplateView:(__kindof UIView *)templateView {
     CGSize fittingSize = CGSizeZero;
-    if (templateView.js_enforceFrameLayout) {
+    if (templateView.js_useFrameLayout) {
         fittingSize = [templateView sizeThatFits:CGSizeMake(JSLayoutSizeFitAutomaticDimension, JSLayoutSizeFitAutomaticDimension)];
     } else {
         fittingSize = [templateView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
