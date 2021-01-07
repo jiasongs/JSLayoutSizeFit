@@ -149,7 +149,7 @@
     }
     /// 分割线
     if ([templateView isKindOfClass:UITableViewCell.class] && self.separatorStyle != UITableViewCellSeparatorStyleNone) {
-        fittingHeight += [JSCoreHelper pixelOne];
+        fittingHeight += JSCoreHelper.pixelOne;
     }
     return fittingHeight;
 }
