@@ -11,13 +11,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^JSConfigurationTableViewCell)(__kindof UITableViewCell *cell);
-typedef void(^JSConfigurationHeaderFooterView)(__kindof UITableViewHeaderFooterView *headerFooterView);
+typedef void(^JSConfigurationTableViewSection)(__kindof UITableViewHeaderFooterView *headerFooterView);
 
 @interface UITableView (JSLayoutSizeFit)
 
-/// cell
+/// Cell
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
                           configuration:(nullable JSConfigurationTableViewCell)configuration;
+
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
                              cacheByKey:(nullable id<NSCopying>)key
                           configuration:(nullable JSConfigurationTableViewCell)configuration;
@@ -25,25 +26,28 @@ typedef void(^JSConfigurationHeaderFooterView)(__kindof UITableViewHeaderFooterV
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
                            contentWidth:(CGFloat)contentWidth
                           configuration:(nullable JSConfigurationTableViewCell)configuration;
+
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
                            contentWidth:(CGFloat)contentWidth
                              cacheByKey:(nullable id<NSCopying>)key
                           configuration:(nullable JSConfigurationTableViewCell)configuration;
 
-/// section
-- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
-                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration;
-- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
-                                    cacheByKey:(nullable id<NSCopying>)key
-                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration;
+/// Section
+- (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
+                             configuration:(nullable JSConfigurationTableViewSection)configuration;
 
-- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
-                                  contentWidth:(CGFloat)contentWidth
-                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration;
-- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
-                                  contentWidth:(CGFloat)contentWidth
-                                    cacheByKey:(nullable id<NSCopying>)key
-                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration;
+- (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
+                                cacheByKey:(nullable id<NSCopying>)key
+                             configuration:(nullable JSConfigurationTableViewSection)configuration;
+
+- (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
+                              contentWidth:(CGFloat)contentWidth
+                             configuration:(nullable JSConfigurationTableViewSection)configuration;
+
+- (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
+                              contentWidth:(CGFloat)contentWidth
+                                cacheByKey:(nullable id<NSCopying>)key
+                             configuration:(nullable JSConfigurationTableViewSection)configuration;
 
 @end
 

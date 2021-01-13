@@ -53,10 +53,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     NSDictionary *dic = [self.dataSource objectAtIndex:section];
-    return [tableView js_fittingHeightForSectionViewClass:ITTestHeaderFooterView.class
-                                                  contentWidth:tableView.qmui_width ? : JSLayoutSizeFitAutomaticDimension
-                                                    cacheByKey:@(section)
-                                                 configuration:^(__kindof ITTestHeaderFooterView * _Nonnull headerFooterView) {
+    return [tableView js_fittingHeightForSectionClass:ITTestHeaderFooterView.class
+                                         contentWidth:tableView.qmui_width ? : JSLayoutSizeFitAutomaticDimension
+                                           cacheByKey:@(section)
+                                        configuration:^(__kindof ITTestHeaderFooterView * _Nonnull headerFooterView) {
         [headerFooterView updateViewWithData:dic inSection:section];
     }];
 }

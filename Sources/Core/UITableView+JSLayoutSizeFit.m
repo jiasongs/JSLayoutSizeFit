@@ -55,48 +55,48 @@
                                   configuration:configuration];
 }
 
-#pragma mark - UITableViewHeaderFooterView
+#pragma mark - UITableViewSection
 
-- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
-                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration {
-    return [self js_fittingHeightForSectionViewClass:viewClass
-                                        contentWidth:JSLayoutSizeFitAutomaticDimension
-                                          cacheByKey:nil
-                                       configuration:configuration];
+- (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
+                             configuration:(nullable JSConfigurationTableViewSection)configuration {
+    return [self js_fittingHeightForSectionClass:sectionClass
+                                    contentWidth:JSLayoutSizeFitAutomaticDimension
+                                      cacheByKey:nil
+                                   configuration:configuration];
 }
 
-- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
-                                    cacheByKey:(nullable id<NSCopying>)key
-                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration {
-    return [self js_fittingHeightForSectionViewClass:viewClass
-                                        contentWidth:JSLayoutSizeFitAutomaticDimension
-                                          cacheByKey:key
-                                       configuration:configuration];
+- (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
+                                cacheByKey:(nullable id<NSCopying>)key
+                             configuration:(nullable JSConfigurationTableViewSection)configuration {
+    return [self js_fittingHeightForSectionClass:sectionClass
+                                    contentWidth:JSLayoutSizeFitAutomaticDimension
+                                      cacheByKey:key
+                                   configuration:configuration];
 }
 
-- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
-                                  contentWidth:(CGFloat)contentWidth
-                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration {
-    return [self js_fittingHeightForSectionViewClass:viewClass
-                                        contentWidth:contentWidth
-                                          cacheByKey:nil
-                                       configuration:configuration];
+- (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
+                              contentWidth:(CGFloat)contentWidth
+                             configuration:(nullable JSConfigurationTableViewSection)configuration {
+    return [self js_fittingHeightForSectionClass:sectionClass
+                                    contentWidth:contentWidth
+                                      cacheByKey:nil
+                                   configuration:configuration];
 }
 
-- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
-                                  contentWidth:(CGFloat)contentWidth
-                                    cacheByKey:(nullable id<NSCopying>)key
-                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration {
-    if (![viewClass isSubclassOfClass:UITableViewHeaderFooterView.class]) {
+- (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
+                              contentWidth:(CGFloat)contentWidth
+                                cacheByKey:(nullable id<NSCopying>)key
+                             configuration:(nullable JSConfigurationTableViewSection)configuration {
+    if (![sectionClass isSubclassOfClass:UITableViewHeaderFooterView.class]) {
         NSAssert(NO, @"viewClass必须是UITableViewHeaderFooterView类或者其子类");
     }
-    return [self __js_fittingHeightForViewClass:viewClass
+    return [self __js_fittingHeightForViewClass:sectionClass
                                    contentWidth:contentWidth
                                      cacheByKey:key
                                   configuration:configuration];
 }
 
-#pragma mark - 通用
+#pragma mark - Private
 
 - (CGFloat)__js_fittingHeightForViewClass:(Class)viewClass
                              contentWidth:(CGFloat)contentWidth
@@ -136,7 +136,7 @@
         contentView.js_width = contentWidth;
     }
     CGFloat fittingHeight = 0;
-    if (templateView.js_useFrameLayout) {
+    if (templateView.js_isUseFrameLayout) {
         fittingHeight = [templateView sizeThatFits:CGSizeMake(contentWidth, JSLayoutSizeFitAutomaticDimension)].height;
     } else {
         [contentView js_addFenceConstraintIfNeeded];

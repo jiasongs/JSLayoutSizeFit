@@ -18,7 +18,7 @@ CGFloat const JSLayoutSizeFitAutomaticDimension = -1000;
 
 @implementation UIView (JSLayoutSizeFit)
 
-JSSynthesizeBOOLProperty(js_useFrameLayout, setJs_useFrameLayout)
+JSSynthesizeBOOLProperty(js_isUseFrameLayout, setJs_useFrameLayout)
 JSSynthesizeBOOLProperty(js_isFromTemplateView, setJs_fromTemplateView)
 JSSynthesizeIdWeakProperty(js_fenceConstraint, setJs_fenceConstraint)
 

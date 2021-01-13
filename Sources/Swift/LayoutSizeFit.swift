@@ -10,19 +10,27 @@ import Foundation
 public struct LayoutSizeFitWrapper<Base> {
     
     public let base: Base
+    
     public init(_ base: Base) {
         self.base = base
     }
     
 }
 
-public protocol LayoutSizeFitCompatible: AnyObject {}
+public protocol LayoutSizeFitCompatible {}
 
-public extension LayoutSizeFitCompatible {
+extension LayoutSizeFitCompatible {
     
-    var lsf: LayoutSizeFitWrapper<Self> {
-        get { return LayoutSizeFitWrapper(self) }
+    public static var lsf: LayoutSizeFitWrapper<Self>.Type {
+        get { LayoutSizeFitWrapper<Self>.self }
+        set { }
+    }
+    
+    public var lsf: LayoutSizeFitWrapper<Self> {
+        get { LayoutSizeFitWrapper(self) }
         set { }
     }
     
 }
+
+extension UIView: LayoutSizeFitCompatible { }

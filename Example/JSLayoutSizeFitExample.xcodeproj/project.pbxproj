@@ -32,8 +32,6 @@
 		7A5188C6251633AE00238305 /* JSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5188C4251633AE00238305 /* JSCollectionViewController.m */; };
 		7AAAD55B251645BB009C4B7E /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 7AAAD55A251645BB009C4B7E /* data.json */; };
 		7AAAD55C251645BB009C4B7E /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 7AAAD55A251645BB009C4B7E /* data.json */; };
-		7AC2657C25AF1101005F2272 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC2657B25AF1101005F2272 /* File.swift */; };
-		7AC2657D25AF1101005F2272 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC2657B25AF1101005F2272 /* File.swift */; };
 		7AFACFDE2500F3B70065F9E7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */; };
 		7AFACFE42500F3B70065F9E7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFE32500F3B70065F9E7 /* ViewController.m */; };
 		7AFACFE72500F3B70065F9E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFE52500F3B70065F9E7 /* Main.storyboard */; };
@@ -67,7 +65,6 @@
 		7A5188C4251633AE00238305 /* JSCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSCollectionViewController.m; sourceTree = "<group>"; };
 		7AAAD55A251645BB009C4B7E /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		7AC2657A25AF1100005F2272 /* JSLayoutSizeFitExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSLayoutSizeFitExample-Bridging-Header.h"; sourceTree = "<group>"; };
-		7AC2657B25AF1101005F2272 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		7AFACFD92500F3B70065F9E7 /* JSLayoutSizeFitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSLayoutSizeFitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AFACFDC2500F3B70065F9E7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -211,7 +208,7 @@
 				7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */,
 				7AFACFE22500F3B70065F9E7 /* ViewController.h */,
 				7AFACFE32500F3B70065F9E7 /* ViewController.m */,
-				7AC2657B25AF1101005F2272 /* File.swift */,
+				7AC2657A25AF1100005F2272 /* JSLayoutSizeFitExample-Bridging-Header.h */,
 				7AAAD55A251645BB009C4B7E /* data.json */,
 				7AFACFE52500F3B70065F9E7 /* Main.storyboard */,
 				7AFACFE82500F3B80065F9E7 /* Assets.xcassets */,
@@ -219,7 +216,6 @@
 				7AFACFED2500F3B80065F9E7 /* Info.plist */,
 				7A5187C52516103400238305 /* MacOSInfo.plist */,
 				7AFACFEE2500F3B80065F9E7 /* main.m */,
-				7AC2657A25AF1100005F2272 /* JSLayoutSizeFitExample-Bridging-Header.h */,
 			);
 			path = JSLayoutSizeFitExample;
 			sourceTree = "<group>";
@@ -422,7 +418,6 @@
 				7A5187AD2516100000238305 /* AppDelegate.m in Sources */,
 				7A5188C6251633AE00238305 /* JSCollectionViewController.m in Sources */,
 				7A51886425162CFC00238305 /* ITTestHeaderFooterView.m in Sources */,
-				7AC2657D25AF1101005F2272 /* File.swift in Sources */,
 				7A51886C25162D5700238305 /* JSTableViewController.m in Sources */,
 				7A5187B12516100000238305 /* main.m in Sources */,
 				7A518899251630D900238305 /* JSTestCollectionReusableView.m in Sources */,
@@ -439,7 +434,6 @@
 				7AFACFDE2500F3B70065F9E7 /* AppDelegate.m in Sources */,
 				7A5188C5251633AE00238305 /* JSCollectionViewController.m in Sources */,
 				7A51886325162CFC00238305 /* ITTestHeaderFooterView.m in Sources */,
-				7AC2657C25AF1101005F2272 /* File.swift in Sources */,
 				7A51886B25162D5700238305 /* JSTableViewController.m in Sources */,
 				7AFACFEF2500F3B80065F9E7 /* main.m in Sources */,
 				7A518898251630D900238305 /* JSTestCollectionReusableView.m in Sources */,

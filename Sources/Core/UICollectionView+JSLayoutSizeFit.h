@@ -15,6 +15,7 @@ typedef void(^JSConfigurationReusableView)(__kindof UICollectionReusableView *re
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
                                configuration:(nullable JSConfigurationReusableView)configuration;
+
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration;

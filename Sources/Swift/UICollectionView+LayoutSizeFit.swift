@@ -7,14 +7,16 @@
 
 import UIKit
 
-extension UICollectionView: LayoutSizeFitCompatible {}
-
 public extension LayoutSizeFitWrapper where Base: UICollectionView {
     
-    func fittingHeight<ReusableView>(forReusableViewClass reusableClass: AnyClass,
-                                     cacheBy key: NSCopying? = nil,
+    func fittingHeight<ReusableView>(forReusableViewClass viewClass: AnyClass,
+                                     cacheBy key: String? = nil,
                                      configuration: ((ReusableView) -> Void)? = nil) -> CGSize where ReusableView : UICollectionReusableView {
-        return self.base.js_fittingSize(forReusableViewClass: reusableClass, cacheByKey: key) { (reusableView) in
+        var ocKey: NSString? = nil
+        if key != nil {
+            ocKey = NSString(string: key!)
+        }
+        return self.base.js_fittingSize(forReusableViewClass: viewClass, cacheByKey: ocKey) { (reusableView) in
             if let block = configuration, let reusableView = reusableView as? ReusableView {
                 block(reusableView)
             }
