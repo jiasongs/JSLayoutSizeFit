@@ -31,19 +31,19 @@ typedef void(^JSConfigurationHeaderFooterView)(__kindof UITableViewHeaderFooterV
                           configuration:(nullable JSConfigurationTableViewCell)configuration;
 
 /// section
-- (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
-                                      configuration:(nullable JSConfigurationHeaderFooterView)configuration;
-- (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
-                                         cacheByKey:(nullable id<NSCopying>)key
-                                      configuration:(nullable JSConfigurationHeaderFooterView)configuration;
+- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
+                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration;
+- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
+                                    cacheByKey:(nullable id<NSCopying>)key
+                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration;
 
-- (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
-                                       contentWidth:(CGFloat)contentWidth
-                                      configuration:(nullable JSConfigurationHeaderFooterView)configuration;
-- (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
-                                       contentWidth:(CGFloat)contentWidth
-                                         cacheByKey:(nullable id<NSCopying>)key
-                                      configuration:(nullable JSConfigurationHeaderFooterView)configuration;
+- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
+                                  contentWidth:(CGFloat)contentWidth
+                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration;
+- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
+                                  contentWidth:(CGFloat)contentWidth
+                                    cacheByKey:(nullable id<NSCopying>)key
+                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration;
 
 @end
 

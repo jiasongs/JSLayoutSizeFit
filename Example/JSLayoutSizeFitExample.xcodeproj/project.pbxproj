@@ -8,10 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		13ABC1BFA8B701D96641A1B1 /* Pods_JSLayoutSizeFitExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC4BBC4D700C3094FE3A4F56 /* Pods_JSLayoutSizeFitExample.framework */; };
-		7A51878625160E3B00238305 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51878525160E3A00238305 /* main.m */; };
 		7A5187AC2516100000238305 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFE32500F3B70065F9E7 /* ViewController.m */; };
 		7A5187AD2516100000238305 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */; };
-		7A5187B02516100000238305 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A51878525160E3A00238305 /* main.m */; };
 		7A5187B12516100000238305 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFEE2500F3B80065F9E7 /* main.m */; };
 		7A5187B52516100000238305 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFEA2500F3B80065F9E7 /* LaunchScreen.storyboard */; };
 		7A5187B62516100000238305 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFE82500F3B80065F9E7 /* Assets.xcassets */; };
@@ -34,6 +32,8 @@
 		7A5188C6251633AE00238305 /* JSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5188C4251633AE00238305 /* JSCollectionViewController.m */; };
 		7AAAD55B251645BB009C4B7E /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 7AAAD55A251645BB009C4B7E /* data.json */; };
 		7AAAD55C251645BB009C4B7E /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 7AAAD55A251645BB009C4B7E /* data.json */; };
+		7AC2657C25AF1101005F2272 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC2657B25AF1101005F2272 /* File.swift */; };
+		7AC2657D25AF1101005F2272 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC2657B25AF1101005F2272 /* File.swift */; };
 		7AFACFDE2500F3B70065F9E7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */; };
 		7AFACFE42500F3B70065F9E7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFE32500F3B70065F9E7 /* ViewController.m */; };
 		7AFACFE72500F3B70065F9E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFACFE52500F3B70065F9E7 /* Main.storyboard */; };
@@ -48,7 +48,6 @@
 		2EC44CEAB95C704609B5FD73 /* Pods-JSLayoutSizeFitExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSLayoutSizeFitExample.release.xcconfig"; path = "Target Support Files/Pods-JSLayoutSizeFitExample/Pods-JSLayoutSizeFitExample.release.xcconfig"; sourceTree = "<group>"; };
 		31FC9F66BF05C0CCEF326842 /* Pods_JSLayoutSizeFitExampleMacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSLayoutSizeFitExampleMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		668076EAF43047220F6CA478 /* Pods-JSLayoutSizeFitExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSLayoutSizeFitExample.debug.xcconfig"; path = "Target Support Files/Pods-JSLayoutSizeFitExample/Pods-JSLayoutSizeFitExample.debug.xcconfig"; sourceTree = "<group>"; };
-		7A51878525160E3A00238305 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7A51879025160E6E00238305 /* JSLayoutSizeFitExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSLayoutSizeFitExample.entitlements; sourceTree = "<group>"; };
 		7A5187BD2516100000238305 /* JSLayoutSizeFitExampleMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSLayoutSizeFitExampleMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A5187C52516103400238305 /* MacOSInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MacOSInfo.plist; sourceTree = "<group>"; };
@@ -67,6 +66,8 @@
 		7A518897251630D900238305 /* JSTestCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTestCollectionReusableView.m; sourceTree = "<group>"; };
 		7A5188C4251633AE00238305 /* JSCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSCollectionViewController.m; sourceTree = "<group>"; };
 		7AAAD55A251645BB009C4B7E /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
+		7AC2657A25AF1100005F2272 /* JSLayoutSizeFitExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSLayoutSizeFitExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		7AC2657B25AF1101005F2272 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		7AFACFD92500F3B70065F9E7 /* JSLayoutSizeFitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSLayoutSizeFitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AFACFDC2500F3B70065F9E7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -210,14 +211,15 @@
 				7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */,
 				7AFACFE22500F3B70065F9E7 /* ViewController.h */,
 				7AFACFE32500F3B70065F9E7 /* ViewController.m */,
+				7AC2657B25AF1101005F2272 /* File.swift */,
 				7AAAD55A251645BB009C4B7E /* data.json */,
 				7AFACFE52500F3B70065F9E7 /* Main.storyboard */,
 				7AFACFE82500F3B80065F9E7 /* Assets.xcassets */,
 				7AFACFEA2500F3B80065F9E7 /* LaunchScreen.storyboard */,
 				7AFACFED2500F3B80065F9E7 /* Info.plist */,
 				7A5187C52516103400238305 /* MacOSInfo.plist */,
-				7A51878525160E3A00238305 /* main.m */,
 				7AFACFEE2500F3B80065F9E7 /* main.m */,
+				7AC2657A25AF1100005F2272 /* JSLayoutSizeFitExample-Bridging-Header.h */,
 			);
 			path = JSLayoutSizeFitExample;
 			sourceTree = "<group>";
@@ -272,6 +274,9 @@
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = jiasong;
 				TargetAttributes = {
+					7A5187A92516100000238305 = {
+						LastSwiftMigration = 1220;
+					};
 					7AFACFD82500F3B70065F9E7 = {
 						CreatedOnToolsVersion = 11.4.1;
 						LastSwiftMigration = 1200;
@@ -417,7 +422,7 @@
 				7A5187AD2516100000238305 /* AppDelegate.m in Sources */,
 				7A5188C6251633AE00238305 /* JSCollectionViewController.m in Sources */,
 				7A51886425162CFC00238305 /* ITTestHeaderFooterView.m in Sources */,
-				7A5187B02516100000238305 /* main.m in Sources */,
+				7AC2657D25AF1101005F2272 /* File.swift in Sources */,
 				7A51886C25162D5700238305 /* JSTableViewController.m in Sources */,
 				7A5187B12516100000238305 /* main.m in Sources */,
 				7A518899251630D900238305 /* JSTestCollectionReusableView.m in Sources */,
@@ -434,7 +439,7 @@
 				7AFACFDE2500F3B70065F9E7 /* AppDelegate.m in Sources */,
 				7A5188C5251633AE00238305 /* JSCollectionViewController.m in Sources */,
 				7A51886325162CFC00238305 /* ITTestHeaderFooterView.m in Sources */,
-				7A51878625160E3B00238305 /* main.m in Sources */,
+				7AC2657C25AF1101005F2272 /* File.swift in Sources */,
 				7A51886B25162D5700238305 /* JSTableViewController.m in Sources */,
 				7AFACFEF2500F3B80065F9E7 /* main.m in Sources */,
 				7A518898251630D900238305 /* JSTestCollectionReusableView.m in Sources */,
@@ -469,6 +474,7 @@
 			baseConfigurationReference = E91E6ACBB1FB10F4B8B46CC3 /* Pods-JSLayoutSizeFitExampleMacOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = JSLayoutSizeFitExample/JSLayoutSizeFitExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KJ6AEY5JEH;
@@ -481,6 +487,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jiasong.JSLayoutSizeFitExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "JSLayoutSizeFitExample/JSLayoutSizeFitExample-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -490,6 +499,7 @@
 			baseConfigurationReference = 0EB805FB35A0CAE2D31C45CB /* Pods-JSLayoutSizeFitExampleMacOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = JSLayoutSizeFitExample/JSLayoutSizeFitExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KJ6AEY5JEH;
@@ -502,6 +512,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jiasong.JSLayoutSizeFitExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "JSLayoutSizeFitExample/JSLayoutSizeFitExample-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

@@ -57,36 +57,36 @@
 
 #pragma mark - UITableViewHeaderFooterView
 
-- (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
-                                      configuration:(nullable JSConfigurationHeaderFooterView)configuration {
-    return [self js_fittingHeightForHeaderFooterViewClass:viewClass
-                                             contentWidth:JSLayoutSizeFitAutomaticDimension
-                                               cacheByKey:nil
-                                            configuration:configuration];
+- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
+                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration {
+    return [self js_fittingHeightForSectionViewClass:viewClass
+                                        contentWidth:JSLayoutSizeFitAutomaticDimension
+                                          cacheByKey:nil
+                                       configuration:configuration];
 }
 
-- (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
-                                         cacheByKey:(nullable id<NSCopying>)key
-                                      configuration:(nullable JSConfigurationHeaderFooterView)configuration {
-    return [self js_fittingHeightForHeaderFooterViewClass:viewClass
-                                             contentWidth:JSLayoutSizeFitAutomaticDimension
-                                               cacheByKey:key
-                                            configuration:configuration];
+- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
+                                    cacheByKey:(nullable id<NSCopying>)key
+                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration {
+    return [self js_fittingHeightForSectionViewClass:viewClass
+                                        contentWidth:JSLayoutSizeFitAutomaticDimension
+                                          cacheByKey:key
+                                       configuration:configuration];
 }
 
-- (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
-                                       contentWidth:(CGFloat)contentWidth
-                                      configuration:(nullable JSConfigurationHeaderFooterView)configuration {
-    return [self js_fittingHeightForHeaderFooterViewClass:viewClass
-                                             contentWidth:contentWidth
-                                               cacheByKey:nil
-                                            configuration:configuration];
+- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
+                                  contentWidth:(CGFloat)contentWidth
+                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration {
+    return [self js_fittingHeightForSectionViewClass:viewClass
+                                        contentWidth:contentWidth
+                                          cacheByKey:nil
+                                       configuration:configuration];
 }
 
-- (CGFloat)js_fittingHeightForHeaderFooterViewClass:(Class)viewClass
-                                       contentWidth:(CGFloat)contentWidth
-                                         cacheByKey:(nullable id<NSCopying>)key
-                                      configuration:(nullable JSConfigurationHeaderFooterView)configuration {
+- (CGFloat)js_fittingHeightForSectionViewClass:(Class)viewClass
+                                  contentWidth:(CGFloat)contentWidth
+                                    cacheByKey:(nullable id<NSCopying>)key
+                                 configuration:(nullable JSConfigurationHeaderFooterView)configuration {
     if (![viewClass isSubclassOfClass:UITableViewHeaderFooterView.class]) {
         NSAssert(NO, @"viewClass必须是UITableViewHeaderFooterView类或者其子类");
     }
