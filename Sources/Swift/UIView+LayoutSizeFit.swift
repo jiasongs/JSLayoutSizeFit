@@ -13,7 +13,7 @@ public extension LayoutSizeFitWrapper where Base: UIView {
         return self.base.js_isUseFrameLayout
     }
     
-    mutating func useFrameLayout(_ isUse: Bool) -> Void {
+    func useFrameLayout(_ isUse: Bool) -> Void {
         self.base.js_isUseFrameLayout = isUse
     }
     
