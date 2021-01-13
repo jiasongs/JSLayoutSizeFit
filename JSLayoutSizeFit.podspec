@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "JSLayoutSizeFit"
-  s.version      = "0.2.2"
+  s.version      = "0.2.3"
   s.summary      = "JSLayoutSizeFit"
   s.homepage     = "https://github.com/jiasongs/JSLayoutSizeFit"
   s.author       = { "jiasong" => "593908937@qq.com" }
@@ -17,8 +17,8 @@ Pod::Spec.new do |s|
 
   s.default_subspec = "Core"
   s.subspec "Core" do |ss|
-    ss.source_files = "Sources/Core", "Sources/Core/Private"
-    ss.private_header_files = "Sources/Core/Private"
+    ss.source_files = "Sources/Core", "Sources/Core/Private/*.{h,m}"
+    ss.private_header_files = "Sources/Core/Private/*.{h,m}"
   end
 
   s.subspec "ExtensionForSwift" do |ss|
