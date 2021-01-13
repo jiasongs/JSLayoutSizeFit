@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "JSLayoutSizeFit"
-  s.version      = "0.2.1"
+  s.version      = "0.2.2"
   s.summary      = "JSLayoutSizeFit"
   s.homepage     = "https://github.com/jiasongs/JSLayoutSizeFit"
   s.author       = { "jiasong" => "593908937@qq.com" }
@@ -9,15 +9,16 @@ Pod::Spec.new do |s|
   s.swift_versions = ["4.2", "5.0"]
   s.source       = { :git => "https://github.com/jiasongs/JSLayoutSizeFit.git", :tag => "#{s.version}" }
   s.frameworks   = "Foundation", "UIKit"
-  s.source_files = "Sources", "Sources/*.{h,m}"
   s.license      = "MIT"
   s.requires_arc = true
+  s.source_files = "Sources/*.{h,m}"
 
   s.dependency "JSCoreKit", "~> 0.1.9"
 
   s.default_subspec = "Core"
   s.subspec "Core" do |ss|
-    ss.source_files = "Sources/Core/*.{h,m}"
+    ss.source_files = "Sources/Core", "Sources/Core/Private"
+    ss.private_header_files = "Sources/Core/Private"
   end
 
   s.subspec "ExtensionForSwift" do |ss|

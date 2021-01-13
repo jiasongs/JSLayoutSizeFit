@@ -1,0 +1,21 @@
+//
+//  UIScrollView+JSLayoutSizeFit_Private.h
+//  Pods
+//
+//  Created by jiasong on 2021/1/13.
+//
+
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface UIScrollView (JSLayoutSizeFit_Private)
+
+@property (nonatomic, strong, readonly) NSMutableDictionary<NSString *, __kindof UIView *> *js_templateViews;
+@property (nonatomic, assign, readonly) CGFloat js_templateContainerWidth;
+
+- (__kindof UIView *)js_templateViewForViewClass:(Class)viewClass;
+
+@end
+
+NS_ASSUME_NONNULL_END

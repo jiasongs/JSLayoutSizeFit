@@ -6,8 +6,10 @@
 //
 
 #import "UIScrollView+JSLayoutSizeFit.h"
+#import "UIScrollView+JSLayoutSizeFit_Private.h"
 #import "JSCoreKit.h"
 #import "JSLayoutSizeFitCache.h"
+#import "UIView+JSLayoutSizeFit_Private.h"
 #import "UIView+JSLayoutSizeFit.h"
 
 @interface UIScrollView (__JSLayoutSizeFit)

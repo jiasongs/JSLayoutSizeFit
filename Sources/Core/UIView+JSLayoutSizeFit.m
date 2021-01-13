@@ -6,21 +6,20 @@
 //
 
 #import "UIView+JSLayoutSizeFit.h"
+#import "UIView+JSLayoutSizeFit_Private.h"
 #import "JSCoreKit.h"
 
 CGFloat const JSLayoutSizeFitAutomaticDimension = -1000;
 
-@interface UIView (__JSLayoutSizeFit)
-
-@property (nullable, nonatomic, weak, readwrite) NSLayoutConstraint *js_fenceConstraint;
-
-@end
-
 @implementation UIView (JSLayoutSizeFit)
 
 JSSynthesizeBOOLProperty(js_isUseFrameLayout, setJs_useFrameLayout)
-JSSynthesizeBOOLProperty(js_isFromTemplateView, setJs_fromTemplateView)
+JSSynthesizeBOOLProperty(js_fromTemplateView, setJs_fromTemplateView)
 JSSynthesizeIdWeakProperty(js_fenceConstraint, setJs_fenceConstraint)
+
+- (BOOL)js_isFromTemplateView {
+    return self.js_fromTemplateView;
+}
 
 - (nullable __kindof UIView *)js_templateContentView {
     UIView *contentView = nil;

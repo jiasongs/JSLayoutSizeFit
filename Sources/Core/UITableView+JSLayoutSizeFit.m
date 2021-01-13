@@ -9,7 +9,9 @@
 #import "UITableView+JSLayoutSizeFit.h"
 #import "JSCoreKit.h"
 #import "JSLayoutSizeFitCache.h"
+#import "UIScrollView+JSLayoutSizeFit_Private.h"
 #import "UIScrollView+JSLayoutSizeFit.h"
+#import "UIView+JSLayoutSizeFit_Private.h"
 #import "UIView+JSLayoutSizeFit.h"
 
 @implementation UITableView (JSLayoutSizeFit)

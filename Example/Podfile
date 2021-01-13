@@ -5,7 +5,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target 'JSLayoutSizeFitExample' do
   pod 'JSLayoutSizeFit', :path => '..'
-  pod 'JSLayoutSizeFit/ExtensionForSwift', :path => '..'
+#  pod 'JSLayoutSizeFit/ExtensionForSwift', :path => '..'
   pod 'QMUIKit'
   pod 'Masonry'
   pod 'LookinServer', :configurations => ['Debug']
@@ -14,7 +14,7 @@ end
 
 target 'JSLayoutSizeFitExampleMacOS' do
   pod 'JSLayoutSizeFit', :path => '..'
-  pod 'JSLayoutSizeFit/ExtensionForSwift', :path => '..'
+#  pod 'JSLayoutSizeFit/ExtensionForSwift', :path => '..'
   pod 'QMUIKit'
   pod 'Masonry'
 end
