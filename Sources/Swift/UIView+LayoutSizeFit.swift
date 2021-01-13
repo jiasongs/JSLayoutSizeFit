@@ -10,21 +10,16 @@ import UIKit
 public extension LayoutSizeFitWrapper where Base: UIView {
     
     var isUseFrameLayout: Bool {
-        get {
-            return self.base.js_isUseFrameLayout
-        }
-        set {
-            self.base.js_isUseFrameLayout = newValue
-        }
+        return self.base.js_isUseFrameLayout
+    }
+    
+    func useFrameLayout(_ isUse: Bool) -> Void {
+        self.base.js_isUseFrameLayout = isUse
     }
     
     var isFromTemplateView: Bool {
-        get {
-            return self.base.js_isFromTemplateView
-        }
-        set {
-            self.base.js_isFromTemplateView = newValue
-        }
+        return self.base.js_isFromTemplateView
     }
     
 }
+
