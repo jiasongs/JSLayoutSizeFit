@@ -12,13 +12,6 @@
 #import "UIView+JSLayoutSizeFit_Private.h"
 #import "UIView+JSLayoutSizeFit.h"
 
-@interface UIScrollView (__JSLayoutSizeFit)
-
-@property (nonatomic, strong) NSMutableDictionary<NSNumber *, JSLayoutSizeFitCache *> *js_allRowSizeFitCaches;
-@property (nonatomic, strong) NSMutableDictionary<NSNumber *, JSLayoutSizeFitCache *> *js_allSectionSizeFitCaches;
-
-@end
-
 @implementation UIScrollView (JSLayoutSizeFit)
 
 #pragma mark - 生成模板View
