@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		13ABC1BFA8B701D96641A1B1 /* Pods_JSLayoutSizeFitExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC4BBC4D700C3094FE3A4F56 /* Pods_JSLayoutSizeFitExample.framework */; };
+		7A1456D525AFC7080093BB5D /* SwiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1456D425AFC7080093BB5D /* SwiftViewController.swift */; };
+		7A1456D625AFC7080093BB5D /* SwiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1456D425AFC7080093BB5D /* SwiftViewController.swift */; };
 		7A5187AC2516100000238305 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFE32500F3B70065F9E7 /* ViewController.m */; };
 		7A5187AD2516100000238305 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */; };
 		7A5187B12516100000238305 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFACFEE2500F3B80065F9E7 /* main.m */; };
@@ -46,6 +48,7 @@
 		2EC44CEAB95C704609B5FD73 /* Pods-JSLayoutSizeFitExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSLayoutSizeFitExample.release.xcconfig"; path = "Target Support Files/Pods-JSLayoutSizeFitExample/Pods-JSLayoutSizeFitExample.release.xcconfig"; sourceTree = "<group>"; };
 		31FC9F66BF05C0CCEF326842 /* Pods_JSLayoutSizeFitExampleMacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSLayoutSizeFitExampleMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		668076EAF43047220F6CA478 /* Pods-JSLayoutSizeFitExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSLayoutSizeFitExample.debug.xcconfig"; path = "Target Support Files/Pods-JSLayoutSizeFitExample/Pods-JSLayoutSizeFitExample.debug.xcconfig"; sourceTree = "<group>"; };
+		7A1456D425AFC7080093BB5D /* SwiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftViewController.swift; sourceTree = "<group>"; };
 		7A51879025160E6E00238305 /* JSLayoutSizeFitExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSLayoutSizeFitExample.entitlements; sourceTree = "<group>"; };
 		7A5187BD2516100000238305 /* JSLayoutSizeFitExampleMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSLayoutSizeFitExampleMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A5187C52516103400238305 /* MacOSInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = MacOSInfo.plist; sourceTree = "<group>"; };
@@ -208,6 +211,7 @@
 				7AFACFDD2500F3B70065F9E7 /* AppDelegate.m */,
 				7AFACFE22500F3B70065F9E7 /* ViewController.h */,
 				7AFACFE32500F3B70065F9E7 /* ViewController.m */,
+				7A1456D425AFC7080093BB5D /* SwiftViewController.swift */,
 				7AC2657A25AF1100005F2272 /* JSLayoutSizeFitExample-Bridging-Header.h */,
 				7AAAD55A251645BB009C4B7E /* data.json */,
 				7AFACFE52500F3B70065F9E7 /* Main.storyboard */,
@@ -421,6 +425,7 @@
 				7A51886C25162D5700238305 /* JSTableViewController.m in Sources */,
 				7A5187B12516100000238305 /* main.m in Sources */,
 				7A518899251630D900238305 /* JSTestCollectionReusableView.m in Sources */,
+				7A1456D625AFC7080093BB5D /* SwiftViewController.swift in Sources */,
 				7A51888F2516303800238305 /* JSTestCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -437,6 +442,7 @@
 				7A51886B25162D5700238305 /* JSTableViewController.m in Sources */,
 				7AFACFEF2500F3B80065F9E7 /* main.m in Sources */,
 				7A518898251630D900238305 /* JSTestCollectionReusableView.m in Sources */,
+				7A1456D525AFC7080093BB5D /* SwiftViewController.swift in Sources */,
 				7A51888E2516303800238305 /* JSTestCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
