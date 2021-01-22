@@ -13,10 +13,7 @@ public extension LayoutSizeFitWrapper where Base: UITableView {
                              contentWidth width: CGFloat = JSLayoutSizeFitAutomaticDimension,
                              cacheBy key: String? = nil,
                              configuration: ((Cell) -> Void)? = nil) -> CGFloat where Cell : UITableViewCell {
-        var ocKey: NSString? = nil
-        if key != nil {
-            ocKey = NSString(string: key!)
-        }
+        let ocKey: NSString? = key as NSString?
         return self.base.js_fittingHeight(forCellClass: cellClass, contentWidth: width, cacheByKey: ocKey) { (cell) in
             if let block = configuration, let cell = cell as? Cell {
                 block(cell)
@@ -28,10 +25,7 @@ public extension LayoutSizeFitWrapper where Base: UITableView {
                                 contentWidth width: CGFloat = JSLayoutSizeFitAutomaticDimension,
                                 cacheBy key: String? = nil,
                                 configuration: ((Section) -> Void)? = nil) -> CGFloat where Section : UITableViewHeaderFooterView {
-        var ocKey: NSString? = nil
-        if key != nil {
-            ocKey = NSString(string: key!)
-        }
+        let ocKey: NSString? = key as NSString?
         return self.base.js_fittingHeight(forSectionClass: sectionClass, contentWidth: width, cacheByKey: ocKey) { (section) in
             if let block = configuration, let section = section as? Section {
                 block(section)
