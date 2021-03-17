@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "JSLayoutSizeFit"
-  s.version      = "0.2.7"
+  s.version      = "0.2.8"
   s.summary      = "JSLayoutSizeFit"
   s.homepage     = "https://github.com/jiasongs/JSLayoutSizeFit"
   s.author       = { "jiasong" => "593908937@qq.com" }
@@ -11,7 +11,6 @@ Pod::Spec.new do |s|
   s.frameworks   = "Foundation", "UIKit"
   s.license      = "MIT"
   s.requires_arc = true
-  s.source_files = "Sources/*.{h,m}"
 
   s.dependency "JSCoreKit"
 

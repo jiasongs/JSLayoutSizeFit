@@ -104,39 +104,50 @@
                              contentWidth:(CGFloat)contentWidth
                                cacheByKey:(nullable id<NSCopying>)key
                             configuration:(nullable void(^)(__kindof UIView *))configuration {
+    /// FitCache
     JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UITableViewCell.class] ? self.js_rowSizeFitCache : self.js_sectionSizeFitCache;
     if (key && [fitCache containsKey:key]) {
         return [fitCache CGFloatForKey:key];
     }
+    /// 获取模板View
     __kindof UIView *templateView = [self js_templateViewForViewClass:viewClass];
-    if ([templateView respondsToSelector:@selector(prepareForReuse)]) {
-        [templateView prepareForReuse];
-    }
-    if (configuration) {
-        configuration(templateView);
-    }
-    CGFloat newContentWidth = contentWidth != JSLayoutSizeFitAutomaticDimension ? contentWidth : self.js_templateContainerWidth;
-    CGFloat height = [self __js_systemFittingHeightForTemplateView:templateView contentWidth:newContentWidth];
+    /// 准备
+    [self __js_prepareForTemplateView:templateView contentWidth:contentWidth configuration:configuration];
+    /// 计算高度
+    CGFloat height = [self __js_systemFittingHeightForTemplateView:templateView];
+    /// 若Key存在时则写入内存
     if (key) {
         [fitCache setCGFloat:height forKey:key];
     }
     return height;
 }
 
-#pragma mark - 计算高度
-
-- (CGFloat)__js_systemFittingHeightForTemplateView:(__kindof UIView *)templateView contentWidth:(CGFloat)contentWidth {
-    NSAssert(contentWidth != 0, @"contentWidth必须大于0, 否则计算高度就无意义了!");
+- (void)__js_prepareForTemplateView:(__kindof UIView *)templateView
+                       contentWidth:(CGFloat)contentWidth
+                      configuration:(nullable void(^)(__kindof UIView *))configuration {
+    CGFloat finalContentWidth = contentWidth != JSLayoutSizeFitAutomaticDimension ? contentWidth : self.js_templateContainerWidth;
+    NSAssert(finalContentWidth != 0, @"contentWidth必须大于0, 否则计算高度就无意义了!");
     UIView *contentView = templateView.js_templateContentView;
     if (!contentView) {
         NSAssert(NO, @"理论上contentView不可能为nil, 需要观察下哪里出问题了");
     }
-    if (templateView.js_width != contentWidth) {
-        templateView.js_width = contentWidth;
+    if (templateView.js_width != finalContentWidth) {
+        templateView.js_width = finalContentWidth;
     }
-    if (contentView.js_width != contentWidth) {
-        contentView.js_width = contentWidth;
+    if (contentView.js_width != finalContentWidth) {
+        contentView.js_width = finalContentWidth;
     }
+    if ([templateView respondsToSelector:@selector(prepareForReuse)]) {
+        [templateView prepareForReuse];
+    }
+    if (configuration) {
+        configuration(templateView);
+    }
+}
+
+- (CGFloat)__js_systemFittingHeightForTemplateView:(__kindof UIView *)templateView {
+    UIView *contentView = templateView.js_templateContentView;
+    CGFloat contentWidth = contentView.js_width;
     CGFloat fittingHeight = 0;
     if (templateView.js_isUseFrameLayout) {
         fittingHeight = [templateView sizeThatFits:CGSizeMake(contentWidth, JSLayoutSizeFitAutomaticDimension)].height;
@@ -149,7 +160,6 @@
         }
         fittingHeight = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     }
-    /// 分割线
     if ([templateView isKindOfClass:UITableViewCell.class] && self.separatorStyle != UITableViewCellSeparatorStyleNone) {
         fittingHeight += JSCoreHelper.pixelOne;
     }
