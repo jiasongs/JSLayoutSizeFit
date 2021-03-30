@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL js_fromTemplateView;
 @property (nullable, nonatomic, readonly) __kindof UIView *js_templateContentView;
-@property (nullable, nonatomic, weak) NSLayoutConstraint *js_fenceConstraint;
+@property (nullable, nonatomic, weak) NSLayoutConstraint *js_widthConstraint;
 
 - (void)js_addFenceConstraintIfNeeded;
 

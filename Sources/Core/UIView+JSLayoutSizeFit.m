@@ -15,7 +15,7 @@ CGFloat const JSLayoutSizeFitAutomaticDimension = -1000;
 
 JSSynthesizeBOOLProperty(js_isUseFrameLayout, setJs_useFrameLayout)
 JSSynthesizeBOOLProperty(js_fromTemplateView, setJs_fromTemplateView)
-JSSynthesizeIdWeakProperty(js_fenceConstraint, setJs_fenceConstraint)
+JSSynthesizeIdWeakProperty(js_widthConstraint, setJs_widthConstraint)
 
 - (BOOL)js_isFromTemplateView {
     return self.js_fromTemplateView;
@@ -34,20 +34,44 @@ JSSynthesizeIdWeakProperty(js_fenceConstraint, setJs_fenceConstraint)
 }
 
 - (void)js_addFenceConstraintIfNeeded {
-    if (!self.js_fenceConstraint) {
-        NSLayoutConstraint *widthFenceConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0];
+    if (!self.js_widthConstraint) {
+        NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0];
         if (@available(iOS 10.2, *)) {
             if (self.superview) {
-                widthFenceConstraint.priority = UILayoutPriorityRequired - 1;
-                NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.superview attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
-                NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.superview attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0];
-                NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.superview attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
-                NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.superview attribute:NSLayoutAttributeRight multiplier:1.0 constant:0];
+                widthConstraint.priority = UILayoutPriorityRequired - 1;
+                NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                                 attribute:NSLayoutAttributeTop
+                                                                                 relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                                    toItem:self.superview
+                                                                                 attribute:NSLayoutAttributeTop
+                                                                                multiplier:1.0
+                                                                                  constant:0];
+                NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                                  attribute:NSLayoutAttributeLeft
+                                                                                  relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                                     toItem:self.superview
+                                                                                  attribute:NSLayoutAttributeLeft
+                                                                                 multiplier:1.0
+                                                                                   constant:0];
+                NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                                    attribute:NSLayoutAttributeBottom
+                                                                                    relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                                       toItem:self.superview
+                                                                                    attribute:NSLayoutAttributeBottom
+                                                                                   multiplier:1.0
+                                                                                     constant:0];
+                NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                                   attribute:NSLayoutAttributeRight
+                                                                                   relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                                      toItem:self.superview
+                                                                                   attribute:NSLayoutAttributeRight
+                                                                                  multiplier:1.0
+                                                                                    constant:0];
                 [self.superview addConstraints:@[topConstraint, leftConstraint, rightConstraint, bottomConstraint]];
             }
         }
-        [self addConstraint:widthFenceConstraint];
-        self.js_fenceConstraint = widthFenceConstraint;
+        [self addConstraint:widthConstraint];
+        self.js_widthConstraint = widthConstraint;
     }
 }
 

@@ -153,8 +153,8 @@
         fittingHeight = [templateView sizeThatFits:CGSizeMake(contentWidth, JSLayoutSizeFitAutomaticDimension)].height;
     } else {
         [contentView js_addFenceConstraintIfNeeded];
-        if (contentView.js_fenceConstraint.constant != contentWidth) {
-            contentView.js_fenceConstraint.constant = contentWidth;
+        if (contentView.js_widthConstraint.constant != contentWidth) {
+            contentView.js_widthConstraint.constant = contentWidth;
             [contentView setNeedsUpdateConstraints];
             [contentView.superview setNeedsUpdateConstraints];
         }
