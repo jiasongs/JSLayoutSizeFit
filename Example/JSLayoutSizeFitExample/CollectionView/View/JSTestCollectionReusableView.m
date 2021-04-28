@@ -16,10 +16,9 @@
     if (self = [super initWithFrame:frame]) {
         [self addSubview:self.nameLabel];
         [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.equalTo(self).offset(10);
-            make.right.equalTo(self.mas_right).offset(-10);
+            make.top.left.equalTo(self).offset(10).priorityHigh();
+            make.right.equalTo(self.mas_right).offset(-10).priorityHigh();
             make.bottom.equalTo(self.mas_bottom).offset(-10);
-            make.width.lessThanOrEqualTo(@(SCREEN_WIDTH));
         }];
     }
     return self;

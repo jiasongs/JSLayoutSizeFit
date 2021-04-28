@@ -19,4 +19,26 @@ public extension LayoutSizeFitWrapper where Base: UICollectionView {
         }
     }
     
+    func fittingHeight<ReusableView>(forReusableViewClass viewClass: AnyClass,
+                                     contentWidth: CGFloat,
+                                     cacheBy key: String? = nil,
+                                     configuration: ((ReusableView) -> Void)? = nil) -> CGSize where ReusableView : UICollectionReusableView {
+        return self.base.js_fittingSize(forReusableViewClass: viewClass, contentWidth: contentWidth, cacheByKey: key as NSString?) { (reusableView) in
+            if let block = configuration, let reusableView = reusableView as? ReusableView {
+                block(reusableView)
+            }
+        }
+    }
+    
+    func fittingHeight<ReusableView>(forReusableViewClass viewClass: AnyClass,
+                                     contentHeight: CGFloat,
+                                     cacheBy key: String? = nil,
+                                     configuration: ((ReusableView) -> Void)? = nil) -> CGSize where ReusableView : UICollectionReusableView {
+        return self.base.js_fittingSize(forReusableViewClass: viewClass, contentHeight: contentHeight, cacheByKey: key as NSString?) { (reusableView) in
+            if let block = configuration, let reusableView = reusableView as? ReusableView {
+                block(reusableView)
+            }
+        }
+    }
+    
 }

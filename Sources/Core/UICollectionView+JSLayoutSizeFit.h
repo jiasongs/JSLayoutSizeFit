@@ -20,6 +20,24 @@ typedef void(^JSConfigurationReusableView)(__kindof UICollectionReusableView *re
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration;
 
+- (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
+                                contentWidth:(CGFloat)contentWidth
+                               configuration:(nullable JSConfigurationReusableView)configuration;
+
+- (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
+                                contentWidth:(CGFloat)contentWidth
+                                  cacheByKey:(nullable id<NSCopying>)key
+                               configuration:(nullable JSConfigurationReusableView)configuration;
+
+- (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
+                               contentHeight:(CGFloat)contentHeight
+                               configuration:(nullable JSConfigurationReusableView)configuration;
+
+- (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
+                               contentHeight:(CGFloat)contentHeight
+                                  cacheByKey:(nullable id<NSCopying>)key
+                               configuration:(nullable JSConfigurationReusableView)configuration;
+
 @end
 
 NS_ASSUME_NONNULL_END

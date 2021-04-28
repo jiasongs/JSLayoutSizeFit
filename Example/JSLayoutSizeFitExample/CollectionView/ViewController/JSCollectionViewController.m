@@ -43,7 +43,7 @@
 #pragma mark - UICollectionViewDelegate
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionReusableView.class cacheByKey:@(section) configuration:^(__kindof JSTestCollectionReusableView *reusableView) {
+    return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionReusableView.class contentWidth:collectionView.qmui_width - 20 cacheByKey:@(section) configuration:^(__kindof UICollectionReusableView * _Nonnull reusableView) {
         NSDictionary *dic = [self.dataSource objectAtIndex:section];
         [reusableView updateViewWithData:dic atIndexPath:[NSIndexPath indexPathForItem:0 inSection:section]];
     }];
