@@ -9,6 +9,7 @@ target 'JSLayoutSizeFitExample' do
   pod 'Masonry'
   pod 'LookinServer', :configurations => ['Debug']
   pod 'MLeaksFinder', :configurations => ['Debug']
+  pod "FBRetainCycleDetector", :git => "https://github.com/jiasongs/FBRetainCycleDetector.git", :configurations => ["Debug"]
 end
 
 target 'JSLayoutSizeFitExampleMacOS' do
@@ -16,5 +17,3 @@ target 'JSLayoutSizeFitExampleMacOS' do
   pod 'QMUIKit'
   pod 'Masonry'
 end
-
-

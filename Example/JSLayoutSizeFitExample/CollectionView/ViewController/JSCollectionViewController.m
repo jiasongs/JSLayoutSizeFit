@@ -9,7 +9,7 @@
 #import "JSCollectionViewController.h"
 #import <QMUIKit.h>
 #import <Masonry.h>
-#import <JSLayoutSizeFit.h>
+#import <JSLayoutSizeFit/JSLayoutSizeFit.h>
 #import "JSTestCollectionViewCell.h"
 #import "JSTestCollectionReusableView.h"
 
