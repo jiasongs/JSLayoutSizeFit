@@ -134,10 +134,10 @@
 - (CGSize)__js_systemFittingSizeForTemplateView:(__kindof UIView *)templateView {
     UIView *contentView = templateView.js_templateContentView ? : templateView;
     CGSize finalContentSize = templateView.bounds.size;
-    if (contentView.js_width == 0) {
+    if (contentView.js_width <= 0) {
         finalContentSize.width = JSLayoutSizeFitAutomaticDimension;
     }
-    if (contentView.js_height == 0) {
+    if (contentView.js_height <= 0) {
         finalContentSize.height = JSLayoutSizeFitAutomaticDimension;
     }
     CGSize fittingSize = CGSizeZero;
@@ -149,7 +149,7 @@
                 [contentView removeConstraint:contentView.js_heightConstraint];
             }
             if (contentView.js_widthConstraint) {
-                [contentView removeConstraint:contentView.js_heightConstraint];
+                [contentView removeConstraint:contentView.js_widthConstraint];
             }
             fittingSize = [templateView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
         } else {
