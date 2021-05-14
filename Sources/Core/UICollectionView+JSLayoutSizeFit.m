@@ -133,7 +133,7 @@
 
 - (CGSize)__js_systemFittingSizeForTemplateView:(__kindof UIView *)templateView {
     UIView *contentView = templateView.js_templateContentView ? : templateView;
-    CGSize finalContentSize = templateView.bounds.size;
+    CGSize finalContentSize = contentView.bounds.size;
     if (contentView.js_width <= 0) {
         finalContentSize.width = JSLayoutSizeFitAutomaticDimension;
     }
