@@ -35,13 +35,22 @@ JSSynthesizeIdWeakProperty(js_heightConstraint, setJs_heightConstraint)
 }
 
 - (void)js_addFenceConstraintIfNeeded {
+    if (self.js_heightConstraint) {
+        [self removeConstraint:self.js_heightConstraint];
+    }
     if (!self.js_widthConstraint) {
-        [self js_addWidthConstraintIfNeeded];
+        NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                           attribute:NSLayoutAttributeWidth
+                                                                           relatedBy:NSLayoutRelationEqual
+                                                                              toItem:nil
+                                                                           attribute:NSLayoutAttributeNotAnAttribute
+                                                                          multiplier:1
+                                                                            constant:0];
         if (@available(iOS 10.2, *)) {
             if (!self.superview) {
                 return;
             }
-            self.js_widthConstraint.priority = UILayoutPriorityRequired - 1;
+            widthConstraint.priority = UILayoutPriorityRequired - 1;
             NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                              attribute:NSLayoutAttributeTop
                                                                              relatedBy:NSLayoutRelationGreaterThanOrEqual
@@ -72,6 +81,8 @@ JSSynthesizeIdWeakProperty(js_heightConstraint, setJs_heightConstraint)
                                                                                 constant:0];
             [self.superview addConstraints:@[topConstraint, leftConstraint, rightConstraint, bottomConstraint]];
         }
+        [self addConstraint:widthConstraint];
+        self.js_widthConstraint = widthConstraint;
     }
 }
 
