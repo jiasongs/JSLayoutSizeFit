@@ -133,35 +133,32 @@
 
 - (CGSize)__js_systemFittingSizeForTemplateView:(__kindof UIView *)templateView {
     UIView *contentView = templateView.js_templateContentView ? : templateView;
-    CGSize finalContentSize = contentView.bounds.size;
+    CGSize contentViewSize = contentView.bounds.size;
     if (contentView.js_width <= 0) {
-        finalContentSize.width = JSLayoutSizeFitAutomaticDimension;
+        contentViewSize.width = JSLayoutSizeFitAutomaticDimension;
     }
     if (contentView.js_height <= 0) {
-        finalContentSize.height = JSLayoutSizeFitAutomaticDimension;
+        contentViewSize.height = JSLayoutSizeFitAutomaticDimension;
     }
     CGSize fittingSize = CGSizeZero;
     if (templateView.js_isUseFrameLayout) {
-        fittingSize = [templateView sizeThatFits:finalContentSize];
+        fittingSize = [templateView sizeThatFits:contentViewSize];
     } else {
-        if (finalContentSize.width == JSLayoutSizeFitAutomaticDimension && finalContentSize.height == JSLayoutSizeFitAutomaticDimension) {
-            if (contentView.js_heightConstraint) {
-                [contentView removeConstraint:contentView.js_heightConstraint];
-            }
-            if (contentView.js_widthConstraint) {
-                [contentView removeConstraint:contentView.js_widthConstraint];
-            }
+        if (contentViewSize.width == JSLayoutSizeFitAutomaticDimension &&
+            contentViewSize.height == JSLayoutSizeFitAutomaticDimension) {
+            [contentView js_removeWidthConstraintIfNeeded];
+            [contentView js_removeHeightConstraintIfNeeded];
             fittingSize = [templateView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
         } else {
-            if (finalContentSize.width == JSLayoutSizeFitAutomaticDimension) {
+            if (contentViewSize.width == JSLayoutSizeFitAutomaticDimension) {
                 [contentView js_addHeightConstraintIfNeeded];
-                if (contentView.js_heightConstraint.constant != finalContentSize.height) {
-                    contentView.js_heightConstraint.constant = finalContentSize.height;
+                if (contentView.js_heightConstraint.constant != contentViewSize.height) {
+                    contentView.js_heightConstraint.constant = contentViewSize.height;
                 }
             } else {
                 [contentView js_addWidthConstraintIfNeeded];
-                if (contentView.js_widthConstraint.constant != finalContentSize.width) {
-                    contentView.js_widthConstraint.constant = finalContentSize.width;
+                if (contentView.js_widthConstraint.constant != contentViewSize.width) {
+                    contentView.js_widthConstraint.constant = contentViewSize.width;
                 }
             }
             fittingSize = [templateView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];

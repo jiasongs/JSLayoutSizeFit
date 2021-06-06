@@ -17,8 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, weak) NSLayoutConstraint *js_heightConstraint;
 
 - (void)js_addFenceConstraintIfNeeded;
+
 - (void)js_addWidthConstraintIfNeeded;
+- (void)js_removeWidthConstraintIfNeeded;
+
 - (void)js_addHeightConstraintIfNeeded;
+- (void)js_removeHeightConstraintIfNeeded;
 
 @end
 

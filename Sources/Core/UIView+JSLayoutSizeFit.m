@@ -35,9 +35,7 @@ JSSynthesizeIdWeakProperty(js_heightConstraint, setJs_heightConstraint)
 }
 
 - (void)js_addFenceConstraintIfNeeded {
-    if (self.js_heightConstraint) {
-        [self removeConstraint:self.js_heightConstraint];
-    }
+    [self js_removeHeightConstraintIfNeeded];
     if (!self.js_widthConstraint) {
         NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                            attribute:NSLayoutAttributeWidth
@@ -87,9 +85,7 @@ JSSynthesizeIdWeakProperty(js_heightConstraint, setJs_heightConstraint)
 }
 
 - (void)js_addWidthConstraintIfNeeded {
-    if (self.js_heightConstraint) {
-        [self removeConstraint:self.js_heightConstraint];
-    }
+    [self js_removeHeightConstraintIfNeeded];
     if (!self.js_widthConstraint) {
         NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                            attribute:NSLayoutAttributeWidth
@@ -103,10 +99,15 @@ JSSynthesizeIdWeakProperty(js_heightConstraint, setJs_heightConstraint)
     }
 }
 
-- (void)js_addHeightConstraintIfNeeded {
+- (void)js_removeWidthConstraintIfNeeded {
     if (self.js_widthConstraint) {
         [self removeConstraint:self.js_widthConstraint];
+        self.js_widthConstraint = nil;
     }
+}
+
+- (void)js_addHeightConstraintIfNeeded {
+    [self js_removeWidthConstraintIfNeeded];
     if (!self.js_heightConstraint) {
         NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                             attribute:NSLayoutAttributeHeight
@@ -117,6 +118,13 @@ JSSynthesizeIdWeakProperty(js_heightConstraint, setJs_heightConstraint)
                                                                              constant:0];
         [self addConstraint:heightConstraint];
         self.js_heightConstraint = heightConstraint;
+    }
+}
+
+- (void)js_removeHeightConstraintIfNeeded {
+    if (self.js_heightConstraint) {
+        [self removeConstraint:self.js_heightConstraint];
+        self.js_heightConstraint = nil;
     }
 }
 

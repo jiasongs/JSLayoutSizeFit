@@ -43,14 +43,19 @@
 #pragma mark - UICollectionViewDelegate
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionReusableView.class contentWidth:collectionView.qmui_width - 20 cacheByKey:@(section) configuration:^(__kindof UICollectionReusableView * _Nonnull reusableView) {
+    return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionReusableView.class
+                                                 contentWidth:collectionView.qmui_width - 20
+                                                   cacheByKey:@(section)
+                                                configuration:^(__kindof UICollectionReusableView * _Nonnull reusableView) {
         NSDictionary *dic = [self.dataSource objectAtIndex:section];
         [reusableView updateViewWithData:dic atIndexPath:[NSIndexPath indexPathForItem:0 inSection:section]];
     }];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionViewCell.class cacheByKey:indexPath.js_sizeFitCacheKey configuration:^(__kindof JSTestCollectionViewCell * _Nonnull reusableView) {
+    return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionViewCell.class
+                                                   cacheByKey:indexPath.js_sizeFitCacheKey
+                                                configuration:^(__kindof JSTestCollectionViewCell * _Nonnull reusableView) {
         NSDictionary *dic = [self.dataSource objectAtIndex:indexPath.section];
         NSArray *array = [dic objectForKey:@"likeList"];
         [reusableView updateCellWithData:[array objectAtIndex:indexPath.row] atIndexPath:indexPath];

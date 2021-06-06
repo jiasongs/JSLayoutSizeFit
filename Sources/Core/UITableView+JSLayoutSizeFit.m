@@ -155,8 +155,6 @@
         [contentView js_addFenceConstraintIfNeeded];
         if (contentView.js_widthConstraint.constant != contentWidth) {
             contentView.js_widthConstraint.constant = contentWidth;
-            [contentView setNeedsUpdateConstraints];
-            [contentView.superview setNeedsUpdateConstraints];
         }
         fittingHeight = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     }

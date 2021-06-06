@@ -14,9 +14,7 @@ public extension LayoutSizeFitWrapper where Base: UITableView {
                              cacheBy key: String? = nil,
                              configuration: ((Cell) -> Void)? = nil) -> CGFloat where Cell : UITableViewCell {
         return self.base.js_fittingHeight(forCellClass: cellClass, contentWidth: width, cacheByKey: key as NSString?) { (cell) in
-            if let block = configuration, let cell = cell as? Cell {
-                block(cell)
-            }
+            configuration?(cell as! Cell)
         }
     }
     
@@ -25,9 +23,7 @@ public extension LayoutSizeFitWrapper where Base: UITableView {
                                 cacheBy key: String? = nil,
                                 configuration: ((Section) -> Void)? = nil) -> CGFloat where Section : UITableViewHeaderFooterView {
         return self.base.js_fittingHeight(forSectionClass: sectionClass, contentWidth: width, cacheByKey: key as NSString?) { (section) in
-            if let block = configuration, let section = section as? Section {
-                block(section)
-            }
+            configuration?(section as! Section)
         }
     }
     
