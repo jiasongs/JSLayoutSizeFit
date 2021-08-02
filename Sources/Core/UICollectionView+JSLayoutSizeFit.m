@@ -37,6 +37,7 @@
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
                                 contentWidth:(CGFloat)contentWidth
                                configuration:(nullable JSConfigurationReusableView)configuration {
+    NSAssert(contentWidth >= 0, @"必须大于等于0");
     return [self __js_fittingSizeForReusableViewClass:viewClass
                                           contentSize:CGSizeMake(contentWidth, JSLayoutSizeFitAutomaticDimension)
                                            cacheByKey:nil
@@ -47,6 +48,7 @@
                                 contentWidth:(CGFloat)contentWidth
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
+    NSAssert(contentWidth >= 0, @"必须大于等于0");
     return [self __js_fittingSizeForReusableViewClass:viewClass
                                           contentSize:CGSizeMake(contentWidth, JSLayoutSizeFitAutomaticDimension)
                                            cacheByKey:key
@@ -56,6 +58,7 @@
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
                                contentHeight:(CGFloat)contentHeight
                                configuration:(nullable JSConfigurationReusableView)configuration {
+    NSAssert(contentHeight >= 0, @"必须大于等于0");
     return [self __js_fittingSizeForReusableViewClass:viewClass
                                           contentSize:CGSizeMake(JSLayoutSizeFitAutomaticDimension, contentHeight)
                                            cacheByKey:nil
@@ -66,6 +69,7 @@
                                contentHeight:(CGFloat)contentHeight
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
+    NSAssert(contentHeight >= 0, @"必须大于等于0");
     return [self __js_fittingSizeForReusableViewClass:viewClass
                                           contentSize:CGSizeMake(JSLayoutSizeFitAutomaticDimension, contentHeight)
                                            cacheByKey:key
@@ -84,19 +88,27 @@
     /// FitCache
     JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UICollectionViewCell.class] ? self.js_rowSizeFitCache : self.js_sectionSizeFitCache;
     if (key && [fitCache containsKey:key]) {
-        return [fitCache CGSizeForKey:key];
+        CGSize resultSize = [fitCache CGSizeForKey:key];
+        if (contentSize.width != JSLayoutSizeFitAutomaticDimension) {
+            resultSize.width = contentSize.width;
+        }
+        if (contentSize.height != JSLayoutSizeFitAutomaticDimension) {
+            resultSize.height = contentSize.height;
+        }
+        return resultSize;
+    } else {
+        /// 获取模板View
+        __kindof UICollectionReusableView *templateView = [self js_templateViewForViewClass:viewClass];
+        /// 准备
+        [self __js_prepareForTemplateView:templateView contentSize:contentSize configuration:configuration];
+        /// 计算size
+        CGSize resultSize = [self __js_systemFittingSizeForTemplateView:templateView];
+        /// 若Key存在时则写入内存
+        if (key) {
+            [fitCache setCGSize:resultSize forKey:key];
+        }
+        return resultSize;
     }
-    /// 获取模板View
-    __kindof UICollectionReusableView *templateView = [self js_templateViewForViewClass:viewClass];
-    /// 准备
-    [self __js_prepareForTemplateView:templateView contentSize:contentSize configuration:configuration];
-    /// 计算size
-    CGSize size = [self __js_systemFittingSizeForTemplateView:templateView];
-    /// 若Key存在时则写入内存
-    if (key) {
-        [fitCache setCGSize:size forKey:key];
-    }
-    return size;
 }
 
 - (void)__js_prepareForTemplateView:(__kindof UIView *)templateView

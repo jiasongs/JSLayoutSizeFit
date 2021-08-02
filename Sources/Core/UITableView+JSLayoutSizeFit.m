@@ -107,19 +107,21 @@
     /// FitCache
     JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UITableViewCell.class] ? self.js_rowSizeFitCache : self.js_sectionSizeFitCache;
     if (key && [fitCache containsKey:key]) {
-        return [fitCache CGFloatForKey:key];
+        CGFloat resultHeight = [fitCache CGFloatForKey:key];
+        return resultHeight;
+    } else {
+        /// 获取模板View
+        __kindof UIView *templateView = [self js_templateViewForViewClass:viewClass];
+        /// 准备
+        [self __js_prepareForTemplateView:templateView contentWidth:contentWidth configuration:configuration];
+        /// 计算高度
+        CGFloat resultHeight = [self __js_systemFittingHeightForTemplateView:templateView];
+        /// 若Key存在时则写入内存
+        if (key) {
+            [fitCache setCGFloat:resultHeight forKey:key];
+        }
+        return resultHeight;
     }
-    /// 获取模板View
-    __kindof UIView *templateView = [self js_templateViewForViewClass:viewClass];
-    /// 准备
-    [self __js_prepareForTemplateView:templateView contentWidth:contentWidth configuration:configuration];
-    /// 计算高度
-    CGFloat height = [self __js_systemFittingHeightForTemplateView:templateView];
-    /// 若Key存在时则写入内存
-    if (key) {
-        [fitCache setCGFloat:height forKey:key];
-    }
-    return height;
 }
 
 - (void)__js_prepareForTemplateView:(__kindof UIView *)templateView

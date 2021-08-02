@@ -50,9 +50,6 @@
 
 - (JSLayoutSizeFitCache *)js_rowSizeFitCache {
     CGFloat containerWidth = self.js_templateContainerWidth;
-#if TARGET_OS_MACCATALYST
-    containerWidth = 0;
-#endif
     JSLayoutSizeFitCache *cache = [self.js_allRowSizeFitCaches objectForKey:@(containerWidth)];
     if (!cache) {
         cache = [[JSLayoutSizeFitCache alloc] init];
@@ -63,9 +60,6 @@
 
 - (JSLayoutSizeFitCache *)js_sectionSizeFitCache {
     CGFloat containerWidth = self.js_templateContainerWidth;
-#if TARGET_OS_MACCATALYST
-    containerWidth = 0;
-#endif
     JSLayoutSizeFitCache *cache = [self.js_allSectionSizeFitCaches objectForKey:@(containerWidth)];
     if (!cache) {
         cache = [[JSLayoutSizeFitCache alloc] init];
