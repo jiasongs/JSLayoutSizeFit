@@ -104,24 +104,24 @@
                              contentWidth:(CGFloat)contentWidth
                                cacheByKey:(nullable id<NSCopying>)key
                             configuration:(nullable void(^)(__kindof UIView *))configuration {
+    CGFloat resultHeight = 0;
     /// FitCache
     JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UITableViewCell.class] ? self.js_rowSizeFitCache : self.js_sectionSizeFitCache;
-    if (key && [fitCache containsKey:key]) {
-        CGFloat resultHeight = [fitCache CGFloatForKey:key];
-        return resultHeight;
+    if (key != nil && [fitCache containsKey:key]) {
+        resultHeight = [fitCache CGFloatForKey:key];
     } else {
         /// 获取模板View
         __kindof UIView *templateView = [self js_templateViewForViewClass:viewClass];
         /// 准备
         [self __js_prepareForTemplateView:templateView contentWidth:contentWidth configuration:configuration];
         /// 计算高度
-        CGFloat resultHeight = [self __js_systemFittingHeightForTemplateView:templateView];
+        resultHeight = [self __js_systemFittingHeightForTemplateView:templateView];
         /// 若Key存在时则写入内存
-        if (key) {
+        if (key != nil) {
             [fitCache setCGFloat:resultHeight forKey:key];
         }
-        return resultHeight;
     }
+    return resultHeight;
 }
 
 - (void)__js_prepareForTemplateView:(__kindof UIView *)templateView

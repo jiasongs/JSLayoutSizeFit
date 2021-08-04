@@ -85,30 +85,30 @@
     if (![viewClass isSubclassOfClass:UICollectionReusableView.class]) {
         NSAssert(NO, @"viewClass必须是UICollectionReusableView类或者其子类");
     }
+    CGSize resultSize = CGSizeZero;
     /// FitCache
     JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UICollectionViewCell.class] ? self.js_rowSizeFitCache : self.js_sectionSizeFitCache;
-    if (key && [fitCache containsKey:key]) {
-        CGSize resultSize = [fitCache CGSizeForKey:key];
+    if (key != nil && [fitCache containsKey:key]) {
+        resultSize = [fitCache CGSizeForKey:key];
         if (contentSize.width != JSLayoutSizeFitAutomaticDimension) {
             resultSize.width = contentSize.width;
         }
         if (contentSize.height != JSLayoutSizeFitAutomaticDimension) {
             resultSize.height = contentSize.height;
         }
-        return resultSize;
     } else {
         /// 获取模板View
         __kindof UICollectionReusableView *templateView = [self js_templateViewForViewClass:viewClass];
         /// 准备
         [self __js_prepareForTemplateView:templateView contentSize:contentSize configuration:configuration];
         /// 计算size
-        CGSize resultSize = [self __js_systemFittingSizeForTemplateView:templateView];
+        resultSize = [self __js_systemFittingSizeForTemplateView:templateView];
         /// 若Key存在时则写入内存
-        if (key) {
+        if (key != nil) {
             [fitCache setCGSize:resultSize forKey:key];
         }
-        return resultSize;
     }
+    return resultSize;
 }
 
 - (void)__js_prepareForTemplateView:(__kindof UIView *)templateView
