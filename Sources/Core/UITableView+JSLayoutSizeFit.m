@@ -127,17 +127,23 @@
 - (void)__js_prepareForTemplateView:(__kindof UIView *)templateView
                        contentWidth:(CGFloat)contentWidth
                       configuration:(nullable void(^)(__kindof UIView *))configuration {
-    CGFloat finalContentWidth = contentWidth != JSLayoutSizeFitAutomaticDimension ? contentWidth : self.js_templateContainerWidth;
-    NSAssert(finalContentWidth != 0, @"contentWidth必须大于0, 否则计算高度就无意义了!");
     UIView *contentView = templateView.js_templateContentView;
-    if (!contentView) {
-        NSAssert(NO, @"理论上contentView不可能为nil, 需要观察下哪里出问题了");
+    /// 约束布局需要给contentView添加栅栏
+    if (!templateView.js_isUseFrameLayout) {
+        [contentView js_addFenceConstraintIfNeeded];
     }
-    if (templateView.js_width != finalContentWidth) {
-        templateView.js_width = finalContentWidth;
-    }
-    if (contentView.js_width != finalContentWidth) {
-        contentView.js_width = finalContentWidth;
+    CGFloat resultWidth = contentWidth != JSLayoutSizeFitAutomaticDimension ? contentWidth : self.js_templateContainerWidth;
+    if (templateView.js_width != resultWidth) {
+        /// 设置View的宽度
+        templateView.js_width = resultWidth;
+        contentView.js_width = resultWidth;
+        /// 更新约束的宽
+        if (contentView.js_widthConstraint != nil) {
+            contentView.js_widthConstraint.constant = resultWidth;
+        }
+        /// 强制布局, 使外部可以拿到一些控件的真实布局
+        [templateView setNeedsLayout];
+        [templateView layoutIfNeeded];
     }
     if ([templateView respondsToSelector:@selector(prepareForReuse)]) {
         [templateView prepareForReuse];
@@ -149,15 +155,10 @@
 
 - (CGFloat)__js_systemFittingHeightForTemplateView:(__kindof UIView *)templateView {
     UIView *contentView = templateView.js_templateContentView;
-    CGFloat contentWidth = contentView.js_width;
     CGFloat fittingHeight = 0;
     if (templateView.js_isUseFrameLayout) {
-        fittingHeight = [templateView sizeThatFits:CGSizeMake(contentWidth, JSLayoutSizeFitAutomaticDimension)].height;
+        fittingHeight = [templateView sizeThatFits:CGSizeMake(contentView.js_width, 0)].height;
     } else {
-        [contentView js_addFenceConstraintIfNeeded];
-        if (contentView.js_widthConstraint.constant != contentWidth) {
-            contentView.js_widthConstraint.constant = contentWidth;
-        }
         fittingHeight = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     }
     if ([templateView isKindOfClass:UITableViewCell.class] && self.separatorStyle != UITableViewCellSeparatorStyleNone) {

@@ -17,7 +17,6 @@
         [self.contentView addSubview:self.titleLabel];
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.bottom.equalTo(self.contentView);
-            make.height.equalTo(@(40));
         }];
     }
     return self;

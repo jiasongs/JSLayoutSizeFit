@@ -114,27 +114,41 @@
 - (void)__js_prepareForTemplateView:(__kindof UIView *)templateView
                         contentSize:(CGSize)contentSize
                       configuration:(nullable JSConfigurationReusableView)configuration {
-    CGSize finalContentSize = CGSizeZero;
+    UIView *contentView = templateView.js_templateContentView ? : templateView;
+    /// 约束布局需要给contentView添加宽/高约束
+    if (!templateView.js_isUseFrameLayout) {
+        if (contentSize.width == JSLayoutSizeFitAutomaticDimension && contentSize.height == JSLayoutSizeFitAutomaticDimension) {
+            [contentView js_removeWidthConstraintIfNeeded];
+            [contentView js_removeHeightConstraintIfNeeded];
+        } else {
+            if (contentSize.width == JSLayoutSizeFitAutomaticDimension) {
+                [contentView js_addHeightConstraintIfNeeded];
+            } else if (contentSize.height == JSLayoutSizeFitAutomaticDimension) {
+                [contentView js_addWidthConstraintIfNeeded];
+            }
+        }
+    }
+    CGSize resultSize = CGSizeZero;
     if (contentSize.width != JSLayoutSizeFitAutomaticDimension) {
-        finalContentSize.width = contentSize.width;
+        resultSize.width = contentSize.width;
     }
     if (contentSize.height != JSLayoutSizeFitAutomaticDimension) {
-        finalContentSize.height = contentSize.height;
+        resultSize.height = contentSize.height;
     }
-    UIView *contentView = templateView.js_templateContentView;
-    if (templateView.js_width != finalContentSize.width) {
-        templateView.js_width = finalContentSize.width;
+    if (!CGSizeEqualToSize(templateView.js_size, resultSize)) {
+        templateView.js_size = resultSize;
+        contentView.js_size = resultSize;
+        /// 更新约束的宽/高
+        if (contentView.js_widthConstraint != nil) {
+            contentView.js_widthConstraint.constant = resultSize.width;
+        }
+        if (contentView.js_heightConstraint != nil) {
+            contentView.js_heightConstraint.constant = resultSize.height;
+        }
+        /// 强制布局, 使外部可以拿到一些控件的真实布局
+        [templateView setNeedsLayout];
+        [templateView layoutIfNeeded];
     }
-    if (templateView.js_height != finalContentSize.height) {
-        templateView.js_height = finalContentSize.height;
-    }
-    if (contentView.js_width != finalContentSize.width) {
-        contentView.js_width = finalContentSize.width;
-    }
-    if (contentView.js_height != finalContentSize.height) {
-        contentView.js_height = finalContentSize.height;
-    }
-    
     if ([templateView respondsToSelector:@selector(prepareForReuse)]) {
         [templateView prepareForReuse];
     }
@@ -144,37 +158,11 @@
 }
 
 - (CGSize)__js_systemFittingSizeForTemplateView:(__kindof UIView *)templateView {
-    UIView *contentView = templateView.js_templateContentView ? : templateView;
-    CGSize contentViewSize = contentView.bounds.size;
-    if (contentView.js_width <= 0) {
-        contentViewSize.width = JSLayoutSizeFitAutomaticDimension;
-    }
-    if (contentView.js_height <= 0) {
-        contentViewSize.height = JSLayoutSizeFitAutomaticDimension;
-    }
     CGSize fittingSize = CGSizeZero;
     if (templateView.js_isUseFrameLayout) {
-        fittingSize = [templateView sizeThatFits:contentViewSize];
+        fittingSize = [templateView sizeThatFits:templateView.js_size];
     } else {
-        if (contentViewSize.width == JSLayoutSizeFitAutomaticDimension &&
-            contentViewSize.height == JSLayoutSizeFitAutomaticDimension) {
-            [contentView js_removeWidthConstraintIfNeeded];
-            [contentView js_removeHeightConstraintIfNeeded];
-            fittingSize = [templateView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        } else {
-            if (contentViewSize.width == JSLayoutSizeFitAutomaticDimension) {
-                [contentView js_addHeightConstraintIfNeeded];
-                if (contentView.js_heightConstraint.constant != contentViewSize.height) {
-                    contentView.js_heightConstraint.constant = contentViewSize.height;
-                }
-            } else {
-                [contentView js_addWidthConstraintIfNeeded];
-                if (contentView.js_widthConstraint.constant != contentViewSize.width) {
-                    contentView.js_widthConstraint.constant = contentViewSize.width;
-                }
-            }
-            fittingSize = [templateView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        }
+        fittingSize = [templateView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     }
     return fittingSize;
 }

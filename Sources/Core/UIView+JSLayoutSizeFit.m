@@ -36,7 +36,7 @@ JSSynthesizeIdWeakProperty(js_heightConstraint, setJs_heightConstraint)
 
 - (void)js_addFenceConstraintIfNeeded {
     [self js_removeHeightConstraintIfNeeded];
-    if (!self.js_widthConstraint) {
+    if (self.js_widthConstraint == nil) {
         NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                            attribute:NSLayoutAttributeWidth
                                                                            relatedBy:NSLayoutRelationEqual
@@ -45,39 +45,38 @@ JSSynthesizeIdWeakProperty(js_heightConstraint, setJs_heightConstraint)
                                                                           multiplier:1
                                                                             constant:0];
         if (@available(iOS 10.2, *)) {
-            if (!self.superview) {
-                return;
+            if (self.superview != nil) {
+                widthConstraint.priority = UILayoutPriorityRequired - 1;
+                NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                                 attribute:NSLayoutAttributeTop
+                                                                                 relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                                    toItem:self.superview
+                                                                                 attribute:NSLayoutAttributeTop
+                                                                                multiplier:1.0
+                                                                                  constant:0];
+                NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                                  attribute:NSLayoutAttributeLeft
+                                                                                  relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                                     toItem:self.superview
+                                                                                  attribute:NSLayoutAttributeLeft
+                                                                                 multiplier:1.0
+                                                                                   constant:0];
+                NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                                    attribute:NSLayoutAttributeBottom
+                                                                                    relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                                       toItem:self.superview
+                                                                                    attribute:NSLayoutAttributeBottom
+                                                                                   multiplier:1.0
+                                                                                     constant:0];
+                NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                                   attribute:NSLayoutAttributeRight
+                                                                                   relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                                      toItem:self.superview
+                                                                                   attribute:NSLayoutAttributeRight
+                                                                                  multiplier:1.0
+                                                                                    constant:0];
+                [self.superview addConstraints:@[topConstraint, leftConstraint, rightConstraint, bottomConstraint]];
             }
-            widthConstraint.priority = UILayoutPriorityRequired - 1;
-            NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                                             attribute:NSLayoutAttributeTop
-                                                                             relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                                                toItem:self.superview
-                                                                             attribute:NSLayoutAttributeTop
-                                                                            multiplier:1.0
-                                                                              constant:0];
-            NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                                              attribute:NSLayoutAttributeLeft
-                                                                              relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                                                 toItem:self.superview
-                                                                              attribute:NSLayoutAttributeLeft
-                                                                             multiplier:1.0
-                                                                               constant:0];
-            NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                                                attribute:NSLayoutAttributeBottom
-                                                                                relatedBy:NSLayoutRelationLessThanOrEqual
-                                                                                   toItem:self.superview
-                                                                                attribute:NSLayoutAttributeBottom
-                                                                               multiplier:1.0
-                                                                                 constant:0];
-            NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                                               attribute:NSLayoutAttributeRight
-                                                                               relatedBy:NSLayoutRelationLessThanOrEqual
-                                                                                  toItem:self.superview
-                                                                               attribute:NSLayoutAttributeRight
-                                                                              multiplier:1.0
-                                                                                constant:0];
-            [self.superview addConstraints:@[topConstraint, leftConstraint, rightConstraint, bottomConstraint]];
         }
         [self addConstraint:widthConstraint];
         self.js_widthConstraint = widthConstraint;
@@ -86,7 +85,7 @@ JSSynthesizeIdWeakProperty(js_heightConstraint, setJs_heightConstraint)
 
 - (void)js_addWidthConstraintIfNeeded {
     [self js_removeHeightConstraintIfNeeded];
-    if (!self.js_widthConstraint) {
+    if (self.js_widthConstraint == nil) {
         NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                            attribute:NSLayoutAttributeWidth
                                                                            relatedBy:NSLayoutRelationEqual
@@ -100,7 +99,7 @@ JSSynthesizeIdWeakProperty(js_heightConstraint, setJs_heightConstraint)
 }
 
 - (void)js_removeWidthConstraintIfNeeded {
-    if (self.js_widthConstraint) {
+    if (self.js_widthConstraint != nil) {
         [self removeConstraint:self.js_widthConstraint];
         self.js_widthConstraint = nil;
     }
@@ -108,7 +107,7 @@ JSSynthesizeIdWeakProperty(js_heightConstraint, setJs_heightConstraint)
 
 - (void)js_addHeightConstraintIfNeeded {
     [self js_removeWidthConstraintIfNeeded];
-    if (!self.js_heightConstraint) {
+    if (self.js_heightConstraint == nil) {
         NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                             attribute:NSLayoutAttributeHeight
                                                                             relatedBy:NSLayoutRelationEqual
@@ -122,7 +121,7 @@ JSSynthesizeIdWeakProperty(js_heightConstraint, setJs_heightConstraint)
 }
 
 - (void)js_removeHeightConstraintIfNeeded {
-    if (self.js_heightConstraint) {
+    if (self.js_heightConstraint != nil) {
         [self removeConstraint:self.js_heightConstraint];
         self.js_heightConstraint = nil;
     }
