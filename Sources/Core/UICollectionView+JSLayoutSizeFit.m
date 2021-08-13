@@ -90,12 +90,6 @@
     JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UICollectionViewCell.class] ? self.js_rowSizeFitCache : self.js_sectionSizeFitCache;
     if (key != nil && [fitCache containsKey:key]) {
         resultSize = [fitCache CGSizeForKey:key];
-        if (contentSize.width != JSLayoutSizeFitAutomaticDimension) {
-            resultSize.width = contentSize.width;
-        }
-        if (contentSize.height != JSLayoutSizeFitAutomaticDimension) {
-            resultSize.height = contentSize.height;
-        }
     } else {
         /// 获取模板View
         __kindof UICollectionReusableView *templateView = [self js_templateViewForViewClass:viewClass];
@@ -107,6 +101,12 @@
         if (key != nil) {
             [fitCache setCGSize:resultSize forKey:key];
         }
+    }
+    if (contentSize.width != JSLayoutSizeFitAutomaticDimension) {
+        resultSize.width = contentSize.width;
+    }
+    if (contentSize.height != JSLayoutSizeFitAutomaticDimension) {
+        resultSize.height = contentSize.height;
     }
     return resultSize;
 }
