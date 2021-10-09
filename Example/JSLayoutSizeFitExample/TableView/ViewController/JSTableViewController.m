@@ -104,6 +104,10 @@
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0;
+        if (@available(iOS 15.0, *)) {
+            _tableView.fillerRowHeight = 0;
+            _tableView.sectionHeaderTopPadding = 0;
+        }
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, SafeAreaInsetsConstantForDeviceWithNotch.bottom, 0);
         [_tableView registerClass:ITTestTableViewCell.class forCellReuseIdentifier:NSStringFromClass(ITTestTableViewCell.class)];
         [_tableView registerClass:ITTestHeaderFooterView.class forHeaderFooterViewReuseIdentifier:NSStringFromClass(ITTestHeaderFooterView.class)];
