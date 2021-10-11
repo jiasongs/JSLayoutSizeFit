@@ -35,7 +35,7 @@
 #pragma mark - getter
 
 - (CGFloat)js_templateContainerWidth {
-    CGFloat contentWidth = (self.js_width ? : self.superview.js_width) ? : JSCoreHelper.applicationSize.width;
+    CGFloat contentWidth = (self.js_width ? : self.superview.js_width) ? : self.window.bounds.size.width;
     UIEdgeInsets contentInset = self.contentInset;
     if (@available(iOS 11.0, *)) {
         contentInset = self.adjustedContentInset;
@@ -45,7 +45,7 @@
         }
     }
     contentWidth = contentWidth - (contentInset.left + contentInset.right);
-    return contentWidth;
+    return contentWidth > 0 ? contentWidth : 0;
 }
 
 - (JSLayoutSizeFitCache *)js_rowSizeFitCache {

@@ -7,10 +7,10 @@
 //
 
 #import "JSLayoutSizeFitCache.h"
-#import "JSCoreKit.h"
+#import <os/lock.h>
 
 @interface JSLayoutSizeFitCache () {
-    JSLockDeclare(_lock);
+    os_unfair_lock _lock;
 }
 
 @property (nonatomic, strong) NSMutableDictionary *cacheDictionary;
@@ -21,7 +21,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        JSLockInit(_lock)
+        _lock = OS_UNFAIR_LOCK_INIT;
         _cacheDictionary = [NSMutableDictionary dictionary];
     }
     return self;
@@ -31,9 +31,9 @@
 
 - (BOOL)containsKey:(id<NSCopying>)key {
     if (key) {
-        JSLockAdd(_lock);
+        [self addLock];
         BOOL contains = [self.cacheDictionary.allKeys containsObject:key];
-        JSLockRemove(_lock);
+        [self unLock];
         return contains;
     }
     return NO;
@@ -41,17 +41,17 @@
 
 - (void)setObject:(id)object forKey:(id<NSCopying>)key {
     if (key && object) {
-        JSLockAdd(_lock);
+        [self addLock];
         [self.cacheDictionary setObject:object forKey:key];
-        JSLockRemove(_lock);
+        [self unLock];
     }
 }
 
 - (nullable id)objectForKey:(id<NSCopying>)key {
     if (key) {
-        JSLockAdd(_lock);
+        [self addLock];
         id value = [self.cacheDictionary objectForKey:key];
-        JSLockRemove(_lock);
+        [self unLock];
         return value;
     }
     return nil;
@@ -60,15 +60,15 @@
 #pragma mark - Remove
 
 - (void)removeObjectForKey:(id<NSCopying>)key {
-    JSLockAdd(_lock);
+    [self addLock];
     [self.cacheDictionary removeObjectForKey:key];
-    JSLockRemove(_lock);
+    [self unLock];
 }
 
 - (void)removeAllObjects {
-    JSLockAdd(_lock);
+    [self addLock];
     [self.cacheDictionary removeAllObjects];
-    JSLockRemove(_lock);
+    [self unLock];
 }
 
 #pragma mark - CGFloat
@@ -101,6 +101,16 @@
         return [value CGSizeValue];
     }
     return CGSizeZero;
+}
+
+#pragma mark - Lock
+
+- (void)addLock {
+    os_unfair_lock_lock(&_lock);
+}
+
+- (void)unLock {
+    os_unfair_lock_unlock(&_lock);
 }
 
 @end

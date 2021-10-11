@@ -162,7 +162,12 @@
         fittingHeight = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     }
     if ([templateView isKindOfClass:UITableViewCell.class] && self.separatorStyle != UITableViewCellSeparatorStyleNone) {
-        fittingHeight += JSCoreHelper.pixelOne;
+        static CGFloat pixelOne = 1;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            pixelOne = 1 / UIScreen.mainScreen.scale;
+        });
+        fittingHeight += pixelOne;
     }
     return fittingHeight;
 }
