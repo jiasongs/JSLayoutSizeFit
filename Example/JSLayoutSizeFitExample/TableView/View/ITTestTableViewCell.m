@@ -10,6 +10,7 @@
 #import <Masonry.h>
 #import <QMUIKit.h>
 #import <JSLayoutSizeFit.h>
+#import <MPITextKit.h>
 
 @implementation ITTestTableViewCell
 
@@ -55,9 +56,9 @@
     return _headerImageView;
 }
 
-- (UILabel *)titleLabel {
+- (MPILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] init];
+        _titleLabel = [[MPILabel alloc] init];
         _titleLabel.numberOfLines = 0;
     }
     return _titleLabel;

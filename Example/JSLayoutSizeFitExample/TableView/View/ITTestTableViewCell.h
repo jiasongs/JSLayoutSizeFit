@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class MPILabel;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ITTestTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView *headerImageView;
-@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) MPILabel *titleLabel;
 @property (nonatomic, strong) UIButton *titleButton;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *commentCountLabel;
