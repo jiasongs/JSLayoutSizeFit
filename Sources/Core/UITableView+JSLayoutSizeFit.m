@@ -16,43 +16,40 @@
 
 @implementation UITableView (JSLayoutSizeFit)
 
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        JSRuntimeOverrideImplementation(UITableView.class, NSSelectorFromString(@"_configureCellForDisplay:forIndexPath:"), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
+            return ^(UITableView *selfObject, UITableViewCell *cell, NSIndexPath *indexPath) {
+                
+                __kindof UIView *templateView = [selfObject js_templateViewForViewClass:cell.class];
+                templateView.js_realTableViewCell = cell;
+                
+                // call super，-[UITableViewDelegate tableView:willDisplayCell:forRowAtIndexPath:] 比这个还晚，所以不用担心触发 delegate
+                void (*originSelectorIMP)(id, SEL, UITableViewCell *, NSIndexPath *);
+                originSelectorIMP = (void (*)(id, SEL, UITableViewCell *, NSIndexPath *))originalIMPProvider();
+                originSelectorIMP(selfObject, originCMD, cell, indexPath);
+            };
+        });
+    });
+}
+
 #pragma mark - UITableViewCell
 
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
                           configuration:(nullable JSConfigurationTableViewCell)configuration {
     return [self js_fittingHeightForCellClass:cellClass
-                                 contentWidth:JSLayoutSizeFitAutomaticDimension
                                    cacheByKey:nil
                                 configuration:configuration];
 }
 
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
-                             cacheByKey:(nullable id<NSCopying>)key
-                          configuration:(nullable JSConfigurationTableViewCell)configuration {
-    return [self js_fittingHeightForCellClass:cellClass
-                                 contentWidth:JSLayoutSizeFitAutomaticDimension
-                                   cacheByKey:key
-                                configuration:configuration];
-}
-
-- (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
-                           contentWidth:(CGFloat)contentWidth
-                          configuration:(nullable JSConfigurationTableViewCell)configuration {
-    return [self js_fittingHeightForCellClass:cellClass
-                                 contentWidth:contentWidth
-                                   cacheByKey:nil
-                                configuration:configuration];
-}
-
-- (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
-                           contentWidth:(CGFloat)contentWidth
                              cacheByKey:(nullable id<NSCopying>)key
                           configuration:(nullable JSConfigurationTableViewCell)configuration {
     if (![cellClass isSubclassOfClass:UITableViewCell.class]) {
         NSAssert(NO, @"cellClass必须是UITableViewCell类或者其子类");
     }
     return [self __js_fittingHeightForViewClass:cellClass
-                                   contentWidth:contentWidth
                                      cacheByKey:key
                                   configuration:configuration];
 }
@@ -62,38 +59,17 @@
 - (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
                              configuration:(nullable JSConfigurationTableViewSection)configuration {
     return [self js_fittingHeightForSectionClass:sectionClass
-                                    contentWidth:JSLayoutSizeFitAutomaticDimension
                                       cacheByKey:nil
                                    configuration:configuration];
 }
 
 - (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
-                                cacheByKey:(nullable id<NSCopying>)key
-                             configuration:(nullable JSConfigurationTableViewSection)configuration {
-    return [self js_fittingHeightForSectionClass:sectionClass
-                                    contentWidth:JSLayoutSizeFitAutomaticDimension
-                                      cacheByKey:key
-                                   configuration:configuration];
-}
-
-- (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
-                              contentWidth:(CGFloat)contentWidth
-                             configuration:(nullable JSConfigurationTableViewSection)configuration {
-    return [self js_fittingHeightForSectionClass:sectionClass
-                                    contentWidth:contentWidth
-                                      cacheByKey:nil
-                                   configuration:configuration];
-}
-
-- (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
-                              contentWidth:(CGFloat)contentWidth
                                 cacheByKey:(nullable id<NSCopying>)key
                              configuration:(nullable JSConfigurationTableViewSection)configuration {
     if (![sectionClass isSubclassOfClass:UITableViewHeaderFooterView.class]) {
         NSAssert(NO, @"viewClass必须是UITableViewHeaderFooterView类或者其子类");
     }
     return [self __js_fittingHeightForViewClass:sectionClass
-                                   contentWidth:contentWidth
                                      cacheByKey:key
                                   configuration:configuration];
 }
@@ -101,7 +77,6 @@
 #pragma mark - Private
 
 - (CGFloat)__js_fittingHeightForViewClass:(Class)viewClass
-                             contentWidth:(CGFloat)contentWidth
                                cacheByKey:(nullable id<NSCopying>)key
                             configuration:(nullable void(^)(__kindof UIView *))configuration {
     CGFloat resultHeight = 0;
@@ -113,11 +88,11 @@
         /// 获取模板View
         __kindof UIView *templateView = [self js_templateViewForViewClass:viewClass];
         /// 准备
-        [self __js_prepareForTemplateView:templateView contentWidth:contentWidth configuration:configuration];
+        [self __js_prepareForTemplateView:templateView configuration:configuration];
         /// 计算高度
         resultHeight = [self __js_systemFittingHeightForTemplateView:templateView];
-        /// 若Key存在时则写入内存
-        if (key != nil) {
+        /// 若Key存在时且realTableViewCell存在时写入内存
+        if (key != nil && templateView.js_realTableViewCell != nil) {
             [fitCache setCGFloat:resultHeight forKey:key];
         }
     }
@@ -125,21 +100,28 @@
 }
 
 - (void)__js_prepareForTemplateView:(__kindof UIView *)templateView
-                       contentWidth:(CGFloat)contentWidth
                       configuration:(nullable void(^)(__kindof UIView *))configuration {
+    /// 真实cell
+    __kindof UITableViewCell *cell = templateView.js_realTableViewCell;
+    
+    if (cell != nil) {
+        NSLog(@"");
+    }
+    
     UIView *contentView = templateView.js_templateContentView;
     /// 约束布局需要给contentView添加栅栏
     if (!templateView.js_isUseFrameLayout) {
         [contentView js_addFenceConstraintIfNeeded];
     }
-    CGFloat resultWidth = contentWidth != JSLayoutSizeFitAutomaticDimension ? contentWidth : self.js_templateContainerWidth;
-    if (templateView.js_width != resultWidth) {
+    CGFloat width = cell.js_width > 0 ? cell.js_width : self.js_templateContainerWidth;
+    CGFloat contentWidth = cell.contentView.js_width > 0 ? cell.contentView.js_width : self.js_templateContainerWidth;
+    if (templateView.js_width != width || contentView.js_width != contentWidth) {
         /// 设置View的宽度
-        templateView.js_width = resultWidth;
-        contentView.js_width = resultWidth;
+        templateView.js_width = width;
+        contentView.js_width = contentWidth;
         /// 更新约束的宽
         if (contentView.js_widthConstraint != nil) {
-            contentView.js_widthConstraint.constant = resultWidth;
+            contentView.js_widthConstraint.constant = contentWidth;
         }
         /// 强制布局, 使外部可以拿到一些控件的真实布局
         [templateView setNeedsLayout];

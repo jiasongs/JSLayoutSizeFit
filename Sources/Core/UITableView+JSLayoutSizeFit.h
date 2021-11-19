@@ -23,29 +23,11 @@ typedef void(^JSConfigurationTableViewSection)(__kindof UITableViewHeaderFooterV
                              cacheByKey:(nullable id<NSCopying>)key
                           configuration:(nullable JSConfigurationTableViewCell)configuration;
 
-- (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
-                           contentWidth:(CGFloat)contentWidth
-                          configuration:(nullable JSConfigurationTableViewCell)configuration;
-
-- (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
-                           contentWidth:(CGFloat)contentWidth
-                             cacheByKey:(nullable id<NSCopying>)key
-                          configuration:(nullable JSConfigurationTableViewCell)configuration;
-
 /// Section
 - (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
                              configuration:(nullable JSConfigurationTableViewSection)configuration;
 
 - (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
-                                cacheByKey:(nullable id<NSCopying>)key
-                             configuration:(nullable JSConfigurationTableViewSection)configuration;
-
-- (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
-                              contentWidth:(CGFloat)contentWidth
-                             configuration:(nullable JSConfigurationTableViewSection)configuration;
-
-- (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
-                              contentWidth:(CGFloat)contentWidth
                                 cacheByKey:(nullable id<NSCopying>)key
                              configuration:(nullable JSConfigurationTableViewSection)configuration;
 

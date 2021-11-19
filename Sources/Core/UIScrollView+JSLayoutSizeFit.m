@@ -18,7 +18,7 @@
 
 - (__kindof UIView *)js_templateViewForViewClass:(Class)viewClass {
     NSString *viewClassString = NSStringFromClass(viewClass);
-    __kindof UIView *templateView = [self.js_templateViews objectForKey:viewClassString];
+    __kindof UIView *templateView = [self.js_allTemplateViews objectForKey:viewClassString];
     if (!templateView) {
         NSString *nibPath = [[NSBundle bundleForClass:viewClass] pathForResource:viewClassString ofType:@"nib"];
         if (nibPath) {
@@ -27,7 +27,7 @@
             templateView = [[viewClass alloc] initWithFrame:CGRectZero];
         }
         templateView.js_fromTemplateView = YES;
-        [self.js_templateViews setObject:templateView forKey:viewClassString];
+        [self.js_allTemplateViews setObject:templateView forKey:viewClassString];
     }
     return templateView;
 }
@@ -86,7 +86,7 @@
     return keyCahces;
 }
 
-- (NSMutableDictionary *)js_templateViews {
+- (NSMutableDictionary *)js_allTemplateViews {
     NSMutableDictionary *templateViews = objc_getAssociatedObject(self, _cmd);
     if (!templateViews) {
         templateViews = [NSMutableDictionary dictionary];

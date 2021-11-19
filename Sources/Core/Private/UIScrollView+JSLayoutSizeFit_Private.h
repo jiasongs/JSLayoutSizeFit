@@ -14,10 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) NSMutableDictionary<NSNumber *, JSLayoutSizeFitCache *> *js_allRowSizeFitCaches;
 @property (nonatomic, strong, readonly) NSMutableDictionary<NSNumber *, JSLayoutSizeFitCache *> *js_allSectionSizeFitCaches;
-@property (nonatomic, strong, readonly) NSMutableDictionary<NSString *, __kindof UIView *> *js_templateViews;
+@property (nonatomic, strong, readonly) NSMutableDictionary<NSString *, __kindof UIView *> *js_allTemplateViews;
 @property (nonatomic, assign, readonly) CGFloat js_templateContainerWidth;
-
-- (__kindof UIView *)js_templateViewForViewClass:(Class)viewClass;
 
 @end
 

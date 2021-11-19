@@ -22,9 +22,10 @@
 
 @implementation JSTableViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = false;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top);
@@ -32,7 +33,7 @@
         make.width.equalTo(self.view.mas_width);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
-    [self.tableView qmui_scrollToTopForce:true animated:true];
+    
     NSString *dataPath = [NSBundle.mainBundle pathForResource:@"data" ofType:@"json"];
     NSData *data = [NSData dataWithContentsOfFile:dataPath];
     NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -56,26 +57,24 @@
     return array.count;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    NSDictionary *dic = [self.dataSource objectAtIndex:section];
-//    return [tableView js_fittingHeightForSectionClass:ITTestHeaderFooterView.class
-//                                         contentWidth:tableView.qmui_width ? : JSLayoutSizeFitAutomaticDimension
-//                                           cacheByKey:@(section)
-//                                        configuration:^(__kindof ITTestHeaderFooterView * _Nonnull headerFooterView) {
-//        [headerFooterView updateViewWithData:dic inSection:section];
-//    }];
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    NSDictionary *dic = [self.dataSource objectAtIndex:section];
+    return [tableView js_fittingHeightForSectionClass:ITTestHeaderFooterView.class
+                                           cacheByKey:@(section)
+                                        configuration:^(__kindof ITTestHeaderFooterView * _Nonnull headerFooterView) {
+        [headerFooterView updateViewWithData:dic inSection:section];
+    }];
+}
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NSDictionary *dic = [self.dataSource objectAtIndex:indexPath.section];
-//    NSArray *array = [dic objectForKey:@"likeList"];
-//    return [tableView js_fittingHeightForCellClass:ITTestTableViewCell.class
-//                                      contentWidth:tableView.qmui_width ? : JSLayoutSizeFitAutomaticDimension
-//                                        cacheByKey:indexPath.js_sizeFitCacheKey
-//                                     configuration:^(__kindof ITTestTableViewCell *cell) {
-//        [cell updateCellWithData:[array objectAtIndex:indexPath.row] atIndexPath:indexPath];
-//    }];
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *dic = [self.dataSource objectAtIndex:indexPath.section];
+    NSArray *array = [dic objectForKey:@"likeList"];
+    return [tableView js_fittingHeightForCellClass:ITTestTableViewCell.class
+                                        cacheByKey:indexPath.js_sizeFitCacheKey
+                                     configuration:^(__kindof ITTestTableViewCell *cell) {
+        [cell updateCellWithData:[array objectAtIndex:indexPath.row] atIndexPath:indexPath];
+    }];
+}
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     ITTestHeaderFooterView *headerFooterView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(ITTestHeaderFooterView.class)];
@@ -107,9 +106,9 @@
         _tableView.dataSource = self;
         _tableView.rowHeight = UITableViewAutomaticDimension;
         /// 需要设置为0，否则在iOS 11.0之后会产生跳动的问题
-        _tableView.estimatedRowHeight = 100;
-        _tableView.estimatedSectionFooterHeight = 50;
-        _tableView.estimatedSectionHeaderHeight = 50;
+        _tableView.estimatedRowHeight = 0;
+        _tableView.estimatedSectionHeaderHeight = 0;
+        _tableView.estimatedSectionFooterHeight = 0;
         if (@available(iOS 15.0, *)) {
             _tableView.fillerRowHeight = 0;
             _tableView.sectionHeaderTopPadding = 0;
@@ -118,13 +117,6 @@
         [_tableView registerClass:ITTestHeaderFooterView.class forHeaderFooterViewReuseIdentifier:NSStringFromClass(ITTestHeaderFooterView.class)];
     }
     return _tableView;
-}
-
-- (NSMutableArray *)dataSource {
-    if (!_dataSource) {
-        _dataSource = [NSMutableArray array];
-    }
-    return _dataSource;
 }
 
 @end

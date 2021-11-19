@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = false;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top);
@@ -32,6 +32,7 @@
         make.width.equalTo(self.view.mas_width);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
+    
     NSString *dataPath = [NSBundle.mainBundle pathForResource:@"data" ofType:@"json"];
     NSData *data = [NSData dataWithContentsOfFile:dataPath];
     NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -113,13 +114,6 @@
         [_collectionView registerClass:JSTestCollectionReusableView.class forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass(JSTestCollectionReusableView.class)];
     }
     return _collectionView;
-}
-
-- (NSMutableArray *)dataSource {
-    if (!_dataSource) {
-        _dataSource = [NSMutableArray array];
-    }
-    return _dataSource;
 }
 
 @end

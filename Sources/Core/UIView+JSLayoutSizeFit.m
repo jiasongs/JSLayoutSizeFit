@@ -15,6 +15,7 @@ CGFloat const JSLayoutSizeFitAutomaticDimension = -1000;
 
 JSSynthesizeBOOLProperty(js_isUseFrameLayout, setJs_useFrameLayout)
 JSSynthesizeBOOLProperty(js_fromTemplateView, setJs_fromTemplateView)
+JSSynthesizeIdWeakProperty(js_realTableViewCell, setJs_realTableViewCell)
 JSSynthesizeIdWeakProperty(js_widthConstraint, setJs_widthConstraint)
 JSSynthesizeIdWeakProperty(js_heightConstraint, setJs_heightConstraint)
 

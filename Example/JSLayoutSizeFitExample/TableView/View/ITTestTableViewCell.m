@@ -34,6 +34,11 @@
     return self;
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+}
+
 - (void)updateCellWithData:(NSDictionary *)data atIndexPath:(NSIndexPath *)atIndexPath {
     NSDictionary *linkerInfo = [data objectForKey:@"likerInfo"];
     NSString *title = [NSString stringWithFormat:@"%@-%@-%@-%@", [linkerInfo objectForKey:@"userId"],[linkerInfo objectForKey:@"nickName"],[data objectForKey:@"likeId"],[data objectForKey:@"content"]];
@@ -48,10 +53,19 @@
 //    [self.titleButton setTitle:title forState:UIControlStateNormal];
 }
 
+- (CGSize)systemLayoutSizeFittingSize:(CGSize)targetSize {
+    return [super systemLayoutSizeFittingSize:targetSize];
+}
+
+- (CGSize)systemLayoutSizeFittingSize:(CGSize)targetSize withHorizontalFittingPriority:(UILayoutPriority)horizontalFittingPriority verticalFittingPriority:(UILayoutPriority)verticalFittingPriority {
+    CGSize zz = [super systemLayoutSizeFittingSize:targetSize withHorizontalFittingPriority:horizontalFittingPriority verticalFittingPriority:verticalFittingPriority];
+    return zz;
+}
+
 - (UIImageView *)headerImageView {
     if (!_headerImageView) {
         _headerImageView = [[UIImageView alloc] init];
-        _headerImageView.qmui_shouldShowDebugColor = true;
+        _headerImageView.qmui_shouldShowDebugColor = YES;
     }
     return _headerImageView;
 }
