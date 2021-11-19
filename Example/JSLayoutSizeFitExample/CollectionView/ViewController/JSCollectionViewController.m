@@ -15,7 +15,7 @@
 
 @interface JSCollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
-@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, copy) NSArray *dataSource;
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 @end
@@ -27,7 +27,7 @@
     self.automaticallyAdjustsScrollViewInsets = false;
     [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top).offset(NavigationContentTop);
+        make.top.equalTo(self.view.mas_top);
         make.left.equalTo(self.view.mas_left);
         make.width.equalTo(self.view.mas_width);
         make.bottom.equalTo(self.view.mas_bottom);
@@ -35,9 +35,14 @@
     NSString *dataPath = [NSBundle.mainBundle pathForResource:@"data" ofType:@"json"];
     NSData *data = [NSData dataWithContentsOfFile:dataPath];
     NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    if (array) {
-        [self.dataSource addObjectsFromArray:array];
+    if (array && [array isKindOfClass:NSArray.class]) {
+        self.dataSource = array;
     }
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.collectionView.qmui_initialContentInset = UIEdgeInsetsMake(self.view.qmui_safeAreaInsets.top, 0, self.view.qmui_safeAreaInsets.bottom, 0);
 }
 
 #pragma mark - UICollectionViewDelegate

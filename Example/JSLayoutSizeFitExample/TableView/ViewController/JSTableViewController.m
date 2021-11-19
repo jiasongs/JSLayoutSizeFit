@@ -16,7 +16,7 @@
 @interface JSTableViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, copy) NSArray *dataSource;
 
 @end
 
@@ -27,7 +27,7 @@
     self.automaticallyAdjustsScrollViewInsets = false;
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top).offset(NavigationContentTop);
+        make.top.equalTo(self.view.mas_top);
         make.left.equalTo(self.view.mas_left);
         make.width.equalTo(self.view.mas_width);
         make.bottom.equalTo(self.view.mas_bottom);
@@ -36,9 +36,14 @@
     NSString *dataPath = [NSBundle.mainBundle pathForResource:@"data" ofType:@"json"];
     NSData *data = [NSData dataWithContentsOfFile:dataPath];
     NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    if (array) {
-        [self.dataSource addObjectsFromArray:array];
+    if (array && [array isKindOfClass:NSArray.class]) {
+        self.dataSource = array;
     }
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.tableView.qmui_initialContentInset = UIEdgeInsetsMake(self.view.qmui_safeAreaInsets.top, 0, self.view.qmui_safeAreaInsets.bottom, 0);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -51,26 +56,26 @@
     return array.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    NSDictionary *dic = [self.dataSource objectAtIndex:section];
-    return [tableView js_fittingHeightForSectionClass:ITTestHeaderFooterView.class
-                                         contentWidth:tableView.qmui_width ? : JSLayoutSizeFitAutomaticDimension
-                                           cacheByKey:@(section)
-                                        configuration:^(__kindof ITTestHeaderFooterView * _Nonnull headerFooterView) {
-        [headerFooterView updateViewWithData:dic inSection:section];
-    }];
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    NSDictionary *dic = [self.dataSource objectAtIndex:section];
+//    return [tableView js_fittingHeightForSectionClass:ITTestHeaderFooterView.class
+//                                         contentWidth:tableView.qmui_width ? : JSLayoutSizeFitAutomaticDimension
+//                                           cacheByKey:@(section)
+//                                        configuration:^(__kindof ITTestHeaderFooterView * _Nonnull headerFooterView) {
+//        [headerFooterView updateViewWithData:dic inSection:section];
+//    }];
+//}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *dic = [self.dataSource objectAtIndex:indexPath.section];
-    NSArray *array = [dic objectForKey:@"likeList"];
-    return [tableView js_fittingHeightForCellClass:ITTestTableViewCell.class
-                                      contentWidth:tableView.qmui_width ? : JSLayoutSizeFitAutomaticDimension
-                                        cacheByKey:indexPath.js_sizeFitCacheKey
-                                     configuration:^(__kindof ITTestTableViewCell *cell) {
-        [cell updateCellWithData:[array objectAtIndex:indexPath.row] atIndexPath:indexPath];
-    }];
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    NSDictionary *dic = [self.dataSource objectAtIndex:indexPath.section];
+//    NSArray *array = [dic objectForKey:@"likeList"];
+//    return [tableView js_fittingHeightForCellClass:ITTestTableViewCell.class
+//                                      contentWidth:tableView.qmui_width ? : JSLayoutSizeFitAutomaticDimension
+//                                        cacheByKey:indexPath.js_sizeFitCacheKey
+//                                     configuration:^(__kindof ITTestTableViewCell *cell) {
+//        [cell updateCellWithData:[array objectAtIndex:indexPath.row] atIndexPath:indexPath];
+//    }];
+//}
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     ITTestHeaderFooterView *headerFooterView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass(ITTestHeaderFooterView.class)];
@@ -97,18 +102,18 @@
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
+        _tableView.editing = YES;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.rowHeight = UITableViewAutomaticDimension;
         /// 需要设置为0，否则在iOS 11.0之后会产生跳动的问题
-        _tableView.estimatedRowHeight = 0;
-        _tableView.estimatedSectionFooterHeight = 0;
-        _tableView.estimatedSectionHeaderHeight = 0;
+        _tableView.estimatedRowHeight = 100;
+        _tableView.estimatedSectionFooterHeight = 50;
+        _tableView.estimatedSectionHeaderHeight = 50;
         if (@available(iOS 15.0, *)) {
             _tableView.fillerRowHeight = 0;
             _tableView.sectionHeaderTopPadding = 0;
         }
-        _tableView.contentInset = UIEdgeInsetsMake(0, 0, SafeAreaInsetsConstantForDeviceWithNotch.bottom, 0);
         [_tableView registerClass:ITTestTableViewCell.class forCellReuseIdentifier:NSStringFromClass(ITTestTableViewCell.class)];
         [_tableView registerClass:ITTestHeaderFooterView.class forHeaderFooterViewReuseIdentifier:NSStringFromClass(ITTestHeaderFooterView.class)];
     }
