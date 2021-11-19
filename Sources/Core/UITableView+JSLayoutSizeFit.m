@@ -117,8 +117,8 @@
     CGFloat contentWidth = cell.contentView.js_width > 0 ? cell.contentView.js_width : self.js_templateContainerWidth;
     if (templateView.js_width != width || contentView.js_width != contentWidth) {
         /// 设置View的宽度
-        templateView.js_width = width;
-        contentView.js_width = contentWidth;
+        templateView.js_fixedSize = CGSizeMake(width, 0);
+        contentView.js_fixedSize = CGSizeMake(contentWidth, 0);
         /// 更新约束的宽
         if (contentView.js_widthConstraint != nil) {
             contentView.js_widthConstraint.constant = contentWidth;
