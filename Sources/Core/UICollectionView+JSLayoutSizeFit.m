@@ -162,7 +162,7 @@
     if (templateView.js_isUseFrameLayout) {
         fittingSize = [templateView sizeThatFits:templateView.js_size];
     } else {
-        fittingSize = [templateView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        fittingSize = [templateView systemLayoutSizeFittingSize:templateView.js_size];
     }
     return fittingSize;
 }

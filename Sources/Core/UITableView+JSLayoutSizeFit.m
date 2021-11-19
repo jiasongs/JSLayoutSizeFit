@@ -159,7 +159,7 @@
     if (templateView.js_isUseFrameLayout) {
         fittingHeight = [templateView sizeThatFits:CGSizeMake(contentView.js_width, 0)].height;
     } else {
-        fittingHeight = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+        fittingHeight = [contentView systemLayoutSizeFittingSize:CGSizeMake(contentView.js_width, 0)].height;
     }
     if ([templateView isKindOfClass:UITableViewCell.class] && self.separatorStyle != UITableViewCellSeparatorStyleNone) {
         static CGFloat pixelOne = 1;
