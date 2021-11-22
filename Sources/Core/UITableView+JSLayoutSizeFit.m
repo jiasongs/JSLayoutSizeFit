@@ -22,13 +22,13 @@
         JSRuntimeOverrideImplementation(UITableView.class, NSSelectorFromString(@"_configureCellForDisplay:forIndexPath:"), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
             return ^(UITableView *selfObject, UITableViewCell *cell, NSIndexPath *indexPath) {
                 
-                __kindof UIView *templateView = [selfObject js_templateViewForViewClass:cell.class];
-                templateView.js_realTableViewCell = cell;
-                
                 // call super，-[UITableViewDelegate tableView:willDisplayCell:forRowAtIndexPath:] 比这个还晚，所以不用担心触发 delegate
                 void (*originSelectorIMP)(id, SEL, UITableViewCell *, NSIndexPath *);
                 originSelectorIMP = (void (*)(id, SEL, UITableViewCell *, NSIndexPath *))originalIMPProvider();
                 originSelectorIMP(selfObject, originCMD, cell, indexPath);
+                
+                __kindof UIView *templateView = [selfObject js_templateViewForViewClass:cell.class];
+                templateView.js_realTableViewCell = cell;
             };
         });
     });
@@ -103,10 +103,6 @@
                       configuration:(nullable void(^)(__kindof UIView *))configuration {
     /// 真实cell
     __kindof UITableViewCell *cell = templateView.js_realTableViewCell;
-    
-    if (cell != nil) {
-        NSLog(@"");
-    }
     
     UIView *contentView = templateView.js_templateContentView;
     /// 约束布局需要给contentView添加栅栏

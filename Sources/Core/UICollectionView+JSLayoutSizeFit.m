@@ -135,9 +135,9 @@
     if (contentSize.height != JSLayoutSizeFitAutomaticDimension) {
         resultSize.height = contentSize.height;
     }
-    if (!CGSizeEqualToSize(templateView.js_size, resultSize)) {
-        templateView.js_size = resultSize;
-        contentView.js_size = resultSize;
+    if (!CGSizeEqualToSize(templateView.js_fixedSize, resultSize)) {
+        templateView.js_fixedSize = resultSize;
+        contentView.js_fixedSize = resultSize;
         /// 更新约束的宽/高
         if (contentView.js_widthConstraint != nil) {
             contentView.js_widthConstraint.constant = resultSize.width;
