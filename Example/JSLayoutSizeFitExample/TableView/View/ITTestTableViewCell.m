@@ -45,10 +45,22 @@
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setFirstLineHeadIndent:0];
     [paragraphStyle setLineSpacing:8];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"傲丝度hi奥斯迪耦合剂不isad坏事户撒都我安徽搜的和阿萨德能加速的帮你加\n%@", title] attributes:@{NSParagraphStyleAttributeName: paragraphStyle}];
+    NSDictionary *attributes = @{
+        NSParagraphStyleAttributeName: paragraphStyle,
+        NSForegroundColorAttributeName: UIColor.labelColor
+    };
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"傲丝度hi奥斯迪耦合剂不isad坏事户撒都我安徽搜的和阿萨德能加速的帮你加\n%@", title] attributes:attributes];
     NSInteger length = MIN(30, attributedString.length);
-    [attributedString setAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:20]} range:NSMakeRange(0, length)];
-    [attributedString setAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16]} range:NSMakeRange(length, attributedString.length - length)];
+    NSDictionary *attributes1 = @{
+        NSFontAttributeName: [UIFont systemFontOfSize:20],
+        NSForegroundColorAttributeName: UIColor.labelColor
+    };
+    [attributedString setAttributes:attributes1 range:NSMakeRange(0, length)];
+    NSDictionary *attributes2 = @{
+        NSFontAttributeName: [UIFont systemFontOfSize:16],
+        NSForegroundColorAttributeName: UIColor.labelColor
+    };
+    [attributedString setAttributes:attributes2 range:NSMakeRange(length, attributedString.length - length)];
     self.titleLabel.attributedText = attributedString;
 //    [self.titleButton setTitle:title forState:UIControlStateNormal];
 }
@@ -73,6 +85,9 @@
 - (MPILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[MPILabel alloc] init];
+        if (@available(iOS 13.0, *)) {
+            _titleLabel.textColor = UIColor.labelColor;
+        }
         _titleLabel.numberOfLines = 0;
     }
     return _titleLabel;
@@ -82,7 +97,11 @@
     if (!_titleButton) {
         _titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _titleButton.titleLabel.numberOfLines = 0;
-        [_titleButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+        if (@available(iOS 13.0, *)) {
+            [_titleButton setTitleColor:UIColor.labelColor forState:UIControlStateNormal];
+        } else {
+            [_titleButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+        }
     }
     return _titleButton;
 }
