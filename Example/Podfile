@@ -5,7 +5,6 @@ source "https://github.com/CocoaPods/Specs.git"
 
 def pod_Common
   pod "JSLayoutSizeFit", :path => "..", :subspecs => ["ExtensionForSwift"]
-  pod "JSCoreKit", :path => "../../JSCoreKit"
   pod "QMUIKit"
   pod "Masonry"
   pod "MPITextKit"
