@@ -45,20 +45,25 @@
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setFirstLineHeadIndent:0];
     [paragraphStyle setLineSpacing:8];
+    
+    UIColor *textColor = UIColor.blackColor;
+    if (@available(iOS 13.0, *)) {
+        textColor = UIColor.labelColor;
+    }
     NSDictionary *attributes = @{
         NSParagraphStyleAttributeName: paragraphStyle,
-        NSForegroundColorAttributeName: UIColor.labelColor
+        NSForegroundColorAttributeName: textColor
     };
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"傲丝度hi奥斯迪耦合剂不isad坏事户撒都我安徽搜的和阿萨德能加速的帮你加\n%@", title] attributes:attributes];
     NSInteger length = MIN(30, attributedString.length);
     NSDictionary *attributes1 = @{
         NSFontAttributeName: [UIFont systemFontOfSize:20],
-        NSForegroundColorAttributeName: UIColor.labelColor
+        NSForegroundColorAttributeName: textColor
     };
     [attributedString setAttributes:attributes1 range:NSMakeRange(0, length)];
     NSDictionary *attributes2 = @{
         NSFontAttributeName: [UIFont systemFontOfSize:16],
-        NSForegroundColorAttributeName: UIColor.labelColor
+        NSForegroundColorAttributeName: textColor
     };
     [attributedString setAttributes:attributes2 range:NSMakeRange(length, attributedString.length - length)];
     self.titleLabel.attributedText = attributedString;
