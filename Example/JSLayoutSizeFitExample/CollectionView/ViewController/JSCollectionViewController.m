@@ -60,7 +60,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionViewCell.class
-                                                contentHeight:50
+                                                contentHeight:30
                                                    cacheByKey:indexPath.js_sizeFitCacheKey
                                                 configuration:^(__kindof JSTestCollectionViewCell * _Nonnull reusableView) {
         NSDictionary *dic = [self.dataSource objectAtIndex:indexPath.section];

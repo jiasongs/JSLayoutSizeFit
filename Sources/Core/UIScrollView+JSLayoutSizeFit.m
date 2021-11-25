@@ -17,6 +17,8 @@
 #pragma mark - 生成模板View
 
 - (__kindof UIView *)js_templateViewForViewClass:(Class)viewClass {
+    NSParameterAssert(viewClass);
+    
     NSString *viewClassString = NSStringFromClass(viewClass);
     __kindof UIView *templateView = [self.js_allTemplateViews objectForKey:viewClassString];
     if (!templateView) {

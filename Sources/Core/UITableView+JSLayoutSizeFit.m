@@ -102,23 +102,14 @@
 - (void)__js_prepareForTemplateView:(__kindof UIView *)templateView
                       configuration:(nullable void(^)(__kindof UIView *))configuration {
     /// 真实cell
-    __kindof UITableViewCell *cell = templateView.js_realTableViewCell;
-    
+    __kindof UITableViewCell *realCell = templateView.js_realTableViewCell;
     UIView *contentView = templateView.js_templateContentView;
-    /// 约束布局需要给contentView添加栅栏
-    if (!templateView.js_isUseFrameLayout) {
-        [contentView js_addFenceConstraintIfNeeded];
-    }
-    CGFloat width = cell.js_width > 0 ? cell.js_width : self.js_templateContainerWidth;
-    CGFloat contentWidth = cell.contentView.js_width > 0 ? cell.contentView.js_width : self.js_templateContainerWidth;
-    if (templateView.js_width != width || contentView.js_width != contentWidth) {
+    CGFloat width = realCell.js_width > 0 ? realCell.js_width : self.js_templateContainerWidth;
+    CGFloat contentWidth = realCell.contentView.js_width > 0 ? realCell.contentView.js_width : width;
+    if (templateView.js_fixedSize.width != width || contentView.js_fixedSize.width != contentWidth) {
         /// 设置View的宽度
         templateView.js_fixedSize = CGSizeMake(width, 0);
         contentView.js_fixedSize = CGSizeMake(contentWidth, 0);
-        /// 更新约束的宽
-        if (contentView.js_widthConstraint != nil) {
-            contentView.js_widthConstraint.constant = contentWidth;
-        }
         /// 强制布局, 使外部可以拿到一些控件的真实布局
         [templateView setNeedsLayout];
         [templateView layoutIfNeeded];

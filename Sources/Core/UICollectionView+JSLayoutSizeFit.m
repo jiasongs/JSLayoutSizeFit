@@ -97,16 +97,17 @@
         [self __js_prepareForTemplateView:templateView contentSize:contentSize configuration:configuration];
         /// 计算size
         resultSize = [self __js_systemFittingSizeForTemplateView:templateView];
+        /// 设置外部的宽/高
+        if (contentSize.width != JSLayoutSizeFitAutomaticDimension) {
+            resultSize.width = contentSize.width;
+        }
+        if (contentSize.height != JSLayoutSizeFitAutomaticDimension) {
+            resultSize.height = contentSize.height;
+        }
         /// 若Key存在时则写入内存
         if (key != nil) {
             [fitCache setCGSize:resultSize forKey:key];
         }
-    }
-    if (contentSize.width != JSLayoutSizeFitAutomaticDimension) {
-        resultSize.width = contentSize.width;
-    }
-    if (contentSize.height != JSLayoutSizeFitAutomaticDimension) {
-        resultSize.height = contentSize.height;
     }
     return resultSize;
 }
@@ -115,19 +116,6 @@
                         contentSize:(CGSize)contentSize
                       configuration:(nullable JSConfigurationReusableView)configuration {
     UIView *contentView = templateView.js_templateContentView ? : templateView;
-    /// 约束布局需要给contentView添加宽/高约束
-    if (!templateView.js_isUseFrameLayout) {
-        if (contentSize.width == JSLayoutSizeFitAutomaticDimension && contentSize.height == JSLayoutSizeFitAutomaticDimension) {
-            [contentView js_removeWidthConstraintIfNeeded];
-            [contentView js_removeHeightConstraintIfNeeded];
-        } else {
-            if (contentSize.width == JSLayoutSizeFitAutomaticDimension) {
-                [contentView js_addHeightConstraintIfNeeded];
-            } else if (contentSize.height == JSLayoutSizeFitAutomaticDimension) {
-                [contentView js_addWidthConstraintIfNeeded];
-            }
-        }
-    }
     CGSize resultSize = CGSizeZero;
     if (contentSize.width != JSLayoutSizeFitAutomaticDimension) {
         resultSize.width = contentSize.width;
@@ -138,13 +126,6 @@
     if (!CGSizeEqualToSize(templateView.js_fixedSize, resultSize)) {
         templateView.js_fixedSize = resultSize;
         contentView.js_fixedSize = resultSize;
-        /// 更新约束的宽/高
-        if (contentView.js_widthConstraint != nil) {
-            contentView.js_widthConstraint.constant = resultSize.width;
-        }
-        if (contentView.js_heightConstraint != nil) {
-            contentView.js_heightConstraint.constant = resultSize.height;
-        }
         /// 强制布局, 使外部可以拿到一些控件的真实布局
         [templateView setNeedsLayout];
         [templateView layoutIfNeeded];
