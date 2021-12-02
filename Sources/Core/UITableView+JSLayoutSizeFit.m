@@ -101,7 +101,6 @@
 
 - (void)__js_prepareForTemplateView:(__kindof UIView *)templateView
                       configuration:(nullable void(^)(__kindof UIView *))configuration {
-    /// 真实cell
     __kindof UITableViewCell *realCell = templateView.js_realTableViewCell;
     UIView *contentView = templateView.js_templateContentView;
     CGFloat width = realCell.js_width > 0 ? realCell.js_width : self.js_templateContainerWidth;
