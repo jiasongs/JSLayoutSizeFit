@@ -17,7 +17,7 @@
 #pragma mark - 生成模板View
 
 - (__kindof UIView *)js_templateViewForViewClass:(Class)viewClass {
-    NSParameterAssert(viewClass);
+    NSAssert([viewClass isSubclassOfClass:UIView.class], @"viewClass必须为UIView类或者其子类");
     
     NSString *viewClassString = NSStringFromClass(viewClass);
     __kindof UIView *templateView = [self.js_allTemplateViews objectForKey:viewClassString];

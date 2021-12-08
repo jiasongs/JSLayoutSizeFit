@@ -32,9 +32,9 @@
 - (BOOL)containsKey:(id<NSCopying>)key {
     if (key) {
         [self addLock];
-        BOOL contains = [self.cacheDictionary.allKeys containsObject:key];
+        BOOL isContains = [self.cacheDictionary.allKeys containsObject:key];
         [self unLock];
-        return contains;
+        return isContains;
     }
     return NO;
 }

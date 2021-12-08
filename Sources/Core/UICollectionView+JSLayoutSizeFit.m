@@ -37,7 +37,8 @@
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
                                 contentWidth:(CGFloat)contentWidth
                                configuration:(nullable JSConfigurationReusableView)configuration {
-    NSAssert(contentWidth >= 0, @"必须大于等于0");
+    NSAssert(contentWidth >= 0, @"contentWidth必须 >= 0");
+    
     return [self __js_fittingSizeForReusableViewClass:viewClass
                                           contentSize:CGSizeMake(contentWidth, JSLayoutSizeFitAutomaticDimension)
                                            cacheByKey:nil
@@ -48,7 +49,8 @@
                                 contentWidth:(CGFloat)contentWidth
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
-    NSAssert(contentWidth >= 0, @"必须大于等于0");
+    NSAssert(contentWidth >= 0, @"contentWidth必须 >= 0");
+    
     return [self __js_fittingSizeForReusableViewClass:viewClass
                                           contentSize:CGSizeMake(contentWidth, JSLayoutSizeFitAutomaticDimension)
                                            cacheByKey:key
@@ -58,7 +60,8 @@
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
                                contentHeight:(CGFloat)contentHeight
                                configuration:(nullable JSConfigurationReusableView)configuration {
-    NSAssert(contentHeight >= 0, @"必须大于等于0");
+    NSAssert(contentHeight >= 0, @"contentHeight必须 >= 0");
+    
     return [self __js_fittingSizeForReusableViewClass:viewClass
                                           contentSize:CGSizeMake(JSLayoutSizeFitAutomaticDimension, contentHeight)
                                            cacheByKey:nil
@@ -69,7 +72,8 @@
                                contentHeight:(CGFloat)contentHeight
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
-    NSAssert(contentHeight >= 0, @"必须大于等于0");
+    NSAssert(contentHeight >= 0, @"contentHeight必须 >= 0");
+    
     return [self __js_fittingSizeForReusableViewClass:viewClass
                                           contentSize:CGSizeMake(JSLayoutSizeFitAutomaticDimension, contentHeight)
                                            cacheByKey:key
@@ -82,9 +86,8 @@
                                    contentSize:(CGSize)contentSize
                                     cacheByKey:(nullable id<NSCopying>)key
                                  configuration:(nullable JSConfigurationReusableView)configuration {
-    if (![viewClass isSubclassOfClass:UICollectionReusableView.class]) {
-        NSAssert(NO, @"viewClass必须是UICollectionReusableView类或者其子类");
-    }
+    NSAssert([viewClass isSubclassOfClass:UICollectionReusableView.class], @"viewClass必须为UICollectionReusableView类或者其子类");
+    
     CGSize resultSize = CGSizeZero;
     /// FitCache
     JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UICollectionViewCell.class] ? self.js_rowSizeFitCache : self.js_sectionSizeFitCache;

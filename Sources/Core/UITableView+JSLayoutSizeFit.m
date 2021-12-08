@@ -46,9 +46,8 @@
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
                              cacheByKey:(nullable id<NSCopying>)key
                           configuration:(nullable JSConfigurationTableViewCell)configuration {
-    if (![cellClass isSubclassOfClass:UITableViewCell.class]) {
-        NSAssert(NO, @"cellClass必须是UITableViewCell类或者其子类");
-    }
+    NSAssert([cellClass isSubclassOfClass:UITableViewCell.class], @"cellClass必须是UITableViewCell类或者其子类");
+    
     return [self __js_fittingHeightForViewClass:cellClass
                                      cacheByKey:key
                                   configuration:configuration];
@@ -66,9 +65,8 @@
 - (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
                                 cacheByKey:(nullable id<NSCopying>)key
                              configuration:(nullable JSConfigurationTableViewSection)configuration {
-    if (![sectionClass isSubclassOfClass:UITableViewHeaderFooterView.class]) {
-        NSAssert(NO, @"viewClass必须是UITableViewHeaderFooterView类或者其子类");
-    }
+    NSAssert([sectionClass isSubclassOfClass:UITableViewHeaderFooterView.class], @"sectionClass必须是UITableViewHeaderFooterView类或者其子类");
+    
     return [self __js_fittingHeightForViewClass:sectionClass
                                      cacheByKey:key
                                   configuration:configuration];
