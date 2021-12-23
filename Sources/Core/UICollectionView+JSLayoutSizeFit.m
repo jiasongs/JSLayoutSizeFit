@@ -95,7 +95,11 @@
         resultSize = [fitCache CGSizeForKey:key];
     } else {
         /// 获取模板View
-        __kindof UICollectionReusableView *templateView = [self js_templateViewForViewClass:viewClass];
+        __kindof UICollectionReusableView *templateView = nil;
+        if (![self js_containsTemplateView:viewClass]) {
+            [self js_makeTemplateViewWithViewClass:viewClass];
+        }
+        templateView = [self js_templateViewForViewClass:viewClass];
         /// 准备
         [self __js_prepareForTemplateView:templateView contentSize:contentSize configuration:configuration];
         /// 计算size

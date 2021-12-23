@@ -13,7 +13,7 @@
     os_unfair_lock _lock;
 }
 
-@property (nonatomic, strong) NSMutableDictionary *cacheDictionary;
+@property (nonatomic, strong) NSMutableDictionary *caches;
 
 @end
 
@@ -22,7 +22,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         _lock = OS_UNFAIR_LOCK_INIT;
-        _cacheDictionary = [NSMutableDictionary dictionary];
+        _caches = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -32,7 +32,7 @@
 - (BOOL)containsKey:(id<NSCopying>)key {
     if (key) {
         [self addLock];
-        BOOL isContains = [self.cacheDictionary.allKeys containsObject:key];
+        BOOL isContains = [self.caches.allKeys containsObject:key];
         [self unLock];
         return isContains;
     }
@@ -42,7 +42,7 @@
 - (void)setObject:(id)object forKey:(id<NSCopying>)key {
     if (key && object) {
         [self addLock];
-        [self.cacheDictionary setObject:object forKey:key];
+        [self.caches setObject:object forKey:key];
         [self unLock];
     }
 }
@@ -50,7 +50,7 @@
 - (nullable id)objectForKey:(id<NSCopying>)key {
     if (key) {
         [self addLock];
-        id value = [self.cacheDictionary objectForKey:key];
+        id value = [self.caches objectForKey:key];
         [self unLock];
         return value;
     }
@@ -61,13 +61,13 @@
 
 - (void)removeObjectForKey:(id<NSCopying>)key {
     [self addLock];
-    [self.cacheDictionary removeObjectForKey:key];
+    [self.caches removeObjectForKey:key];
     [self unLock];
 }
 
 - (void)removeAllObjects {
     [self addLock];
-    [self.cacheDictionary removeAllObjects];
+    [self.caches removeAllObjects];
     [self unLock];
 }
 

@@ -21,14 +21,16 @@
     dispatch_once(&onceToken, ^{
         JSRuntimeOverrideImplementation(UITableView.class, NSSelectorFromString(@"_configureCellForDisplay:forIndexPath:"), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
             return ^(UITableView *selfObject, UITableViewCell *cell, NSIndexPath *indexPath) {
-                
+
                 // call super，-[UITableViewDelegate tableView:willDisplayCell:forRowAtIndexPath:] 比这个还晚，所以不用担心触发 delegate
                 void (*originSelectorIMP)(id, SEL, UITableViewCell *, NSIndexPath *);
                 originSelectorIMP = (void (*)(id, SEL, UITableViewCell *, NSIndexPath *))originalIMPProvider();
                 originSelectorIMP(selfObject, originCMD, cell, indexPath);
-                
+
                 __kindof UIView *templateView = [selfObject js_templateViewForViewClass:cell.class];
-                templateView.js_realTableViewCell = cell;
+                if (templateView != nil) {
+                    templateView.js_realTableViewCell = cell;
+                }
             };
         });
     });
@@ -84,7 +86,12 @@
         resultHeight = [fitCache CGFloatForKey:key];
     } else {
         /// 获取模板View
-        __kindof UIView *templateView = [self js_templateViewForViewClass:viewClass];
+        /// 获取模板View
+        __kindof UIView *templateView = nil;
+        if (![self js_containsTemplateView:viewClass]) {
+            [self js_makeTemplateViewWithViewClass:viewClass];
+        }
+        templateView = [self js_templateViewForViewClass:viewClass];
         /// 准备
         [self __js_prepareForTemplateView:templateView configuration:configuration];
         /// 计算高度

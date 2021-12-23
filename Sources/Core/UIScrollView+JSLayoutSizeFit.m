@@ -16,22 +16,35 @@
 
 #pragma mark - 生成模板View
 
-- (__kindof UIView *)js_templateViewForViewClass:(Class)viewClass {
+- (void)js_makeTemplateViewWithViewClass:(Class)viewClass {
     NSAssert([viewClass isSubclassOfClass:UIView.class], @"viewClass必须为UIView类或者其子类");
     
     NSString *viewClassString = NSStringFromClass(viewClass);
-    __kindof UIView *templateView = [self.js_allTemplateViews objectForKey:viewClassString];
-    if (!templateView) {
-        NSString *nibPath = [[NSBundle bundleForClass:viewClass] pathForResource:viewClassString ofType:@"nib"];
-        if (nibPath) {
-            templateView = [[NSBundle bundleForClass:viewClass] loadNibNamed:viewClassString owner:nil options:nil].firstObject;
-        } else {
-            templateView = [[viewClass alloc] initWithFrame:CGRectZero];
-        }
-        templateView.js_fromTemplateView = YES;
-        [self.js_allTemplateViews setObject:templateView forKey:viewClassString];
+    __kindof UIView *templateView = nil;
+    NSString *nibPath = [[NSBundle bundleForClass:viewClass] pathForResource:viewClassString ofType:@"nib"];
+    if (nibPath) {
+        templateView = [[NSBundle bundleForClass:viewClass] loadNibNamed:viewClassString owner:nil options:nil].firstObject;
+    } else {
+        templateView = [[viewClass alloc] initWithFrame:CGRectZero];
     }
-    return templateView;
+    templateView.js_fromTemplateView = YES;
+    
+    NSAssert(templateView, @"生成失败, 需要查找原因");
+    [self.js_allTemplateViews setObject:templateView forKey:viewClassString];
+}
+
+- (BOOL)js_containsTemplateView:(Class)viewClass {
+    NSAssert([viewClass isSubclassOfClass:UIView.class], @"viewClass必须为UIView类或者其子类");
+    
+    NSString *viewClassString = NSStringFromClass(viewClass);
+    return [self.js_allTemplateViews.allKeys containsObject:viewClassString];
+}
+
+- (nullable __kindof UIView *)js_templateViewForViewClass:(Class)viewClass {
+    NSAssert([viewClass isSubclassOfClass:UIView.class], @"viewClass必须为UIView类或者其子类");
+    
+    NSString *viewClassString = NSStringFromClass(viewClass);
+    return [self.js_allTemplateViews objectForKey:viewClassString];
 }
 
 #pragma mark - getter
