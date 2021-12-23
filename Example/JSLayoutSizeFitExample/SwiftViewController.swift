@@ -13,8 +13,6 @@ class SwiftViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tableView = UITableView()
-        tableView.lsf.useFrameLayout(true)
     }
 
 }
