@@ -30,7 +30,7 @@
 #pragma mark - Base
 
 - (BOOL)containsKey:(id<NSCopying>)key {
-    if (key) {
+    if (key != nil) {
         [self addLock];
         BOOL isContains = [self.caches.allKeys containsObject:key];
         [self unLock];
@@ -40,7 +40,7 @@
 }
 
 - (void)setObject:(id)object forKey:(id<NSCopying>)key {
-    if (key && object) {
+    if (key != nil && object != nil) {
         [self addLock];
         [self.caches setObject:object forKey:key];
         [self unLock];
@@ -48,7 +48,7 @@
 }
 
 - (nullable id)objectForKey:(id<NSCopying>)key {
-    if (key) {
+    if (key != nil) {
         [self addLock];
         id value = [self.caches objectForKey:key];
         [self unLock];
@@ -60,9 +60,11 @@
 #pragma mark - Remove
 
 - (void)removeObjectForKey:(id<NSCopying>)key {
-    [self addLock];
-    [self.caches removeObjectForKey:key];
-    [self unLock];
+    if (key != nil) {
+        [self addLock];
+        [self.caches removeObjectForKey:key];
+        [self unLock];
+    }
 }
 
 - (void)removeAllObjects {
