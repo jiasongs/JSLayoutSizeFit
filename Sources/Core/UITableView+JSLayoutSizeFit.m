@@ -108,8 +108,8 @@
                       configuration:(nullable void(^)(__kindof UIView *))configuration {
     __kindof UITableViewCell *realCell = templateView.js_realTableViewCell;
     UIView *contentView = templateView.js_templateContentView;
-    CGFloat width = realCell.js_width > 0 ? realCell.js_width : self.js_templateContainerWidth;
-    CGFloat contentWidth = realCell.contentView.js_width > 0 ? realCell.contentView.js_width : width;
+    CGFloat width = realCell.js_width ? : self.js_templateContainerWidth;
+    CGFloat contentWidth = realCell.contentView.js_width ? : width;
     if (templateView.js_fixedSize.width != width || contentView.js_fixedSize.width != contentWidth) {
         /// 设置View的宽度
         templateView.js_fixedSize = CGSizeMake(width, 0);
