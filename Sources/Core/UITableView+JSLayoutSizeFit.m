@@ -21,12 +21,12 @@
     dispatch_once(&onceToken, ^{
         JSRuntimeOverrideImplementation(UITableView.class, NSSelectorFromString(@"_configureCellForDisplay:forIndexPath:"), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
             return ^(UITableView *selfObject, UITableViewCell *cell, NSIndexPath *indexPath) {
-
+                
                 // call super，-[UITableViewDelegate tableView:willDisplayCell:forRowAtIndexPath:] 比这个还晚，所以不用担心触发 delegate
                 void (*originSelectorIMP)(id, SEL, UITableViewCell *, NSIndexPath *);
                 originSelectorIMP = (void (*)(id, SEL, UITableViewCell *, NSIndexPath *))originalIMPProvider();
                 originSelectorIMP(selfObject, originCMD, cell, indexPath);
-
+                
                 __kindof UIView *templateView = [selfObject js_templateViewForViewClass:cell.class];
                 if (templateView != nil) {
                     templateView.js_realTableViewCell = cell;
@@ -82,42 +82,46 @@
     CGFloat resultHeight = 0;
     /// FitCache
     JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UITableViewCell.class] ? self.js_rowSizeFitCache : self.js_sectionSizeFitCache;
+    
     if (key != nil && [fitCache containsKey:key]) {
         resultHeight = [fitCache CGFloatForKey:key];
     } else {
-        /// 获取模板View
-        /// 获取模板View
-        __kindof UIView *templateView = nil;
-        if (![self js_containsTemplateView:viewClass]) {
-            [self js_makeTemplateViewWithViewClass:viewClass];
-        }
-        templateView = [self js_templateViewForViewClass:viewClass];
+        /// 制作/获取模板View
+        __kindof UIView *templateView = [self js_makeTemplateViewIfNecessaryWithViewClass:viewClass];
+        
         /// 准备
-        [self __js_prepareForTemplateView:templateView configuration:configuration];
+        [self js_prepareForTemplateView:templateView configuration:configuration];
+        
         /// 计算高度
-        resultHeight = [self __js_systemFittingHeightForTemplateView:templateView];
-        /// 若Key存在时且realTableViewCell存在时写入内存
+        resultHeight = [self js_systemFittingHeightForTemplateView:templateView];
+        
+        /// 写入内存
         if (key != nil && templateView.js_realTableViewCell != nil) {
             [fitCache setCGFloat:resultHeight forKey:key];
         }
     }
+    
     return resultHeight;
 }
 
-- (void)__js_prepareForTemplateView:(__kindof UIView *)templateView
-                      configuration:(nullable void(^)(__kindof UIView *))configuration {
-    __kindof UITableViewCell *realCell = templateView.js_realTableViewCell;
+- (void)js_prepareForTemplateView:(__kindof UIView *)templateView
+                    configuration:(nullable void(^)(__kindof UIView *))configuration {
+    UITableViewCell *realCell = templateView.js_realTableViewCell;
     UIView *contentView = templateView.js_templateContentView;
-    CGFloat width = realCell.js_width ? : self.js_templateContainerWidth;
-    CGFloat contentWidth = realCell.contentView.js_width ? : width;
-    if (templateView.js_fixedSize.width != width || contentView.js_fixedSize.width != contentWidth) {
+    
+    CGFloat cellWidth = realCell.js_width ? : self.js_templateContainerWidth;
+    CGFloat contentWidth = realCell.contentView.js_width ? : cellWidth;
+    
+    if (templateView.js_fixedSize.width != cellWidth || contentView.js_fixedSize.width != contentWidth) {
         /// 设置View的宽度
-        templateView.js_fixedSize = CGSizeMake(width, 0);
+        templateView.js_fixedSize = CGSizeMake(cellWidth, 0);
         contentView.js_fixedSize = CGSizeMake(contentWidth, 0);
+        
         /// 强制布局, 使外部可以拿到一些控件的真实布局
         [templateView setNeedsLayout];
         [templateView layoutIfNeeded];
     }
+    
     if ([templateView respondsToSelector:@selector(prepareForReuse)]) {
         [templateView prepareForReuse];
     }
@@ -126,14 +130,16 @@
     }
 }
 
-- (CGFloat)__js_systemFittingHeightForTemplateView:(__kindof UIView *)templateView {
+- (CGFloat)js_systemFittingHeightForTemplateView:(__kindof UIView *)templateView {
     UIView *contentView = templateView.js_templateContentView;
+    
     CGFloat fittingHeight = 0;
     if (templateView.js_isUseFrameLayout) {
         fittingHeight = [templateView sizeThatFits:CGSizeMake(contentView.js_width, 0)].height;
     } else {
         fittingHeight = [contentView systemLayoutSizeFittingSize:CGSizeMake(contentView.js_width, 0)].height;
     }
+    
     if ([templateView isKindOfClass:UITableViewCell.class] && self.separatorStyle != UITableViewCellSeparatorStyleNone) {
         static CGFloat pixelOne = 1;
         static dispatch_once_t onceToken;
@@ -142,6 +148,7 @@
         });
         fittingHeight += pixelOne;
     }
+    
     return fittingHeight;
 }
 

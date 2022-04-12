@@ -16,28 +16,28 @@
 
 #pragma mark - 生成模板View
 
-- (void)js_makeTemplateViewWithViewClass:(Class)viewClass {
+- (__kindof UIView *)js_makeTemplateViewIfNecessaryWithViewClass:(Class)viewClass {
     NSAssert([viewClass isSubclassOfClass:UIView.class], @"viewClass必须为UIView类或者其子类");
     
     NSString *viewClassString = NSStringFromClass(viewClass);
-    __kindof UIView *templateView = nil;
-    NSString *nibPath = [[NSBundle bundleForClass:viewClass] pathForResource:viewClassString ofType:@"nib"];
-    if (nibPath) {
-        templateView = [[NSBundle bundleForClass:viewClass] loadNibNamed:viewClassString owner:nil options:nil].firstObject;
+    
+    if ([self.js_allTemplateViews.allKeys containsObject:viewClassString]) {
+        return [self js_templateViewForViewClass:viewClass];
     } else {
-        templateView = [[viewClass alloc] initWithFrame:CGRectZero];
+        __kindof UIView *templateView = nil;
+        NSString *nibPath = [[NSBundle bundleForClass:viewClass] pathForResource:viewClassString ofType:@"nib"];
+        if (nibPath) {
+            templateView = [[NSBundle bundleForClass:viewClass] loadNibNamed:viewClassString owner:nil options:nil].firstObject;
+        } else {
+            templateView = [[viewClass alloc] initWithFrame:CGRectZero];
+        }
+        templateView.js_fromTemplateView = YES;
+        
+        NSAssert(templateView, @"生成失败, 需要查找原因");
+        [self.js_allTemplateViews setObject:templateView forKey:viewClassString];
+        
+        return templateView;
     }
-    templateView.js_fromTemplateView = YES;
-    
-    NSAssert(templateView, @"生成失败, 需要查找原因");
-    [self.js_allTemplateViews setObject:templateView forKey:viewClassString];
-}
-
-- (BOOL)js_containsTemplateView:(Class)viewClass {
-    NSAssert([viewClass isSubclassOfClass:UIView.class], @"viewClass必须为UIView类或者其子类");
-    
-    NSString *viewClassString = NSStringFromClass(viewClass);
-    return [self.js_allTemplateViews.allKeys containsObject:viewClassString];
 }
 
 - (nullable __kindof UIView *)js_templateViewForViewClass:(Class)viewClass {

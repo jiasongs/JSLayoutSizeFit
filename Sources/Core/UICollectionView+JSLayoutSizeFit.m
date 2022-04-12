@@ -91,19 +91,19 @@
     CGSize resultSize = CGSizeZero;
     /// FitCache
     JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UICollectionViewCell.class] ? self.js_rowSizeFitCache : self.js_sectionSizeFitCache;
+    
     if (key != nil && [fitCache containsKey:key]) {
         resultSize = [fitCache CGSizeForKey:key];
     } else {
-        /// 获取模板View
-        __kindof UICollectionReusableView *templateView = nil;
-        if (![self js_containsTemplateView:viewClass]) {
-            [self js_makeTemplateViewWithViewClass:viewClass];
-        }
-        templateView = [self js_templateViewForViewClass:viewClass];
+        /// 制作/获取模板View
+        __kindof UICollectionReusableView *templateView = [self js_makeTemplateViewIfNecessaryWithViewClass:viewClass];
+        
         /// 准备
-        [self __js_prepareForTemplateView:templateView contentSize:contentSize configuration:configuration];
+        [self js_prepareForTemplateView:templateView contentSize:contentSize configuration:configuration];
+        
         /// 计算size
-        resultSize = [self __js_systemFittingSizeForTemplateView:templateView];
+        resultSize = [self js_systemFittingSizeForTemplateView:templateView];
+        
         /// 设置外部的宽/高
         if (contentSize.width != JSLayoutSizeFitAutomaticDimension) {
             resultSize.width = contentSize.width;
@@ -111,32 +111,38 @@
         if (contentSize.height != JSLayoutSizeFitAutomaticDimension) {
             resultSize.height = contentSize.height;
         }
+        
         /// 若Key存在时则写入内存
         if (key != nil) {
             [fitCache setCGSize:resultSize forKey:key];
         }
     }
+    
     return resultSize;
 }
 
-- (void)__js_prepareForTemplateView:(__kindof UIView *)templateView
-                        contentSize:(CGSize)contentSize
-                      configuration:(nullable JSConfigurationReusableView)configuration {
-    UIView *contentView = templateView.js_templateContentView ? : templateView;
-    CGSize resultSize = CGSizeZero;
+- (void)js_prepareForTemplateView:(__kindof UIView *)templateView
+                      contentSize:(CGSize)contentSize
+                    configuration:(nullable JSConfigurationReusableView)configuration {
+    UIView *contentView = templateView.js_templateContentView;
+    
+    CGSize fixedSize = CGSizeZero;
     if (contentSize.width != JSLayoutSizeFitAutomaticDimension) {
-        resultSize.width = contentSize.width;
+        fixedSize.width = contentSize.width;
     }
     if (contentSize.height != JSLayoutSizeFitAutomaticDimension) {
-        resultSize.height = contentSize.height;
+        fixedSize.height = contentSize.height;
     }
-    if (!CGSizeEqualToSize(templateView.js_fixedSize, resultSize)) {
-        templateView.js_fixedSize = resultSize;
-        contentView.js_fixedSize = resultSize;
+    
+    if (!CGSizeEqualToSize(templateView.js_fixedSize, fixedSize)) {
+        templateView.js_fixedSize = fixedSize;
+        contentView.js_fixedSize = fixedSize;
+        
         /// 强制布局, 使外部可以拿到一些控件的真实布局
         [templateView setNeedsLayout];
         [templateView layoutIfNeeded];
     }
+    
     if ([templateView respondsToSelector:@selector(prepareForReuse)]) {
         [templateView prepareForReuse];
     }
@@ -145,13 +151,15 @@
     }
 }
 
-- (CGSize)__js_systemFittingSizeForTemplateView:(__kindof UIView *)templateView {
+- (CGSize)js_systemFittingSizeForTemplateView:(__kindof UIView *)templateView {
     CGSize fittingSize = CGSizeZero;
+    
     if (templateView.js_isUseFrameLayout) {
         fittingSize = [templateView sizeThatFits:templateView.js_size];
     } else {
         fittingSize = [templateView systemLayoutSizeFittingSize:templateView.js_size];
     }
+    
     return fittingSize;
 }
 
