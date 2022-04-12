@@ -9,19 +9,27 @@
 #import "JSTestCollectionReusableView.h"
 #import <Masonry.h>
 #import <QMUIKit.h>
+#import <JSLayoutSizeFit.h>
 
 @implementation JSTestCollectionReusableView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+        self.js_useFrameLayout = YES;
+        
         [self addSubview:self.nameLabel];
-        [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.equalTo(self).offset(10).priorityHigh();
-            make.right.equalTo(self.mas_right).offset(-10).priorityHigh();
-            make.bottom.equalTo(self.mas_bottom).offset(-10);
-        }];
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.nameLabel.frame = CGRectMake(10, 10, self.qmui_width - 10 * 2, self.qmui_height - 10 * 2);
+}
+
+- (CGSize)sizeThatFits:(CGSize)size {
+    CGSize resultSize = [self.nameLabel sizeThatFits:CGSizeMake(size.width - 10 * 2, 0)];
+    return CGSizeMake(resultSize.width, resultSize.height + 10 * 2);
 }
 
 - (void)updateViewWithData:(NSDictionary *)data atIndexPath:(NSIndexPath *)atIndexPath {

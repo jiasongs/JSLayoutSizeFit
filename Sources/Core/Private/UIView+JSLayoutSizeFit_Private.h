@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, weak) __kindof UITableViewCell *js_realTableViewCell;
 @property (nullable, nonatomic, readonly) __kindof UIView *js_templateContentView;
 
+- (CGSize)js_templateSizeThatFits:(CGSize)size;
+
 @end
 
 NS_ASSUME_NONNULL_END

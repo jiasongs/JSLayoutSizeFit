@@ -8,19 +8,28 @@
 
 #import "ITTestHeaderFooterView.h"
 #import <Masonry.h>
+#import <QMUIKit.h>
+#import <JSLayoutSizeFit.h>
 
 @implementation ITTestHeaderFooterView
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
+        self.js_useFrameLayout = YES;
+        
         [self.contentView addSubview:self.nameLabel];
-        [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.equalTo(self.contentView).offset(10);
-            make.right.equalTo(self.contentView.mas_right).offset(-10).priorityHigh();
-            make.bottom.equalTo(self.contentView.mas_bottom).offset(-10).priorityHigh();
-        }];
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.nameLabel.frame = CGRectMake(10, 10, self.contentView.qmui_width - 10 * 2, self.contentView.qmui_height - 10 * 2);
+}
+
+- (CGSize)sizeThatFits:(CGSize)size {
+    CGSize resultSize = [self.nameLabel sizeThatFits:CGSizeMake(size.width - 10 * 2, 0)];
+    return CGSizeMake(resultSize.width, resultSize.height + 10 * 2);
 }
 
 - (void)updateViewWithData:(NSDictionary *)data inSection:(NSInteger)section {

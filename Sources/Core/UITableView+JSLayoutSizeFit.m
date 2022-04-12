@@ -96,7 +96,7 @@
         resultHeight = [self js_systemFittingHeightForTemplateView:templateView];
         
         /// 写入内存
-        if (key != nil && templateView.js_realTableViewCell != nil) {
+        if (key != nil && (![viewClass isSubclassOfClass:UITableViewCell.class] || templateView.js_realTableViewCell != nil)) {
             [fitCache setCGFloat:resultHeight forKey:key];
         }
     }
@@ -135,7 +135,7 @@
     
     CGFloat fittingHeight = 0;
     if (templateView.js_isUseFrameLayout) {
-        fittingHeight = [templateView sizeThatFits:CGSizeMake(contentView.js_width, 0)].height;
+        fittingHeight = [templateView js_templateSizeThatFits:CGSizeMake(contentView.js_width, 0)].height;
     } else {
         fittingHeight = [contentView systemLayoutSizeFittingSize:CGSizeMake(contentView.js_width, 0)].height;
     }

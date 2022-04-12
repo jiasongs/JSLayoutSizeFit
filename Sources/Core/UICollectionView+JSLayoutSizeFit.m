@@ -155,7 +155,7 @@
     CGSize fittingSize = CGSizeZero;
     
     if (templateView.js_isUseFrameLayout) {
-        fittingSize = [templateView sizeThatFits:templateView.js_size];
+        fittingSize = [templateView js_templateSizeThatFits:templateView.js_size];
     } else {
         fittingSize = [templateView systemLayoutSizeFittingSize:templateView.js_size];
     }

@@ -97,7 +97,11 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        if (@available(iOS 13.0, *)) {
+            _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
+        } else {
+            _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        }
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
@@ -110,7 +114,6 @@
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
         if (@available(iOS 15.0, *)) {
-            _tableView.fillerRowHeight = 0;
             _tableView.sectionHeaderTopPadding = 0;
         }
         [_tableView registerClass:ITTestTableViewCell.class forCellReuseIdentifier:NSStringFromClass(ITTestTableViewCell.class)];
