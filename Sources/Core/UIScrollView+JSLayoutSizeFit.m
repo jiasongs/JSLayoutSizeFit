@@ -60,7 +60,7 @@
         }
     }
     contentWidth = contentWidth - (contentInset.left + contentInset.right);
-    return contentWidth > 0 ? contentWidth : 0;
+    return MAX(contentWidth, 0);
 }
 
 - (JSLayoutSizeFitCache *)js_rowSizeFitCache {

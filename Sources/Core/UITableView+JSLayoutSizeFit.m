@@ -96,8 +96,12 @@
         resultHeight = [self js_systemFittingHeightForTemplateView:templateView];
         
         /// 写入内存
-        if (key != nil && (![viewClass isSubclassOfClass:UITableViewCell.class] || templateView.js_realTableViewCell != nil)) {
-            [fitCache setCGFloat:resultHeight forKey:key];
+        if (key != nil) {
+            if ([templateView isKindOfClass:UITableViewHeaderFooterView.class]) {
+                [fitCache setCGFloat:resultHeight forKey:key];
+            } else if ([templateView isKindOfClass:UITableViewCell.class] && templateView.js_realTableViewCell != nil) {
+                [fitCache setCGFloat:resultHeight forKey:key];
+            }
         }
     }
     
@@ -106,11 +110,18 @@
 
 - (void)js_prepareForTemplateView:(__kindof UIView *)templateView
                     configuration:(nullable void(^)(__kindof UIView *))configuration {
-    UITableViewCell *realCell = templateView.js_realTableViewCell;
     UIView *contentView = templateView.js_templateContentView;
     
-    CGFloat cellWidth = realCell.js_width ? : self.js_templateContainerWidth;
-    CGFloat contentWidth = realCell.contentView.js_width ? : cellWidth;
+    CGFloat cellWidth = 0;
+    CGFloat contentWidth = 0;
+    if ([templateView isKindOfClass:UITableViewHeaderFooterView.class]) {
+        cellWidth = self.js_templateContainerWidth;
+        contentWidth = cellWidth - (self.style == UITableViewStyleGrouped + 1 ? JSUIEdgeInsetsGetHorizontalValue(self.layoutMargins) : 0);
+    } else if ([templateView isKindOfClass:UITableViewCell.class]) {
+        UITableViewCell *realCell = templateView.js_realTableViewCell;
+        cellWidth = realCell.js_width ? : self.js_templateContainerWidth;
+        contentWidth = realCell.contentView.js_width ? : cellWidth;
+    }
     
     if (templateView.js_fixedSize.width != cellWidth || contentView.js_fixedSize.width != contentWidth) {
         /// 设置View的宽度
