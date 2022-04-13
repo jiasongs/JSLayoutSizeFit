@@ -9,8 +9,6 @@
 #import "UIView+JSLayoutSizeFit_Private.h"
 #import "JSCoreKit.h"
 
-CGFloat const JSLayoutSizeFitAutomaticDimension = -1000;
-
 @implementation UIView (JSLayoutSizeFit)
 
 JSSynthesizeBOOLProperty(js_isUseFrameLayout, setJs_useFrameLayout)

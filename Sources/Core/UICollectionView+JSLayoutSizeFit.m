@@ -88,13 +88,6 @@
                                  configuration:(nullable JSConfigurationReusableView)configuration {
     NSAssert([viewClass isSubclassOfClass:UICollectionReusableView.class], @"viewClass必须为UICollectionReusableView类或者其子类");
     
-    if (contentSize.width == JSLayoutSizeFitAutomaticDimension) {
-        contentSize.width = self.js_validContentSize.width;
-    }
-    if (contentSize.height == JSLayoutSizeFitAutomaticDimension) {
-        contentSize.height = self.js_validContentSize.height;
-    }
-    
     CGSize resultSize = CGSizeZero;
     /// FitCache
     JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UICollectionViewCell.class] ? self.js_rowSizeFitCache : self.js_sectionSizeFitCache;
@@ -133,10 +126,9 @@
                     configuration:(nullable JSConfigurationReusableView)configuration {
     UIView *contentView = templateView.js_templateContentView;
     
-    CGSize fixedSize = contentSize;
-    if (!CGSizeEqualToSize(templateView.js_fixedSize, fixedSize)) {
-        templateView.js_fixedSize = fixedSize;
-        contentView.js_fixedSize = fixedSize;
+    if (!CGSizeEqualToSize(templateView.js_fixedSize, contentSize)) {
+        templateView.js_fixedSize = contentSize;
+        contentView.js_fixedSize = contentSize;
         
         /// 强制布局, 使外部可以拿到一些控件的真实布局
         [templateView setNeedsLayout];

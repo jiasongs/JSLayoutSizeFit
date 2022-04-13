@@ -50,7 +50,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionReusableView.class
-                                                 contentWidth:collectionView.qmui_width - 20
+                                                 contentWidth:collectionView.qmui_width
                                                    cacheByKey:@(section)
                                                 configuration:^(__kindof UICollectionReusableView * _Nonnull reusableView) {
         NSDictionary *dic = [self.dataSource objectAtIndex:section];

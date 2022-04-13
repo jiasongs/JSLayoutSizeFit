@@ -9,8 +9,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-UIKIT_EXTERN CGFloat const JSLayoutSizeFitAutomaticDimension;
-
 @interface UIView (JSLayoutSizeFit)
 
 @property (nonatomic, assign, readonly) BOOL js_isFromTemplateView;
