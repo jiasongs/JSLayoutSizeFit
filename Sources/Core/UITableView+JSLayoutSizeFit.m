@@ -83,7 +83,7 @@
         [self js_prepareForTemplateView:templateView configuration:configuration];
         
         /// 计算高度
-        resultHeight = [self js_systemFittingHeightForTemplateView:templateView];
+        resultHeight = [self js_fittingHeightContainsSeparatorForTemplateView:templateView];
         
         /// 写入内存
         if (key != nil) {
@@ -120,9 +120,11 @@
     }
     
     if (templateView.js_fixedSize.width != cellWidth || contentView.js_fixedSize.width != contentWidth) {
-        /// 设置View的宽度
-        templateView.js_fixedSize = CGSizeMake(cellWidth, 0);
-        contentView.js_fixedSize = CGSizeMake(contentWidth, 0);
+        /// 计算出最小height, 防止约束或布局冲突
+        CGFloat minimumHeight = [self js_fittingHeightForTemplateView:templateView widthContentWidth:contentWidth];
+        
+        templateView.js_fixedSize = CGSizeMake(cellWidth, minimumHeight);
+        contentView.js_fixedSize =  CGSizeMake(contentWidth, minimumHeight);
         
         /// 强制布局, 使外部可以拿到一些控件的真实布局
         [templateView setNeedsLayout];
@@ -137,23 +139,32 @@
     }
 }
 
-- (CGFloat)js_systemFittingHeightForTemplateView:(__kindof UIView *)templateView {
+- (CGFloat)js_fittingHeightContainsSeparatorForTemplateView:(__kindof UIView *)templateView {
     UIView *contentView = templateView.js_templateContentView;
     
-    CGFloat fittingHeight = 0;
-    if (templateView.js_isUseFrameLayout) {
-        fittingHeight = [templateView js_templateSizeThatFits:CGSizeMake(contentView.js_width, 0)].height;
-    } else {
-        fittingHeight = [contentView systemLayoutSizeFittingSize:CGSizeMake(contentView.js_width, 0)].height;
-    }
+    CGFloat fittingHeight = [self js_fittingHeightForTemplateView:templateView widthContentWidth:contentView.js_width];
     
     if ([templateView isKindOfClass:UITableViewCell.class] && self.separatorStyle != UITableViewCellSeparatorStyleNone) {
         static CGFloat pixelOne = 1;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            pixelOne = 1 / UIScreen.mainScreen.scale;
+            pixelOne = 1 / (UIScreen.mainScreen.scale ? : 1);
         });
         fittingHeight += pixelOne;
+    }
+    
+    return fittingHeight;
+}
+
+- (CGFloat)js_fittingHeightForTemplateView:(__kindof UIView *)templateView
+                         widthContentWidth:(CGFloat)contentWidth {
+    UIView *contentView = templateView.js_templateContentView;
+    
+    CGFloat fittingHeight = 0;
+    if (templateView.js_isUseFrameLayout) {
+        fittingHeight = [templateView js_templateSizeThatFits:CGSizeMake(contentWidth, 0)].height;
+    } else {
+        fittingHeight = [contentView systemLayoutSizeFittingSize:CGSizeMake(contentWidth, 0)].height;
     }
     
     return fittingHeight;

@@ -92,7 +92,7 @@
         [self js_prepareForTemplateView:templateView contentSize:contentSize configuration:configuration];
         
         /// 计算size
-        resultSize = [self js_systemFittingSizeForTemplateView:templateView];
+        resultSize = [self js_fittingSizeForTemplateView:templateView];
         
         /// 设置外部的宽/高
         if (contentSize.width > 0) {
@@ -117,8 +117,13 @@
     UIView *contentView = templateView.js_templateContentView;
     
     if (!CGSizeEqualToSize(templateView.js_fixedSize, contentSize)) {
-        templateView.js_fixedSize = contentSize;
-        contentView.js_fixedSize = contentSize;
+        /// 计算出最小size, 防止约束或布局冲突
+        CGSize minimumSize = [self js_fittingSizeForTemplateView:templateView widthContentSize:contentSize];
+        
+        CGSize fixedSize = CGSizeMake(MAX(contentSize.width, minimumSize.width),
+                                      MAX(contentSize.height, minimumSize.height));
+        templateView.js_fixedSize = fixedSize;
+        contentView.js_fixedSize = fixedSize;
         
         /// 强制布局, 使外部可以拿到一些控件的真实布局
         [templateView setNeedsLayout];
@@ -133,13 +138,17 @@
     }
 }
 
-- (CGSize)js_systemFittingSizeForTemplateView:(__kindof UIView *)templateView {
+- (CGSize)js_fittingSizeForTemplateView:(__kindof UIView *)templateView {
+    return [self js_fittingSizeForTemplateView:templateView widthContentSize:templateView.js_size];
+}
+
+- (CGSize)js_fittingSizeForTemplateView:(__kindof UIView *)templateView
+                       widthContentSize:(CGSize)contentSize {
     CGSize fittingSize = CGSizeZero;
-    
     if (templateView.js_isUseFrameLayout) {
-        fittingSize = [templateView js_templateSizeThatFits:templateView.js_size];
+        fittingSize = [templateView js_templateSizeThatFits:contentSize];
     } else {
-        fittingSize = [templateView systemLayoutSizeFittingSize:templateView.js_size];
+        fittingSize = [templateView systemLayoutSizeFittingSize:contentSize];
     }
     
     return fittingSize;

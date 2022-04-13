@@ -20,15 +20,15 @@
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contentView.mas_top).offset(10);
             make.left.equalTo(self.contentView.mas_left).offset(10);
-            make.right.equalTo(self.contentView.mas_right).offset(-10).priorityHigh();
-            make.bottom.equalTo(self.contentView.mas_bottom).offset(-10).priorityHigh();
+            make.right.equalTo(self.contentView.mas_right).offset(-10);
+            make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
         }];
         //        [self.contentView addSubview:self.titleButton];
         //        [self.titleButton mas_makeConstraints:^(MASConstraintMaker *make) {
         //            make.top.equalTo(self.contentView.mas_top).offset(10);
         //            make.left.equalTo(self.contentView.mas_left).offset(10);
         //            make.right.equalTo(self.contentView.mas_right).offset(-10);
-        //            make.bottom.equalTo(self.contentView.mas_bottom).offset(-10).priorityHigh();
+        //            make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
         //        }];
     }
     return self;

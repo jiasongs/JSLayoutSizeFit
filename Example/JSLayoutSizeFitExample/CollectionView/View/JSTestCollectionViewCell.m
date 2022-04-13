@@ -16,8 +16,12 @@
     if (self = [super initWithFrame:frame]) {
         [self.contentView addSubview:self.titleLabel];
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.right.bottom.equalTo(self.contentView);
+            make.top.left.equalTo(self.contentView).offset(5);
+            make.right.bottom.equalTo(self.contentView).offset(-5);
         }];
+        
+        self.layer.borderWidth = 1;
+        self.layer.borderColor = UIColor.blackColor.CGColor;
     }
     return self;
 }

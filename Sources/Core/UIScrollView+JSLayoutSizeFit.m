@@ -66,23 +66,29 @@
 
 - (JSLayoutSizeFitCache *)js_rowSizeFitCache {
     CGSize contentSize = self.js_validContentSize;
+    
     NSString *key = NSStringFromCGSize(contentSize);
+    
     JSLayoutSizeFitCache *cache = [self.js_allRowSizeFitCaches objectForKey:key];
     if (!cache) {
         cache = [[JSLayoutSizeFitCache alloc] init];
         [self.js_allRowSizeFitCaches setObject:cache forKey:key];
     }
+    
     return cache;
 }
 
 - (JSLayoutSizeFitCache *)js_sectionSizeFitCache {
     CGSize contentSize = self.js_validContentSize;
+    
     NSString *key = NSStringFromCGSize(contentSize);
+    
     JSLayoutSizeFitCache *cache = [self.js_allSectionSizeFitCaches objectForKey:key];
     if (!cache) {
         cache = [[JSLayoutSizeFitCache alloc] init];
         [self.js_allSectionSizeFitCaches setObject:cache forKey:key];
     }
+    
     return cache;
 }
 
