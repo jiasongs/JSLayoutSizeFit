@@ -147,6 +147,7 @@
 
 - (CGSize)js_validContentSizeInSection:(NSInteger)section {
     CGSize contentSize = self.js_validContentSize;
+    
     UIEdgeInsets sectionInset = UIEdgeInsetsZero;
     if ([self.collectionViewLayout isKindOfClass:UICollectionViewFlowLayout.class]) {
         sectionInset = [(UICollectionViewFlowLayout *)self.collectionViewLayout sectionInset];
