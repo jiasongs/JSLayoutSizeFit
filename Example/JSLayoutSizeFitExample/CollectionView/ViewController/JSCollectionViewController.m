@@ -13,7 +13,7 @@
 #import "JSTestCollectionViewCell.h"
 #import "JSTestCollectionReusableView.h"
 
-@interface JSCollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface JSCollectionViewController () <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
 
 @property (nonatomic, copy) NSArray *dataSource;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -47,6 +47,10 @@
 }
 
 #pragma mark - UICollectionViewDelegate
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(0, 20, 0, 20);
+}
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     return [collectionView js_fittingSizeForReusableViewClass:JSTestCollectionReusableView.class
@@ -103,6 +107,7 @@
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        layout.sectionInset = UIEdgeInsetsMake(0, 20, 0, 20);
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;

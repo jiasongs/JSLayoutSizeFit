@@ -36,14 +36,7 @@
     });
 }
 
-#pragma mark - UITableViewCell
-
-- (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
-                          configuration:(nullable JSConfigurationTableViewCell)configuration {
-    return [self js_fittingHeightForCellClass:cellClass
-                                   cacheByKey:nil
-                                configuration:configuration];
-}
+#pragma mark - UITableView - Cell
 
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
                              cacheByKey:(nullable id<NSCopying>)key
@@ -55,14 +48,7 @@
                                   configuration:configuration];
 }
 
-#pragma mark - UITableViewSection
-
-- (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
-                             configuration:(nullable JSConfigurationTableViewSection)configuration {
-    return [self js_fittingHeightForSectionClass:sectionClass
-                                      cacheByKey:nil
-                                   configuration:configuration];
-}
+#pragma mark - UITableView - Section
 
 - (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
                                 cacheByKey:(nullable id<NSCopying>)key

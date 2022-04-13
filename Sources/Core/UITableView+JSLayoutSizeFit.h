@@ -17,16 +17,10 @@ typedef void(^JSConfigurationTableViewSection)(__kindof UITableViewHeaderFooterV
 
 /// Cell
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
-                          configuration:(nullable JSConfigurationTableViewCell)configuration;
-
-- (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
                              cacheByKey:(nullable id<NSCopying>)key
                           configuration:(nullable JSConfigurationTableViewCell)configuration;
 
 /// Section
-- (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
-                             configuration:(nullable JSConfigurationTableViewSection)configuration;
-
 - (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
                                 cacheByKey:(nullable id<NSCopying>)key
                              configuration:(nullable JSConfigurationTableViewSection)configuration;

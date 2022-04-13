@@ -18,14 +18,6 @@
 #pragma mark - UICollectionViewCell
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
-                               configuration:(nullable JSConfigurationReusableView)configuration {
-    return [self __js_fittingSizeForReusableViewClass:viewClass
-                                          contentSize:CGSizeZero
-                                           cacheByKey:nil
-                                        configuration:configuration];
-}
-
-- (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
     return [self __js_fittingSizeForReusableViewClass:viewClass
@@ -35,14 +27,13 @@
 }
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
-                                contentWidth:(CGFloat)contentWidth
+                       contentWidthInSection:(NSInteger)section
+                                  cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
-    NSAssert(contentWidth >= 0, @"contentWidth必须 >= 0");
-    
-    return [self __js_fittingSizeForReusableViewClass:viewClass
-                                          contentSize:CGSizeMake(contentWidth, 0)
-                                           cacheByKey:nil
-                                        configuration:configuration];
+    return [self js_fittingSizeForReusableViewClass:viewClass
+                                       contentWidth:[self js_validContentSizeInSection:section].width
+                                         cacheByKey:key
+                                      configuration:configuration];
 }
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
@@ -58,14 +49,13 @@
 }
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
-                               contentHeight:(CGFloat)contentHeight
+                      contentHeightInSection:(NSInteger)section
+                                  cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
-    NSAssert(contentHeight >= 0, @"contentHeight必须 >= 0");
-    
-    return [self __js_fittingSizeForReusableViewClass:viewClass
-                                          contentSize:CGSizeMake(0, contentHeight)
-                                           cacheByKey:nil
-                                        configuration:configuration];
+    return [self js_fittingSizeForReusableViewClass:viewClass
+                                      contentHeight:[self js_validContentSizeInSection:section].height
+                                         cacheByKey:key
+                                      configuration:configuration];
 }
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
@@ -153,6 +143,22 @@
     }
     
     return fittingSize;
+}
+
+- (CGSize)js_validContentSizeInSection:(NSInteger)section {
+    CGSize contentSize = self.js_validContentSize;
+    UIEdgeInsets sectionInset = UIEdgeInsetsZero;
+    if ([self.collectionViewLayout isKindOfClass:UICollectionViewFlowLayout.class]) {
+        sectionInset = [(UICollectionViewFlowLayout *)self.collectionViewLayout sectionInset];
+    }
+    if ([self.delegate respondsToSelector:@selector(collectionView:layout:insetForSectionAtIndex:)]) {
+        sectionInset = [(id<UICollectionViewDelegateFlowLayout>)self.delegate collectionView:self layout:self.collectionViewLayout insetForSectionAtIndex:section];
+    }
+    
+    contentSize.width = MAX(contentSize.width - JSUIEdgeInsetsGetHorizontalValue(sectionInset), 0);
+    contentSize.height = MAX(contentSize.height - JSUIEdgeInsetsGetVerticalValue(sectionInset), 0);
+    
+    return contentSize;
 }
 
 @end
