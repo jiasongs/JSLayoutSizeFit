@@ -56,10 +56,10 @@
     }
     
     CGFloat contentWidth = (self.js_width ? : self.superview.js_width) ? : self.window.bounds.size.width;
-    contentWidth = contentWidth - JSUIEdgeInsetsGetHorizontalValue(contentInset);
+    contentWidth -= JSUIEdgeInsetsGetHorizontalValue(contentInset);
     
     CGFloat contentHeight = (self.js_height ? : self.superview.js_height) ? : self.window.bounds.size.height;
-    contentHeight = contentHeight - JSUIEdgeInsetsGetVerticalValue(contentInset);
+    contentHeight -= JSUIEdgeInsetsGetVerticalValue(contentInset);
     
     return CGSizeMake(MAX(contentWidth, 0), MAX(contentHeight, 0));
 }

@@ -27,6 +27,10 @@
                 originSelectorIMP = (void (*)(id, SEL, UITableViewCell *, NSIndexPath *))originalIMPProvider();
                 originSelectorIMP(selfObject, originCMD, cell, indexPath);
                 
+                if (cell.js_width == 0 || cell.contentView.js_width == 0) {
+                    return;
+                }
+                
                 __kindof UIView *templateView = [selfObject js_templateViewForViewClass:cell.class];
                 if (templateView != nil) {
                     templateView.js_realTableViewCell = cell;
@@ -100,13 +104,19 @@
     
     CGFloat cellWidth = 0;
     CGFloat contentWidth = 0;
+    CGFloat insetValue = self.style == UITableViewStyleGrouped + 1 ? JSUIEdgeInsetsGetHorizontalValue(self.layoutMargins) : 0;
     if ([templateView isKindOfClass:UITableViewHeaderFooterView.class]) {
         cellWidth = self.js_validContentSize.width;
-        contentWidth = cellWidth - (self.style == UITableViewStyleGrouped + 1 ? JSUIEdgeInsetsGetHorizontalValue(self.layoutMargins) : 0);
+        contentWidth = cellWidth - insetValue;
     } else if ([templateView isKindOfClass:UITableViewCell.class]) {
         UITableViewCell *realCell = templateView.js_realTableViewCell;
-        cellWidth = realCell.js_width ? : self.js_validContentSize.width;
-        contentWidth = realCell.contentView.js_width ? : cellWidth;
+        if (realCell != nil) {
+            cellWidth = realCell.js_width;
+            contentWidth = realCell.contentView.js_width;
+        } else {
+            cellWidth = self.js_validContentSize.width - insetValue;
+            contentWidth = cellWidth;
+        }
     }
     
     if (templateView.js_fixedSize.width != cellWidth || contentView.js_fixedSize.width != contentWidth) {
