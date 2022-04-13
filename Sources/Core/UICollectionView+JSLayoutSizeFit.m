@@ -27,11 +27,11 @@
 }
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
-                       contentWidthInSection:(NSInteger)section
+                     contentWidthAtIndexPath:(NSIndexPath *)indexPath
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
     return [self js_fittingSizeForReusableViewClass:viewClass
-                                       contentWidth:[self js_validContentSizeInSection:section].width
+                                       contentWidth:[self js_validContentSizeAtIndexPath:indexPath].width
                                          cacheByKey:key
                                       configuration:configuration];
 }
@@ -49,11 +49,11 @@
 }
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
-                      contentHeightInSection:(NSInteger)section
+                    contentHeightAtIndexPath:(NSIndexPath *)indexPath
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
     return [self js_fittingSizeForReusableViewClass:viewClass
-                                      contentHeight:[self js_validContentSizeInSection:section].height
+                                      contentHeight:[self js_validContentSizeAtIndexPath:indexPath].height
                                          cacheByKey:key
                                       configuration:configuration];
 }
@@ -154,7 +154,7 @@
     return fittingSize;
 }
 
-- (CGSize)js_validContentSizeInSection:(NSInteger)section {
+- (CGSize)js_validContentSizeAtIndexPath:(NSIndexPath *)indexPath {
     CGSize contentSize = self.js_validContentSize;
     
     UIEdgeInsets sectionInset = UIEdgeInsetsZero;
@@ -162,7 +162,7 @@
         sectionInset = [(UICollectionViewFlowLayout *)self.collectionViewLayout sectionInset];
     }
     if ([self.delegate respondsToSelector:@selector(collectionView:layout:insetForSectionAtIndex:)]) {
-        sectionInset = [(id<UICollectionViewDelegateFlowLayout>)self.delegate collectionView:self layout:self.collectionViewLayout insetForSectionAtIndex:section];
+        sectionInset = [(id<UICollectionViewDelegateFlowLayout>)self.delegate collectionView:self layout:self.collectionViewLayout insetForSectionAtIndex:indexPath.section];
     }
     
     contentSize.width = MAX(contentSize.width - JSUIEdgeInsetsGetHorizontalValue(sectionInset), 0);
