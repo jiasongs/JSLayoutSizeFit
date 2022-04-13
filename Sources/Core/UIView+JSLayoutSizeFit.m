@@ -36,7 +36,7 @@ JSSynthesizeIdWeakProperty(js_realTableViewCell, setJs_realTableViewCell)
 - (CGSize)js_templateSizeThatFits:(CGSize)size {
     CGSize resultSize = CGSizeZero;
     if (self.js_isFromTemplateView) {
-        /// js_fixedSize会拦截view.sizeThatFits返回fixedSize, 这里置为JSCoreViewFixedSizeNone防止被拦截
+        /// js_fixedSize会拦截view.sizeThatFits返回fixedSize, 这里先设置为JSCoreViewFixedSizeNone防止被拦截
         CGSize fixedSize = self.js_fixedSize;
         self.js_fixedSize = JSCoreViewFixedSizeNone;
         resultSize = [self sizeThatFits:size];

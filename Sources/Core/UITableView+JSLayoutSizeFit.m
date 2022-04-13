@@ -115,11 +115,11 @@
     CGFloat cellWidth = 0;
     CGFloat contentWidth = 0;
     if ([templateView isKindOfClass:UITableViewHeaderFooterView.class]) {
-        cellWidth = self.js_templateContainerWidth;
+        cellWidth = self.js_validContentSize.width;
         contentWidth = cellWidth - (self.style == UITableViewStyleGrouped + 1 ? JSUIEdgeInsetsGetHorizontalValue(self.layoutMargins) : 0);
     } else if ([templateView isKindOfClass:UITableViewCell.class]) {
         UITableViewCell *realCell = templateView.js_realTableViewCell;
-        cellWidth = realCell.js_width ? : self.js_templateContainerWidth;
+        cellWidth = realCell.js_width ? : self.js_validContentSize.width;
         contentWidth = realCell.contentView.js_width ? : cellWidth;
     }
     

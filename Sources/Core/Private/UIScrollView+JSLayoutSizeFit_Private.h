@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIScrollView (JSLayoutSizeFit_Private)
 
-@property (nonatomic, strong, readonly) NSMutableDictionary<NSNumber *, JSLayoutSizeFitCache *> *js_allRowSizeFitCaches;
-@property (nonatomic, strong, readonly) NSMutableDictionary<NSNumber *, JSLayoutSizeFitCache *> *js_allSectionSizeFitCaches;
+@property (nonatomic, strong, readonly) NSMutableDictionary<NSString *, JSLayoutSizeFitCache *> *js_allRowSizeFitCaches;
+@property (nonatomic, strong, readonly) NSMutableDictionary<NSString *, JSLayoutSizeFitCache *> *js_allSectionSizeFitCaches;
 @property (nonatomic, strong, readonly) NSMutableDictionary<NSString *, __kindof UIView *> *js_allTemplateViews;
-@property (nonatomic, assign, readonly) CGFloat js_templateContainerWidth;
+@property (nonatomic, assign, readonly) CGSize js_validContentSize;
 
 @end
 

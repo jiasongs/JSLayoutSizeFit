@@ -49,41 +49,44 @@
 
 #pragma mark - getter
 
-- (CGFloat)js_templateContainerWidth {
-    CGFloat contentWidth = (self.js_width ? : self.superview.js_width) ? : self.window.bounds.size.width;
+- (CGSize)js_validContentSize {
     UIEdgeInsets contentInset = self.contentInset;
     if (@available(iOS 11.0, *)) {
-        contentInset = self.adjustedContentInset;
-        if (self.insetsLayoutMarginsFromSafeArea) {
-            contentInset.left = self.safeAreaInsets.left;
-            contentInset.right = self.safeAreaInsets.right;
-        }
+        contentInset = self.insetsLayoutMarginsFromSafeArea ? self.safeAreaInsets : self.adjustedContentInset;
     }
-    contentWidth = contentWidth - (contentInset.left + contentInset.right);
-    return MAX(contentWidth, 0);
+    
+    CGFloat contentWidth = (self.js_width ? : self.superview.js_width) ? : self.window.bounds.size.width;
+    contentWidth = contentWidth - JSUIEdgeInsetsGetHorizontalValue(contentInset);
+    
+    CGFloat contentHeight = (self.js_height ? : self.superview.js_height) ? : self.window.bounds.size.height;
+    contentHeight = contentHeight - JSUIEdgeInsetsGetVerticalValue(contentInset);
+    
+    return CGSizeMake(MAX(contentWidth, 0), MAX(contentHeight, 0));
 }
 
 - (JSLayoutSizeFitCache *)js_rowSizeFitCache {
-    CGFloat containerWidth = self.js_templateContainerWidth;
-    JSLayoutSizeFitCache *cache = [self.js_allRowSizeFitCaches objectForKey:@(containerWidth)];
+    CGSize contentSize = self.js_validContentSize;
+    NSString *key = NSStringFromCGSize(contentSize);
+    JSLayoutSizeFitCache *cache = [self.js_allRowSizeFitCaches objectForKey:key];
     if (!cache) {
         cache = [[JSLayoutSizeFitCache alloc] init];
-        [self.js_allRowSizeFitCaches setObject:cache forKey:@(containerWidth)];
+        [self.js_allRowSizeFitCaches setObject:cache forKey:key];
     }
     return cache;
 }
 
 - (JSLayoutSizeFitCache *)js_sectionSizeFitCache {
-    CGFloat containerWidth = self.js_templateContainerWidth;
-    JSLayoutSizeFitCache *cache = [self.js_allSectionSizeFitCaches objectForKey:@(containerWidth)];
+    CGSize contentSize = self.js_validContentSize;
+    NSString *key = NSStringFromCGSize(contentSize);
+    JSLayoutSizeFitCache *cache = [self.js_allSectionSizeFitCaches objectForKey:key];
     if (!cache) {
         cache = [[JSLayoutSizeFitCache alloc] init];
-        [self.js_allSectionSizeFitCaches setObject:cache forKey:@(containerWidth)];
+        [self.js_allSectionSizeFitCaches setObject:cache forKey:key];
     }
     return cache;
 }
 
-- (NSMutableDictionary<NSNumber *, JSLayoutSizeFitCache *> *)js_allRowSizeFitCaches {
+- (NSMutableDictionary<NSString *, JSLayoutSizeFitCache *> *)js_allRowSizeFitCaches {
     NSMutableDictionary *keyCahces = objc_getAssociatedObject(self, _cmd);
     if (!keyCahces) {
         keyCahces = [NSMutableDictionary dictionary];
@@ -92,7 +95,7 @@
     return keyCahces;
 }
 
-- (NSMutableDictionary<NSNumber *, JSLayoutSizeFitCache *> *)js_allSectionSizeFitCaches {
+- (NSMutableDictionary<NSString *, JSLayoutSizeFitCache *> *)js_allSectionSizeFitCaches {
     NSMutableDictionary *keyCahces = objc_getAssociatedObject(self, _cmd);
     if (!keyCahces) {
         keyCahces = [NSMutableDictionary dictionary];

@@ -20,7 +20,7 @@
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
                                configuration:(nullable JSConfigurationReusableView)configuration {
     return [self __js_fittingSizeForReusableViewClass:viewClass
-                                          contentSize:CGSizeMake(JSLayoutSizeFitAutomaticDimension, JSLayoutSizeFitAutomaticDimension)
+                                          contentSize:CGSizeZero
                                            cacheByKey:nil
                                         configuration:configuration];
 }
@@ -29,7 +29,7 @@
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
     return [self __js_fittingSizeForReusableViewClass:viewClass
-                                          contentSize:CGSizeMake(JSLayoutSizeFitAutomaticDimension, JSLayoutSizeFitAutomaticDimension)
+                                          contentSize:CGSizeZero
                                            cacheByKey:key
                                         configuration:configuration];
 }
@@ -40,7 +40,7 @@
     NSAssert(contentWidth >= 0, @"contentWidth必须 >= 0");
     
     return [self __js_fittingSizeForReusableViewClass:viewClass
-                                          contentSize:CGSizeMake(contentWidth, JSLayoutSizeFitAutomaticDimension)
+                                          contentSize:CGSizeMake(contentWidth, 0)
                                            cacheByKey:nil
                                         configuration:configuration];
 }
@@ -52,7 +52,7 @@
     NSAssert(contentWidth >= 0, @"contentWidth必须 >= 0");
     
     return [self __js_fittingSizeForReusableViewClass:viewClass
-                                          contentSize:CGSizeMake(contentWidth, JSLayoutSizeFitAutomaticDimension)
+                                          contentSize:CGSizeMake(contentWidth, 0)
                                            cacheByKey:key
                                         configuration:configuration];
 }
@@ -63,7 +63,7 @@
     NSAssert(contentHeight >= 0, @"contentHeight必须 >= 0");
     
     return [self __js_fittingSizeForReusableViewClass:viewClass
-                                          contentSize:CGSizeMake(JSLayoutSizeFitAutomaticDimension, contentHeight)
+                                          contentSize:CGSizeMake(0, contentHeight)
                                            cacheByKey:nil
                                         configuration:configuration];
 }
@@ -75,7 +75,7 @@
     NSAssert(contentHeight >= 0, @"contentHeight必须 >= 0");
     
     return [self __js_fittingSizeForReusableViewClass:viewClass
-                                          contentSize:CGSizeMake(JSLayoutSizeFitAutomaticDimension, contentHeight)
+                                          contentSize:CGSizeMake(0, contentHeight)
                                            cacheByKey:key
                                         configuration:configuration];
 }
@@ -87,6 +87,13 @@
                                     cacheByKey:(nullable id<NSCopying>)key
                                  configuration:(nullable JSConfigurationReusableView)configuration {
     NSAssert([viewClass isSubclassOfClass:UICollectionReusableView.class], @"viewClass必须为UICollectionReusableView类或者其子类");
+    
+    if (contentSize.width == JSLayoutSizeFitAutomaticDimension) {
+        contentSize.width = self.js_validContentSize.width;
+    }
+    if (contentSize.height == JSLayoutSizeFitAutomaticDimension) {
+        contentSize.height = self.js_validContentSize.height;
+    }
     
     CGSize resultSize = CGSizeZero;
     /// FitCache
@@ -105,10 +112,10 @@
         resultSize = [self js_systemFittingSizeForTemplateView:templateView];
         
         /// 设置外部的宽/高
-        if (contentSize.width != JSLayoutSizeFitAutomaticDimension) {
+        if (contentSize.width > 0) {
             resultSize.width = contentSize.width;
         }
-        if (contentSize.height != JSLayoutSizeFitAutomaticDimension) {
+        if (contentSize.height > 0) {
             resultSize.height = contentSize.height;
         }
         
@@ -126,14 +133,7 @@
                     configuration:(nullable JSConfigurationReusableView)configuration {
     UIView *contentView = templateView.js_templateContentView;
     
-    CGSize fixedSize = CGSizeZero;
-    if (contentSize.width != JSLayoutSizeFitAutomaticDimension) {
-        fixedSize.width = contentSize.width;
-    }
-    if (contentSize.height != JSLayoutSizeFitAutomaticDimension) {
-        fixedSize.height = contentSize.height;
-    }
-    
+    CGSize fixedSize = contentSize;
     if (!CGSizeEqualToSize(templateView.js_fixedSize, fixedSize)) {
         templateView.js_fixedSize = fixedSize;
         contentView.js_fixedSize = fixedSize;
