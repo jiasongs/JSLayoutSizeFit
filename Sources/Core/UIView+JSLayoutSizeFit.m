@@ -40,7 +40,7 @@ JSSynthesizeBOOLProperty(js_fromTemplateView, setJs_fromTemplateView)
     if (!indexPath) {
         return nil;
     }
-    
+
     __kindof UITableViewCell *cell = [self.js_allRealTableViewCells objectForKey:indexPath];
     if ([cell isKindOfClass:UITableViewCell.class] && !cell.hidden) {
         return cell;
@@ -70,7 +70,7 @@ JSSynthesizeBOOLProperty(js_fromTemplateView, setJs_fromTemplateView)
 - (NSMapTable<NSIndexPath *, __kindof UITableViewCell *> *)js_allRealTableViewCells {
     NSMapTable *keyCahces = objc_getAssociatedObject(self, _cmd);
     if (!keyCahces) {
-        keyCahces = [NSMapTable strongToWeakObjectsMapTable];
+        keyCahces = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsWeakMemory];
         objc_setAssociatedObject(self, _cmd, keyCahces, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return keyCahces;
