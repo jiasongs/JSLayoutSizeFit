@@ -29,7 +29,7 @@ JSSynthesizeBOOLProperty(js_fromTemplateView, setJs_fromTemplateView)
 }
 
 - (void)js_setRealTableViewCell:(__kindof UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
-    if (![cell isKindOfClass:UITableViewCell.class] || cell.hidden || !indexPath) {
+    if (![cell isKindOfClass:UITableViewCell.class] || cell.isHidden || !indexPath) {
         return;
     }
     
@@ -42,7 +42,7 @@ JSSynthesizeBOOLProperty(js_fromTemplateView, setJs_fromTemplateView)
     }
 
     __kindof UITableViewCell *cell = [self.js_allRealTableViewCells objectForKey:indexPath];
-    if ([cell isKindOfClass:UITableViewCell.class] && !cell.hidden) {
+    if ([cell isKindOfClass:UITableViewCell.class] && !cell.isHidden) {
         return cell;
     } else {
         return nil;
