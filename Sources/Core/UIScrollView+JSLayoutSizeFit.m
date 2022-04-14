@@ -47,7 +47,7 @@
     return [self.js_allTemplateViews objectForKey:viewClassString];
 }
 
-#pragma mark - getter
+#pragma mark - Getter
 
 - (CGSize)js_validContentSize {
     UIEdgeInsets contentInset = self.contentInset;

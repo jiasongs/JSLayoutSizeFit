@@ -10,9 +10,10 @@ import UIKit
 public extension LayoutSizeFitWrapper where Base: UITableView {
     
     func fittingHeight<Cell: UITableViewCell>(forCellClass cellClass: Cell.Type,
+                                              at indexPath: IndexPath,
                                               cacheBy key: String? = nil,
                                               configuration: ((Cell) -> Void)? = nil) -> CGFloat {
-        return self.base.js_fittingHeight(forCellClass: cellClass, cacheByKey: key as NSString?) { (cell) in
+        return self.base.js_fittingHeight(forCellClass: cellClass, at:indexPath, cacheByKey: key as NSString?) { (cell) in
             configuration?(cell as! Cell)
         }
     }

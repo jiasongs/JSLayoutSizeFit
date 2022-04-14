@@ -13,7 +13,43 @@
 
 JSSynthesizeBOOLProperty(js_isUseFrameLayout, setJs_useFrameLayout)
 JSSynthesizeBOOLProperty(js_fromTemplateView, setJs_fromTemplateView)
-JSSynthesizeIdWeakProperty(js_realTableViewCell, setJs_realTableViewCell)
+
+- (CGSize)js_templateSizeThatFits:(CGSize)size {
+    CGSize resultSize = CGSizeZero;
+    if (self.js_isFromTemplateView) {
+        /// js_fixedSize会拦截view.sizeThatFits返回fixedSize, 这里先设置为JSCoreViewFixedSizeNone防止被拦截
+        CGSize fixedSize = self.js_fixedSize;
+        self.js_fixedSize = JSCoreViewFixedSizeNone;
+        resultSize = [self sizeThatFits:size];
+        self.js_fixedSize = fixedSize;
+    } else {
+        resultSize = [self sizeThatFits:size];
+    }
+    return resultSize;
+}
+
+- (void)js_setRealTableViewCell:(__kindof UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
+    if (![cell isKindOfClass:UITableViewCell.class] || cell.hidden || !indexPath) {
+        return;
+    }
+    
+    [self.js_allRealTableViewCells setObject:cell forKey:indexPath];
+}
+
+- (nullable __kindof UITableViewCell *)js_realTableViewCellForIndexPath:(NSIndexPath *)indexPath {
+    if (!indexPath) {
+        return nil;
+    }
+    
+    __kindof UITableViewCell *cell = [self.js_allRealTableViewCells objectForKey:indexPath];
+    if ([cell isKindOfClass:UITableViewCell.class] && !cell.hidden) {
+        return cell;
+    } else {
+        return nil;
+    }
+}
+
+#pragma mark - Getter
 
 - (BOOL)js_isFromTemplateView {
     return self.js_fromTemplateView;
@@ -31,18 +67,13 @@ JSSynthesizeIdWeakProperty(js_realTableViewCell, setJs_realTableViewCell)
     return contentView;
 }
 
-- (CGSize)js_templateSizeThatFits:(CGSize)size {
-    CGSize resultSize = CGSizeZero;
-    if (self.js_isFromTemplateView) {
-        /// js_fixedSize会拦截view.sizeThatFits返回fixedSize, 这里先设置为JSCoreViewFixedSizeNone防止被拦截
-        CGSize fixedSize = self.js_fixedSize;
-        self.js_fixedSize = JSCoreViewFixedSizeNone;
-        resultSize = [self sizeThatFits:size];
-        self.js_fixedSize = fixedSize;
-    } else {
-        resultSize = [self sizeThatFits:size];
+- (NSMapTable<NSIndexPath *, __kindof UITableViewCell *> *)js_allRealTableViewCells {
+    NSMapTable *keyCahces = objc_getAssociatedObject(self, _cmd);
+    if (!keyCahces) {
+        keyCahces = [NSMapTable strongToWeakObjectsMapTable];
+        objc_setAssociatedObject(self, _cmd, keyCahces, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
-    return resultSize;
+    return keyCahces;
 }
 
 @end

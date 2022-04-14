@@ -38,7 +38,21 @@
     NSData *data = [NSData dataWithContentsOfFile:dataPath];
     NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     if (array && [array isKindOfClass:NSArray.class]) {
-        self.dataSource = array;
+        NSMutableArray *dataSource = [NSMutableArray array];
+        [array enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSMutableDictionary *newDic = [dic mutableCopy];
+            NSString *idValue = [NSString stringWithFormat:@"section-%@", @(idx)];
+            [newDic setValue:idValue forKey:@"id"];
+            NSMutableArray *newList = [[dic objectForKey:@"likeList"] mutableCopy];
+            [newList.copy enumerateObjectsUsingBlock:^(NSDictionary *itemDic, NSUInteger idx1, BOOL * _Nonnull stop) {
+                NSMutableDictionary *newItemDic = [itemDic mutableCopy];
+                [newItemDic setValue:[NSString stringWithFormat:@"%@ item-%@", idValue, @(idx1)] forKey:@"id"];
+                [newList replaceObjectAtIndex:idx1 withObject:newItemDic];
+            }];
+            [newDic setValue:newList forKey:@"likeList"];
+            [dataSource addObject:newDic];
+        }];
+        self.dataSource = dataSource.copy;
     }
 }
 
@@ -60,7 +74,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     NSDictionary *dic = [self.dataSource objectAtIndex:section];
     return [tableView js_fittingHeightForSectionClass:ITTestHeaderFooterView.class
-                                           cacheByKey:@(section)
+                                           cacheByKey:[dic objectForKey:@"id"]
                                         configuration:^(__kindof ITTestHeaderFooterView * _Nonnull headerFooterView) {
         [headerFooterView updateViewWithData:dic inSection:section];
     }];
@@ -70,10 +84,33 @@
     NSDictionary *dic = [self.dataSource objectAtIndex:indexPath.section];
     NSArray *array = [dic objectForKey:@"likeList"];
     return [tableView js_fittingHeightForCellClass:ITTestTableViewCell.class
-                                        cacheByKey:indexPath.js_sizeFitCacheKey
+                                       atIndexPath:indexPath
+                                        cacheByKey:[[array objectAtIndex:indexPath.row] objectForKey:@"id"]
                                      configuration:^(__kindof ITTestTableViewCell *cell) {
         [cell updateCellWithData:[array objectAtIndex:indexPath.row] atIndexPath:indexPath];
     }];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSMutableArray *dataSource = [self.dataSource mutableCopy];
+    NSMutableDictionary *dic = [[self.dataSource objectAtIndex:indexPath.section] mutableCopy];
+    NSMutableArray *array = [[dic objectForKey:@"likeList"] mutableCopy];
+    NSMutableDictionary *itemDic = [[array objectAtIndex:indexPath.row] mutableCopy];
+    [itemDic setValue:NSUUID.UUID.UUIDString forKey:@"content"];
+    [array replaceObjectAtIndex:indexPath.row withObject:itemDic];
+    [dic setValue:array forKey:@"likeList"];
+    [dataSource replaceObjectAtIndex:indexPath.section withObject:dic];
+    
+    [self.tableView.js_rowSizeFitCache removeObjectForKey:[itemDic objectForKey:@"id"]];
+    self.dataSource = dataSource;
+    [self.tableView reloadData];
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

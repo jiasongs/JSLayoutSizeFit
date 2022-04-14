@@ -12,10 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIView (JSLayoutSizeFit_Private)
 
 @property (nonatomic, assign) BOOL js_fromTemplateView;
-@property (nullable, nonatomic, weak) __kindof UITableViewCell *js_realTableViewCell;
 @property (nullable, nonatomic, readonly) __kindof UIView *js_templateContentView;
+@property (nonatomic, strong, readonly) NSMapTable<NSIndexPath *, __kindof UITableViewCell *> *js_allRealTableViewCells;
 
 - (CGSize)js_templateSizeThatFits:(CGSize)size;
+
+- (void)js_setRealTableViewCell:(__kindof UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath;
+- (nullable __kindof UITableViewCell *)js_realTableViewCellForIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

@@ -17,6 +17,7 @@ typedef void(^JSConfigurationTableViewSection)(__kindof UITableViewHeaderFooterV
 
 /// Cell
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
+                            atIndexPath:(NSIndexPath *)indexPath
                              cacheByKey:(nullable id<NSCopying>)key
                           configuration:(nullable JSConfigurationTableViewCell)configuration;
 
