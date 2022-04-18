@@ -27,7 +27,7 @@
 }
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
-                     contentWidthAtIndexPath:(NSIndexPath *)indexPath
+                    estimateWidthAtIndexPath:(NSIndexPath *)indexPath
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
     return [self js_fittingSizeForReusableViewClass:viewClass
@@ -49,7 +49,7 @@
 }
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
-                    contentHeightAtIndexPath:(NSIndexPath *)indexPath
+                   estimateHeightAtIndexPath:(NSIndexPath *)indexPath
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
     return [self js_fittingSizeForReusableViewClass:viewClass

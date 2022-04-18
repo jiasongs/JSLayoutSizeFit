@@ -43,7 +43,16 @@
 #pragma mark - UITableView - Cell
 
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
-                            atIndexPath:(NSIndexPath *)indexPath
+                             cacheByKey:(nullable id<NSCopying>)key
+                          configuration:(nullable JSConfigurationTableViewCell)configuration {
+    return [self js_fittingHeightForCellClass:cellClass
+                                  atIndexPath:nil
+                                   cacheByKey:key
+                                configuration:configuration];
+}
+
+- (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
+                            atIndexPath:(nullable NSIndexPath *)indexPath
                              cacheByKey:(nullable id<NSCopying>)key
                           configuration:(nullable JSConfigurationTableViewCell)configuration {
     NSAssert([cellClass isSubclassOfClass:UITableViewCell.class], @"cellClass必须是UITableViewCell类或者其子类");
@@ -93,7 +102,7 @@
         if (key != nil) {
             if ([templateView isKindOfClass:UITableViewHeaderFooterView.class]) {
                 [fitCache setCGFloat:resultHeight forKey:key];
-            } else if ([templateView isKindOfClass:UITableViewCell.class] && [templateView js_realTableViewCellForIndexPath:indexPath] != nil) {
+            } else if ([templateView isKindOfClass:UITableViewCell.class] && (!indexPath || [templateView js_realTableViewCellForIndexPath:indexPath] != nil)) {
                 [fitCache setCGFloat:resultHeight forKey:key];
             }
         }
@@ -114,7 +123,7 @@
         cellWidth = self.js_validContentSize.width;
         contentWidth = cellWidth - insetValue;
     } else if ([templateView isKindOfClass:UITableViewCell.class]) {
-        UITableViewCell *realCell = [templateView js_realTableViewCellForIndexPath:indexPath];
+        UITableViewCell *realCell = indexPath ? [templateView js_realTableViewCellForIndexPath:indexPath] : nil;
         if (realCell != nil) {
             cellWidth = realCell.js_width;
             contentWidth = realCell.contentView.js_width;
