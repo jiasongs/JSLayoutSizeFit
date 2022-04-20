@@ -118,7 +118,7 @@
     
     if (!CGSizeEqualToSize(templateView.js_fixedSize, contentSize)) {
         /// 计算出最小size, 防止约束或布局冲突
-        CGSize minimumSize = [self js_fittingSizeForTemplateView:templateView widthContentSize:contentSize];
+        CGSize minimumSize = [self js_fittingSizeForTemplateView:templateView withContentSize:contentSize];
         
         CGSize fixedSize = CGSizeMake(MAX(contentSize.width, minimumSize.width),
                                       MAX(contentSize.height, minimumSize.height));
@@ -139,11 +139,11 @@
 }
 
 - (CGSize)js_fittingSizeForTemplateView:(__kindof UIView *)templateView {
-    return [self js_fittingSizeForTemplateView:templateView widthContentSize:templateView.js_size];
+    return [self js_fittingSizeForTemplateView:templateView withContentSize:templateView.js_size];
 }
 
 - (CGSize)js_fittingSizeForTemplateView:(__kindof UIView *)templateView
-                       widthContentSize:(CGSize)contentSize {
+                        withContentSize:(CGSize)contentSize {
     CGSize fittingSize = CGSizeZero;
     if (templateView.js_isUseFrameLayout) {
         fittingSize = [templateView js_templateSizeThatFits:contentSize];

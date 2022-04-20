@@ -135,7 +135,7 @@
     
     if (templateView.js_fixedSize.width != cellWidth || contentView.js_fixedSize.width != contentWidth) {
         /// 计算出最小height, 防止约束或布局冲突
-        CGFloat minimumHeight = [self js_fittingHeightForTemplateView:templateView widthContentWidth:contentWidth];
+        CGFloat minimumHeight = [self js_fittingHeightForTemplateView:templateView withContentWidth:contentWidth];
         
         templateView.js_fixedSize = CGSizeMake(cellWidth, minimumHeight);
         contentView.js_fixedSize =  CGSizeMake(contentWidth, minimumHeight);
@@ -156,7 +156,7 @@
 - (CGFloat)js_fittingHeightContainsSeparatorForTemplateView:(__kindof UIView *)templateView {
     UIView *contentView = templateView.js_templateContentView;
     
-    CGFloat fittingHeight = [self js_fittingHeightForTemplateView:templateView widthContentWidth:contentView.js_width];
+    CGFloat fittingHeight = [self js_fittingHeightForTemplateView:templateView withContentWidth:contentView.js_width];
     
     if ([templateView isKindOfClass:UITableViewCell.class] && self.separatorStyle != UITableViewCellSeparatorStyleNone) {
         static CGFloat pixelOne = 1;
@@ -171,7 +171,7 @@
 }
 
 - (CGFloat)js_fittingHeightForTemplateView:(__kindof UIView *)templateView
-                         widthContentWidth:(CGFloat)contentWidth {
+                          withContentWidth:(CGFloat)contentWidth {
     UIView *contentView = templateView.js_templateContentView;
     
     CGFloat fittingHeight = 0;
