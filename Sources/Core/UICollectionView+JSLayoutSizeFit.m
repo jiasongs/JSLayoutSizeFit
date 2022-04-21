@@ -86,7 +86,7 @@
         resultSize = [fitCache CGSizeForKey:key];
     } else {
         /// 制作/获取模板View
-        __kindof UICollectionReusableView *templateView = [self js_makeTemplateViewIfNecessaryWithViewClass:viewClass];
+        __kindof UICollectionReusableView *templateView = [self js_makeTemplateViewIfNecessaryWithViewClass:viewClass nibName:nil inBundle:nil];
         
         /// 准备
         [self js_prepareForTemplateView:templateView contentSize:contentSize configuration:configuration];

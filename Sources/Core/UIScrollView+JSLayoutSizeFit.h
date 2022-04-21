@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) JSLayoutSizeFitCache *js_rowSizeFitCache;
 @property (nonatomic, readonly) JSLayoutSizeFitCache *js_sectionSizeFitCache;
 
-- (__kindof UIView *)js_makeTemplateViewIfNecessaryWithViewClass:(Class)viewClass;
+- (__kindof UIView *)js_makeTemplateViewIfNecessaryWithViewClass:(Class)viewClass nibName:(nullable NSString *)nibName inBundle:(nullable NSBundle *)bundle;
 - (nullable __kindof UIView *)js_templateViewForViewClass:(Class)viewClass;
 
 @end

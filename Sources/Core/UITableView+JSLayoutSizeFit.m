@@ -90,7 +90,7 @@
         resultHeight = [fitCache CGFloatForKey:key];
     } else {
         /// 制作/获取模板View
-        __kindof UIView *templateView = [self js_makeTemplateViewIfNecessaryWithViewClass:viewClass];
+        __kindof UIView *templateView = [self js_makeTemplateViewIfNecessaryWithViewClass:viewClass nibName:nil inBundle:nil];
         
         /// 准备
         [self js_prepareForTemplateView:templateView atIndexPath:indexPath configuration:configuration];

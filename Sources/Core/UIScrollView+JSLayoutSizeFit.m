@@ -16,8 +16,11 @@
 
 #pragma mark - 生成模板View
 
-- (__kindof UIView *)js_makeTemplateViewIfNecessaryWithViewClass:(Class)viewClass {
-    NSAssert([viewClass isSubclassOfClass:UIView.class], @"viewClass必须为UIView类或者其子类");
+- (__kindof UIView *)js_makeTemplateViewIfNecessaryWithViewClass:(Class)viewClass nibName:(nullable NSString *)nibName inBundle:(nullable NSBundle *)bundle {
+    if (![viewClass isSubclassOfClass:UIView.class]) {
+        NSAssert(NO, @"viewClass必须为UIView类或者其子类");
+        return nil;
+    }
     
     NSString *viewClassString = NSStringFromClass(viewClass);
     
@@ -25,23 +28,42 @@
         return [self js_templateViewForViewClass:viewClass];
     } else {
         __kindof UIView *templateView = nil;
-        NSString *nibPath = [[NSBundle bundleForClass:viewClass] pathForResource:viewClassString ofType:@"nib"];
-        if (nibPath) {
-            templateView = [[NSBundle bundleForClass:viewClass] loadNibNamed:viewClassString owner:nil options:nil].firstObject;
+        NSArray<UIView *> *templateNibs = nil;
+        if (nibName.length > 0) {
+            UINib *nib = [UINib nibWithNibName:nibName bundle:bundle];
+            templateNibs = [nib instantiateWithOwner:nil options:nil];
+        } else {
+            NSBundle *resourceBundle = bundle ? : [NSBundle bundleForClass:viewClass];
+            NSString *nibPath = [resourceBundle pathForResource:viewClassString ofType:@"nib"];
+            if (nibPath) {
+                templateNibs = [resourceBundle loadNibNamed:viewClassString owner:nil options:nil];
+            }
+        }
+        if (templateNibs.count > 0) {
+            for (UIView *templateNib in templateNibs) {
+                if ([templateNib isKindOfClass:viewClass]) {
+                    templateView = templateNib;
+                    break;
+                }
+            }
         } else {
             templateView = [[viewClass alloc] initWithFrame:CGRectZero];
         }
+        
         templateView.js_fromTemplateView = YES;
         
         NSAssert(templateView, @"生成失败, 需要查找原因");
-        [self.js_allTemplateViews setObject:templateView forKey:viewClassString];
+        [self.js_allTemplateViews setValue:templateView forKey:viewClassString];
         
         return templateView;
     }
 }
 
 - (nullable __kindof UIView *)js_templateViewForViewClass:(Class)viewClass {
-    NSAssert([viewClass isSubclassOfClass:UIView.class], @"viewClass必须为UIView类或者其子类");
+    if (![viewClass isSubclassOfClass:UIView.class]) {
+        NSAssert(NO, @"viewClass必须为UIView类或者其子类");
+        return nil;
+    }
     
     NSString *viewClassString = NSStringFromClass(viewClass);
     return [self.js_allTemplateViews objectForKey:viewClassString];
