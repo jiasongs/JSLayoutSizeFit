@@ -30,13 +30,7 @@
 #pragma mark - Base
 
 - (BOOL)containsKey:(id<NSCopying>)key {
-    if (key != nil) {
-        [self addLock];
-        BOOL isContains = [self.caches.allKeys containsObject:key];
-        [self unLock];
-        return isContains;
-    }
-    return NO;
+    return [self objectForKey:key] != nil;
 }
 
 - (void)setObject:(id)object forKey:(id<NSCopying>)key {

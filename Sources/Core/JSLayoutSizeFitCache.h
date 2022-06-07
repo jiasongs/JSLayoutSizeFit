@@ -13,8 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JSLayoutSizeFitCache : NSObject
 
 - (BOOL)containsKey:(id<NSCopying>)key;
-- (void)setObject:(id)object forKey:(id<NSCopying>)key;
-- (nullable id)objectForKey:(id<NSCopying>)key;
 
 - (void)removeObjectForKey:(id<NSCopying>)key;
 - (void)removeAllObjects;

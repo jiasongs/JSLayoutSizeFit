@@ -22,12 +22,9 @@
         return nil;
     }
     
-    NSString *viewClassString = NSStringFromClass(viewClass);
-    
-    if ([self.js_allTemplateViews.allKeys containsObject:viewClassString]) {
-        return [self js_templateViewForViewClass:viewClass];
-    } else {
-        __kindof UIView *templateView = nil;
+    __kindof UIView *templateView = [self js_templateViewForViewClass:viewClass];
+    if (!templateView) {
+        NSString *viewClassString = NSStringFromClass(viewClass);
         NSArray<UIView *> *templateNibs = nil;
         if (nibName.length > 0) {
             UINib *nib = [UINib nibWithNibName:nibName bundle:bundle];
@@ -54,9 +51,8 @@
         
         NSAssert(templateView, @"生成失败, 需要查找原因");
         [self.js_allTemplateViews setValue:templateView forKey:viewClassString];
-        
-        return templateView;
     }
+    return templateView;
 }
 
 - (nullable __kindof UIView *)js_templateViewForViewClass:(Class)viewClass {
@@ -74,7 +70,7 @@
 - (CGSize)js_validContentSize {
     UIEdgeInsets contentInset = self.contentInset;
     if (@available(iOS 11.0, *)) {
-        contentInset = self.insetsLayoutMarginsFromSafeArea ? self.safeAreaInsets : self.adjustedContentInset;
+        contentInset = self.adjustedContentInset;
     }
     
     CGFloat contentWidth = (self.js_width ? : self.superview.js_width) ? : self.window.bounds.size.width;
