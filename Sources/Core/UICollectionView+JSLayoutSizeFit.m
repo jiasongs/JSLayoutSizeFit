@@ -116,14 +116,20 @@
                     configuration:(nullable JSConfigurationReusableView)configuration {
     UIView *contentView = templateView.js_templateContentView;
     
-    if (!CGSizeEqualToSize(templateView.js_fixedSize, contentSize)) {
+    CGSize fixedSize = templateView.js_fixedSize;
+    if (contentSize.width > 0 && contentSize.height <= 0) {
+        fixedSize.height = 0;
+    } else if (contentSize.height > 0 && contentSize.width <= 0) {
+        fixedSize.width = 0;
+    }
+    if (!CGSizeEqualToSize(fixedSize, contentSize)) {
         /// 计算出最小size, 防止约束或布局冲突
         CGSize minimumSize = [self js_fittingSizeForTemplateView:templateView withContentSize:contentSize];
         
-        CGSize fixedSize = CGSizeMake(MAX(contentSize.width, minimumSize.width),
-                                      MAX(contentSize.height, minimumSize.height));
-        templateView.js_fixedSize = fixedSize;
-        contentView.js_fixedSize = fixedSize;
+        CGSize maximumSize = CGSizeMake(MAX(contentSize.width, minimumSize.width),
+                                        MAX(contentSize.height, minimumSize.height));
+        templateView.js_fixedSize = maximumSize;
+        contentView.js_fixedSize = maximumSize;
         
         /// 强制布局, 使外部可以拿到一些控件的真实布局
         [templateView setNeedsLayout];
