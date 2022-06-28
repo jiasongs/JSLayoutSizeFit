@@ -122,7 +122,13 @@
     } else if (contentSize.height > 0 && contentSize.width <= 0) {
         fixedSize.width = 0;
     }
-    if (!CGSizeEqualToSize(fixedSize, contentSize)) {
+    BOOL isChangeFixedSize = NO;
+    if (CGSizeEqualToSize(contentSize, CGSizeZero)) {
+        isChangeFixedSize = CGSizeEqualToSize(fixedSize, JSCoreViewFixedSizeNone);
+    } else {
+        isChangeFixedSize = !CGSizeEqualToSize(fixedSize, contentSize);
+    }
+    if (isChangeFixedSize) {
         /// 计算出最小size, 防止约束或布局冲突
         CGSize minimumSize = [self js_fittingSizeForTemplateView:templateView withContentSize:contentSize];
         
