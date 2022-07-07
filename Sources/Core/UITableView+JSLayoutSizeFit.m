@@ -120,7 +120,7 @@
     CGFloat contentWidth = 0;
     CGFloat insetValue = self.style == UITableViewStyleGrouped + 1 ? JSUIEdgeInsetsGetHorizontalValue(self.layoutMargins) : 0;
     if ([templateView isKindOfClass:UITableViewHeaderFooterView.class]) {
-        cellWidth = self.js_validContentSize.width;
+        cellWidth = self.js_validViewSize.width;
         contentWidth = cellWidth - insetValue;
     } else if ([templateView isKindOfClass:UITableViewCell.class]) {
         UITableViewCell *realCell = indexPath ? [templateView js_realTableViewCellForIndexPath:indexPath] : nil;
@@ -128,7 +128,7 @@
             cellWidth = realCell.js_width;
             contentWidth = realCell.contentView.js_width;
         } else {
-            cellWidth = self.js_validContentSize.width - insetValue;
+            cellWidth = self.js_validViewSize.width - insetValue;
             contentWidth = cellWidth;
         }
     }

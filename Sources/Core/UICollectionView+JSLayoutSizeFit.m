@@ -31,7 +31,7 @@
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
     return [self js_fittingSizeForReusableViewClass:viewClass
-                                       contentWidth:[self js_validContentSizeAtIndexPath:indexPath].width
+                                       contentWidth:[self js_validViewSizeAtIndexPath:indexPath].width
                                          cacheByKey:key
                                       configuration:configuration];
 }
@@ -53,7 +53,7 @@
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
     return [self js_fittingSizeForReusableViewClass:viewClass
-                                      contentHeight:[self js_validContentSizeAtIndexPath:indexPath].height
+                                      contentHeight:[self js_validViewSizeAtIndexPath:indexPath].height
                                          cacheByKey:key
                                       configuration:configuration];
 }
@@ -166,8 +166,8 @@
     return fittingSize;
 }
 
-- (CGSize)js_validContentSizeAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize contentSize = self.js_validContentSize;
+- (CGSize)js_validViewSizeAtIndexPath:(NSIndexPath *)indexPath {
+    CGSize size = self.js_validViewSize;
     
     UIEdgeInsets sectionInset = UIEdgeInsetsZero;
     if ([self.collectionViewLayout isKindOfClass:UICollectionViewFlowLayout.class]) {
@@ -177,10 +177,10 @@
         sectionInset = [(id<UICollectionViewDelegateFlowLayout>)self.delegate collectionView:self layout:self.collectionViewLayout insetForSectionAtIndex:indexPath.section];
     }
     
-    contentSize.width = MAX(contentSize.width - JSUIEdgeInsetsGetHorizontalValue(sectionInset), 0);
-    contentSize.height = MAX(contentSize.height - JSUIEdgeInsetsGetVerticalValue(sectionInset), 0);
+    size.width = MAX(size.width - JSUIEdgeInsetsGetHorizontalValue(sectionInset), 0);
+    size.height = MAX(size.height - JSUIEdgeInsetsGetVerticalValue(sectionInset), 0);
     
-    return contentSize;
+    return size;
 }
 
 @end

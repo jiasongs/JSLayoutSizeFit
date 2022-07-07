@@ -67,25 +67,23 @@
 
 #pragma mark - Getter
 
-- (CGSize)js_validContentSize {
+- (CGSize)js_validViewSize {
     UIEdgeInsets contentInset = self.contentInset;
     if (@available(iOS 11.0, *)) {
         contentInset = self.adjustedContentInset;
     }
     
-    CGFloat contentWidth = (self.js_width ? : self.superview.js_width) ? : self.window.bounds.size.width;
-    contentWidth -= JSUIEdgeInsetsGetHorizontalValue(contentInset);
+    CGFloat width = (self.js_width ? : self.superview.js_width) ? : self.window.bounds.size.width;
+    width -= JSUIEdgeInsetsGetHorizontalValue(contentInset);
     
-    CGFloat contentHeight = (self.js_height ? : self.superview.js_height) ? : self.window.bounds.size.height;
-    contentHeight -= JSUIEdgeInsetsGetVerticalValue(contentInset);
+    CGFloat height = (self.js_height ? : self.superview.js_height) ? : self.window.bounds.size.height;
+    height -= JSUIEdgeInsetsGetVerticalValue(contentInset);
     
-    return CGSizeMake(MAX(contentWidth, 0), MAX(contentHeight, 0));
+    return CGSizeMake(MAX(width, 0), MAX(height, 0));
 }
 
 - (JSLayoutSizeFitCache *)js_rowSizeFitCache {
-    CGSize contentSize = self.js_validContentSize;
-    
-    NSString *key = NSStringFromCGSize(contentSize);
+    NSString *key = self.js_validSizeFitCacheKey;
     
     JSLayoutSizeFitCache *cache = [self.js_allRowSizeFitCaches objectForKey:key];
     if (!cache) {
@@ -97,9 +95,7 @@
 }
 
 - (JSLayoutSizeFitCache *)js_sectionSizeFitCache {
-    CGSize contentSize = self.js_validContentSize;
-    
-    NSString *key = NSStringFromCGSize(contentSize);
+    NSString *key = self.js_validSizeFitCacheKey;
     
     JSLayoutSizeFitCache *cache = [self.js_allSectionSizeFitCaches objectForKey:key];
     if (!cache) {
@@ -135,6 +131,30 @@
         objc_setAssociatedObject(self, _cmd, templateViews, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return templateViews;
+}
+
+- (NSString *)js_validSizeFitCacheKey {
+    CGSize size = self.js_validViewSize;
+    
+    NSString *key = nil;
+    if ([self isKindOfClass:UITableView.class]) {
+        key = @(size.width).stringValue;
+    } else if ([self isKindOfClass:UICollectionView.class]) {
+        UICollectionView *collectionView = (UICollectionView *)self;
+        if ([collectionView.collectionViewLayout isKindOfClass:UICollectionViewFlowLayout.class]) {
+            UICollectionViewScrollDirection scrollDirection = [(UICollectionViewFlowLayout *)collectionView.collectionViewLayout scrollDirection];
+            if (scrollDirection == UICollectionViewScrollDirectionVertical) {
+                key = @(size.width).stringValue;
+            } else if (scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+                key = @(size.height).stringValue;
+            }
+        }
+    }
+    if (!key) {
+        key = NSStringFromCGSize(size);
+    }
+    
+    return key;
 }
 
 @end
