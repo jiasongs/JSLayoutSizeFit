@@ -47,6 +47,7 @@
             templateView = [[viewClass alloc] initWithFrame:CGRectZero];
         }
         
+        templateView.hidden = YES;
         templateView.js_fromTemplateView = YES;
         
         NSAssert(templateView, @"生成失败, 需要查找原因");
