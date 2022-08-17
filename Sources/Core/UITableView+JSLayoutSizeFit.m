@@ -135,7 +135,7 @@
     
     if (templateView.js_fixedSize.width != cellWidth || contentView.js_fixedSize.width != contentWidth) {
         /// 计算出最小height, 防止约束或布局冲突
-        CGFloat minimumHeight = [self js_fittingHeightForTemplateView:templateView withContentWidth:contentWidth];
+        CGFloat minimumHeight = [self js_fittingHeightForTemplateView:templateView finallyWidth:contentWidth];
         
         templateView.js_fixedSize = CGSizeMake(cellWidth, minimumHeight);
         contentView.js_fixedSize =  CGSizeMake(contentWidth, minimumHeight);
@@ -156,7 +156,7 @@
 - (CGFloat)js_fittingHeightContainsSeparatorForTemplateView:(__kindof UIView *)templateView {
     UIView *contentView = templateView.js_templateContentView;
     
-    CGFloat fittingHeight = [self js_fittingHeightForTemplateView:templateView withContentWidth:contentView.js_width];
+    CGFloat fittingHeight = [self js_fittingHeightForTemplateView:templateView finallyWidth:contentView.js_width];
     
     if ([templateView isKindOfClass:UITableViewCell.class] && self.separatorStyle != UITableViewCellSeparatorStyleNone) {
         static CGFloat pixelOne = 1;
@@ -170,15 +170,17 @@
     return fittingHeight;
 }
 
-- (CGFloat)js_fittingHeightForTemplateView:(__kindof UIView *)templateView
-                          withContentWidth:(CGFloat)contentWidth {
+- (CGFloat)js_fittingHeightForTemplateView:(__kindof UIView *)templateView finallyWidth:(CGFloat)finallyWidth {
     UIView *contentView = templateView.js_templateContentView;
     
     CGFloat fittingHeight = 0;
     if (templateView.js_isUseFrameLayout) {
-        fittingHeight = [templateView js_templateSizeThatFits:CGSizeMake(contentWidth, 0)].height;
+        fittingHeight = [templateView js_templateSizeThatFits:CGSizeMake(finallyWidth, 0)].height;
     } else {
-        fittingHeight = [contentView systemLayoutSizeFittingSize:CGSizeMake(contentWidth, 0)].height;
+        fittingHeight = [contentView systemLayoutSizeFittingSize:CGSizeMake(finallyWidth, 0)
+                                   withHorizontalFittingPriority:UILayoutPriorityRequired
+                                         verticalFittingPriority:UILayoutPriorityFittingSizeLevel].height;
+        
     }
     
     return fittingHeight;

@@ -92,7 +92,7 @@
         [self js_prepareForTemplateView:templateView contentSize:contentSize configuration:configuration];
         
         /// 计算size
-        resultSize = [self js_fittingSizeForTemplateView:templateView];
+        resultSize = [self js_fittingSizeForTemplateView:templateView contentSize:contentSize];
         
         /// 设置外部的宽/高
         if (contentSize.width > 0) {
@@ -130,7 +130,7 @@
     }
     if (isChangeFixedSize) {
         /// 计算出最小size, 防止约束或布局冲突
-        CGSize minimumSize = [self js_fittingSizeForTemplateView:templateView withContentSize:contentSize];
+        CGSize minimumSize = [self js_fittingSizeForTemplateView:templateView contentSize:contentSize finallySize:contentSize];
         
         CGSize maximumSize = CGSizeMake(MAX(contentSize.width, minimumSize.width),
                                         MAX(contentSize.height, minimumSize.height));
@@ -150,17 +150,20 @@
     }
 }
 
-- (CGSize)js_fittingSizeForTemplateView:(__kindof UIView *)templateView {
-    return [self js_fittingSizeForTemplateView:templateView withContentSize:templateView.js_size];
+- (CGSize)js_fittingSizeForTemplateView:(__kindof UIView *)templateView contentSize:(CGSize)contentSize {
+    return [self js_fittingSizeForTemplateView:templateView contentSize:contentSize finallySize:templateView.js_size];
 }
 
-- (CGSize)js_fittingSizeForTemplateView:(__kindof UIView *)templateView
-                        withContentSize:(CGSize)contentSize {
+- (CGSize)js_fittingSizeForTemplateView:(__kindof UIView *)templateView contentSize:(CGSize)contentSize finallySize:(CGSize)finallySize {
     CGSize fittingSize = CGSizeZero;
     if (templateView.js_isUseFrameLayout) {
-        fittingSize = [templateView js_templateSizeThatFits:contentSize];
+        fittingSize = [templateView js_templateSizeThatFits:finallySize];
     } else {
-        fittingSize = [templateView systemLayoutSizeFittingSize:contentSize];
+        UILayoutPriority horizontalPriority = contentSize.width > 0 && contentSize.height <= 0 ? UILayoutPriorityRequired : UILayoutPriorityFittingSizeLevel;
+        UILayoutPriority verticalPriority = contentSize.height > 0 && contentSize.width <= 0 ? UILayoutPriorityRequired : UILayoutPriorityFittingSizeLevel;
+        fittingSize = [templateView systemLayoutSizeFittingSize:finallySize
+                                  withHorizontalFittingPriority:horizontalPriority
+                                        verticalFittingPriority:verticalPriority];
     }
     
     return fittingSize;
