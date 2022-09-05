@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "JSLayoutSizeFit"
-  s.version      = "0.5.3"
+  s.version      = "0.5.5"
   s.summary      = "JSLayoutSizeFit"
   s.homepage     = "https://github.com/jiasongs/JSLayoutSizeFit"
   s.author       = { "jiasong" => "593908937@qq.com" }

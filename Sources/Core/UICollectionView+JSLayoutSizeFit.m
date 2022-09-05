@@ -19,7 +19,7 @@
     return self.js_validSizeFitCache;
 }
 
-#pragma mark - UICollectionViewCell
+#pragma mark - UICollectionReusableView
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
                                   cacheByKey:(nullable id<NSCopying>)key
@@ -72,6 +72,18 @@
                                           contentSize:CGSizeMake(0, contentHeight)
                                            cacheByKey:key
                                         configuration:configuration];
+}
+
+#pragma mark - Cache
+
+- (void)js_invalidateFittingSizeForCacheKey:(id<NSCopying>)cacheKey {
+    [self.js_allSizeFitCaches enumerateKeysAndObjectsUsingBlock:^(NSString *key, JSLayoutSizeFitCache *value, BOOL *stop) {
+        [value removeObjectForKey:cacheKey];
+    }];
+}
+
+- (void)js_invalidateAllFittingSize {
+    [self.js_allSizeFitCaches removeAllObjects];
 }
 
 #pragma mark - Private

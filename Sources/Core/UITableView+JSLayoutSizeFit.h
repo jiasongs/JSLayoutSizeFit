@@ -34,6 +34,9 @@ typedef void(^JSConfigurationTableViewSection)(__kindof UITableViewHeaderFooterV
                                 cacheByKey:(nullable id<NSCopying>)key
                              configuration:(nullable JSConfigurationTableViewSection)configuration;
 
+- (void)js_invalidateFittingHeightForCacheKey:(id<NSCopying>)cacheKey;
+- (void)js_invalidateAllFittingHeight;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -41,6 +41,9 @@ typedef void(^JSConfigurationReusableView)(__kindof UICollectionReusableView *re
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration;
 
+- (void)js_invalidateFittingSizeForCacheKey:(id<NSCopying>)cacheKey;
+- (void)js_invalidateAllFittingSize;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -44,7 +44,7 @@
     return self.js_validSizeFitCache;
 }
 
-#pragma mark - UITableView - Cell
+#pragma mark - Cell
 
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
                              cacheByKey:(nullable id<NSCopying>)key
@@ -67,7 +67,7 @@
                                   configuration:configuration];
 }
 
-#pragma mark - UITableView - Section
+#pragma mark - Section
 
 - (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
                                 cacheByKey:(nullable id<NSCopying>)key
@@ -78,6 +78,18 @@
                                     atIndexPath:nil
                                      cacheByKey:key
                                   configuration:configuration];
+}
+
+#pragma mark - Cache
+
+- (void)js_invalidateFittingHeightForCacheKey:(id<NSCopying>)cacheKey {
+    [self.js_allSizeFitCaches enumerateKeysAndObjectsUsingBlock:^(NSString *key, JSLayoutSizeFitCache *value, BOOL *stop) {
+        [value removeObjectForKey:cacheKey];
+    }];
+}
+
+- (void)js_invalidateAllFittingHeight {
+    [self.js_allSizeFitCaches removeAllObjects];
 }
 
 #pragma mark - Private
