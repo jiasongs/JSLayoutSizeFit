@@ -40,6 +40,10 @@
     });
 }
 
+- (JSLayoutSizeFitCache *)js_fittingHeightCache {
+    return self.js_validSizeFitCache;
+}
+
 #pragma mark - UITableView - Cell
 
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
@@ -83,11 +87,10 @@
                                cacheByKey:(nullable id<NSCopying>)key
                             configuration:(nullable void(^)(__kindof UIView *))configuration {
     CGFloat resultHeight = 0;
-    /// FitCache
-    JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UITableViewCell.class] ? self.js_rowSizeFitCache : self.js_sectionSizeFitCache;
+    JSLayoutSizeFitCache *fittingHeightCache = self.js_fittingHeightCache;
     
-    if (key != nil && [fitCache containsKey:key]) {
-        resultHeight = [fitCache CGFloatForKey:key];
+    if (key != nil && [fittingHeightCache containsKey:key]) {
+        resultHeight = [fittingHeightCache CGFloatForKey:key];
     } else {
         /// 制作/获取模板View
         __kindof UIView *templateView = [self js_makeTemplateViewIfNecessaryWithViewClass:viewClass nibName:nil inBundle:nil];
@@ -101,9 +104,9 @@
         /// 写入内存
         if (key != nil) {
             if ([templateView isKindOfClass:UITableViewHeaderFooterView.class]) {
-                [fitCache setCGFloat:resultHeight forKey:key];
+                [fittingHeightCache setCGFloat:resultHeight forKey:key];
             } else if ([templateView isKindOfClass:UITableViewCell.class] && (!indexPath || [templateView js_realTableViewCellForIndexPath:indexPath] != nil)) {
-                [fitCache setCGFloat:resultHeight forKey:key];
+                [fittingHeightCache setCGFloat:resultHeight forKey:key];
             }
         }
     }

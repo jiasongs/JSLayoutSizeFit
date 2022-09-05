@@ -108,7 +108,7 @@
     [dic setValue:array forKey:@"likeList"];
     [dataSource replaceObjectAtIndex:indexPath.section withObject:dic];
     
-    [self.tableView.js_rowSizeFitCache removeObjectForKey:[itemDic objectForKey:@"id"]];
+    [self.tableView.js_fittingHeightCache removeObjectForKey:[itemDic objectForKey:@"id"]];
     self.dataSource = dataSource;
     [self.tableView reloadData];
 }

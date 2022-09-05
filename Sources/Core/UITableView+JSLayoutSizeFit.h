@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class JSLayoutSizeFitCache;
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^JSConfigurationTableViewCell)(__kindof UITableViewCell *cell);
 typedef void(^JSConfigurationTableViewSection)(__kindof UITableViewHeaderFooterView *headerFooterView);
 
 @interface UITableView (JSLayoutSizeFit)
+
+@property (nonatomic, readonly) JSLayoutSizeFitCache *js_fittingHeightCache;
 
 /// Cell
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass

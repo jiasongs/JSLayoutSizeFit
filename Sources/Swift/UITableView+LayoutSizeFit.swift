@@ -9,6 +9,10 @@ import UIKit
 
 public extension LayoutSizeFitWrapper where Base: UITableView {
     
+    var fittingHeightCache: JSLayoutSizeFitCache {
+        return self.base.js_fittingHeightCache
+    }
+    
     func fittingHeight<Cell: UITableViewCell>(forCellClass cellClass: Cell.Type,
                                               at indexPath: IndexPath,
                                               cacheBy key: String? = nil,

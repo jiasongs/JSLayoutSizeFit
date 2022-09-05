@@ -9,6 +9,10 @@ import UIKit
 
 public extension LayoutSizeFitWrapper where Base: UICollectionView {
     
+    var fittingSizeCache: JSLayoutSizeFitCache {
+        return self.base.js_fittingSizeCache
+    }
+    
     func fittingHeight<ReusableView: UICollectionReusableView>(forReusableViewClass viewClass: ReusableView.Type,
                                                                cacheBy key: String? = nil,
                                                                configuration: ((ReusableView) -> Void)? = nil) -> CGSize {

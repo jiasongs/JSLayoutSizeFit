@@ -7,11 +7,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class JSLayoutSizeFitCache;
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^JSConfigurationReusableView)(__kindof UICollectionReusableView *reusableView);
 
 @interface UICollectionView (JSLayoutSizeFit)
+
+@property (nonatomic, readonly) JSLayoutSizeFitCache *js_fittingSizeCache;
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
                                   cacheByKey:(nullable id<NSCopying>)key

@@ -15,6 +15,10 @@
 
 @implementation UICollectionView (JSLayoutSizeFit)
 
+- (JSLayoutSizeFitCache *)js_fittingSizeCache {
+    return self.js_validSizeFitCache;
+}
+
 #pragma mark - UICollectionViewCell
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
@@ -79,11 +83,10 @@
     NSAssert([viewClass isSubclassOfClass:UICollectionReusableView.class], @"viewClass必须为UICollectionReusableView类或者其子类");
     
     CGSize resultSize = CGSizeZero;
-    /// FitCache
-    JSLayoutSizeFitCache *fitCache = [viewClass isSubclassOfClass:UICollectionViewCell.class] ? self.js_rowSizeFitCache : self.js_sectionSizeFitCache;
+    JSLayoutSizeFitCache *fittingSizeCache = self.js_fittingSizeCache;
     
-    if (key != nil && [fitCache containsKey:key]) {
-        resultSize = [fitCache CGSizeForKey:key];
+    if (key != nil && [fittingSizeCache containsKey:key]) {
+        resultSize = [fittingSizeCache CGSizeForKey:key];
     } else {
         /// 制作/获取模板View
         __kindof UICollectionReusableView *templateView = [self js_makeTemplateViewIfNecessaryWithViewClass:viewClass nibName:nil inBundle:nil];
@@ -104,7 +107,7 @@
         
         /// 若Key存在时则写入内存
         if (key != nil) {
-            [fitCache setCGSize:resultSize forKey:key];
+            [fittingSizeCache setCGSize:resultSize forKey:key];
         }
     }
     
