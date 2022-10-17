@@ -51,6 +51,15 @@
     return nil;
 }
 
+- (void)addCachesFromCache:(JSLayoutSizeFitCache *)otherCache {
+    [otherCache addLock];
+    NSDictionary *dictionary = otherCache.caches ? : @{};
+    [otherCache unLock];
+    [self addLock];
+    [self.caches addEntriesFromDictionary:dictionary];
+    [self unLock];
+}
+
 #pragma mark - Remove
 
 - (void)removeObjectForKey:(id<NSCopying>)key {
@@ -113,7 +122,7 @@
 
 - (id)copyWithZone:(NSZone *)zone {
     JSLayoutSizeFitCache *newCache = [[JSLayoutSizeFitCache allocWithZone:zone] init];
-    [newCache.caches addEntriesFromDictionary:self.caches];
+    [newCache addCachesFromCache:self];
     return newCache;
 }
 

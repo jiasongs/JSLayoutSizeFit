@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setCGSize:(CGSize)value forKey:(id<NSCopying>)key;
 - (CGSize)CGSizeForKey:(id<NSCopying>)key;
 
+- (void)addCachesFromCache:(JSLayoutSizeFitCache *)otherCache;
+
 @end
 
 NS_ASSUME_NONNULL_END
