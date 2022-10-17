@@ -20,7 +20,8 @@
 #pragma mark - LayoutSizeFitCache
 
 - (id<JSLayoutSizeFitCacheBuilder>)js_fittingSizeCacheBuilder {
-    id<JSLayoutSizeFitCacheBuilder> builder = objc_getAssociatedObject(self, @selector(js_fittingSizeCacheBuilder));
+    JSCoreWeakProxy *weakProxy = objc_getAssociatedObject(self, @selector(js_fittingSizeCacheBuilder));
+    id<JSLayoutSizeFitCacheBuilder> builder = weakProxy.target;
     if (!builder) {
         builder = self.js_defaultFittingSizeCache;
     }
@@ -28,7 +29,8 @@
 }
 
 - (void)setJs_fittingSizeCacheBuilder:(id<JSLayoutSizeFitCacheBuilder>)js_fittingSizeCacheBuilder {
-    objc_setAssociatedObject(self, @selector(js_fittingSizeCacheBuilder), js_fittingSizeCacheBuilder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    JSCoreWeakProxy *weakProxy = [JSCoreWeakProxy proxyWithTarget:js_fittingSizeCacheBuilder];
+    objc_setAssociatedObject(self, @selector(js_fittingSizeCacheBuilder), weakProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (JSLayoutSizeFitCacheBuilderDefault *)js_defaultFittingSizeCache {

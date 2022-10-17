@@ -45,15 +45,17 @@
 #pragma mark - LayoutSizeFitCache
 
 - (id<JSLayoutSizeFitCacheBuilder>)js_fittingHeightCacheBuilder {
-    id<JSLayoutSizeFitCacheBuilder> builder = objc_getAssociatedObject(self, @selector(js_fittingHeightCacheBuilder));
+    JSCoreWeakProxy *weakProxy = objc_getAssociatedObject(self, @selector(js_fittingHeightCacheBuilder));
+    id<JSLayoutSizeFitCacheBuilder> builder = weakProxy.target;
     if (!builder) {
         builder = self.js_defaultFittingHeightCache;
     }
     return builder;
 }
 
-- (void)setJs_fittingHeightCacheBuilder:(nullable id<JSLayoutSizeFitCacheBuilder>)js_fittingHeightCacheBuilder {
-    objc_setAssociatedObject(self, @selector(js_fittingHeightCacheBuilder), js_fittingHeightCacheBuilder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setJs_fittingHeightCacheBuilder:(id<JSLayoutSizeFitCacheBuilder>)js_fittingHeightCacheBuilder {
+    JSCoreWeakProxy *weakProxy = [JSCoreWeakProxy proxyWithTarget:js_fittingHeightCacheBuilder];
+    objc_setAssociatedObject(self, @selector(js_fittingHeightCacheBuilder), weakProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (JSLayoutSizeFitCacheBuilderDefault *)js_defaultFittingHeightCache {
