@@ -64,16 +64,6 @@
 }
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
-                    estimateWidthAtIndexPath:(NSIndexPath *)indexPath
-                                  cacheByKey:(nullable id<NSCopying>)key
-                               configuration:(nullable JSConfigurationReusableView)configuration {
-    return [self js_fittingSizeForReusableViewClass:viewClass
-                                       contentWidth:[self js_validViewSizeAtIndexPath:indexPath].width
-                                         cacheByKey:key
-                                      configuration:configuration];
-}
-
-- (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
                                 contentWidth:(CGFloat)contentWidth
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration {
@@ -83,16 +73,6 @@
                                           contentSize:CGSizeMake(contentWidth, 0)
                                            cacheByKey:key
                                         configuration:configuration];
-}
-
-- (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
-                   estimateHeightAtIndexPath:(NSIndexPath *)indexPath
-                                  cacheByKey:(nullable id<NSCopying>)key
-                               configuration:(nullable JSConfigurationReusableView)configuration {
-    return [self js_fittingSizeForReusableViewClass:viewClass
-                                      contentHeight:[self js_validViewSizeAtIndexPath:indexPath].height
-                                         cacheByKey:key
-                                      configuration:configuration];
 }
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
@@ -128,7 +108,7 @@
         [self js_prepareForTemplateView:templateView contentSize:contentSize configuration:configuration];
         
         /// 计算size
-        resultSize = [self js_fittingSizeForTemplateView:templateView contentSize:contentSize];
+        resultSize = [self js_fittingSizeForTemplateView:templateView contentSize:contentSize finallySize:templateView.js_size];
         
         /// 设置外部的宽/高
         if (contentSize.width > 0) {
@@ -186,10 +166,6 @@
     }
 }
 
-- (CGSize)js_fittingSizeForTemplateView:(__kindof UIView *)templateView contentSize:(CGSize)contentSize {
-    return [self js_fittingSizeForTemplateView:templateView contentSize:contentSize finallySize:templateView.js_size];
-}
-
 - (CGSize)js_fittingSizeForTemplateView:(__kindof UIView *)templateView contentSize:(CGSize)contentSize finallySize:(CGSize)finallySize {
     CGSize fittingSize = CGSizeZero;
     if (templateView.js_isUseFrameLayout) {
@@ -203,23 +179,6 @@
     }
     
     return fittingSize;
-}
-
-- (CGSize)js_validViewSizeAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize size = self.js_validViewSize;
-    
-    UIEdgeInsets sectionInset = UIEdgeInsetsZero;
-    if ([self.collectionViewLayout isKindOfClass:UICollectionViewFlowLayout.class]) {
-        sectionInset = [(UICollectionViewFlowLayout *)self.collectionViewLayout sectionInset];
-    }
-    if ([self.delegate respondsToSelector:@selector(collectionView:layout:insetForSectionAtIndex:)]) {
-        sectionInset = [(id<UICollectionViewDelegateFlowLayout>)self.delegate collectionView:self layout:self.collectionViewLayout insetForSectionAtIndex:indexPath.section];
-    }
-    
-    size.width = MAX(size.width - JSUIEdgeInsetsGetHorizontalValue(sectionInset), 0);
-    size.height = MAX(size.height - JSUIEdgeInsetsGetVerticalValue(sectionInset), 0);
-    
-    return size;
 }
 
 @end

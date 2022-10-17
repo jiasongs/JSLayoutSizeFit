@@ -202,7 +202,7 @@
         });
         fittingHeight += pixelOne;
     }
-    
+
     return fittingHeight;
 }
 
@@ -216,7 +216,6 @@
         fittingHeight = [contentView systemLayoutSizeFittingSize:CGSizeMake(finallyWidth, 0)
                                    withHorizontalFittingPriority:UILayoutPriorityRequired
                                          verticalFittingPriority:UILayoutPriorityFittingSizeLevel].height;
-        
     }
     
     return fittingHeight;
