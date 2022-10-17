@@ -8,6 +8,8 @@
 #import "UICollectionView+JSLayoutSizeFit.h"
 #import "JSCoreKit.h"
 #import "JSLayoutSizeFitCache.h"
+#import "JSLayoutSizeFitCacheBuilder.h"
+#import "JSLayoutSizeFitCacheBuilderDefault.h"
 #import "UIScrollView+JSLayoutSizeFit_Private.h"
 #import "UIScrollView+JSLayoutSizeFit.h"
 #import "UIView+JSLayoutSizeFit_Private.h"
@@ -15,8 +17,39 @@
 
 @implementation UICollectionView (JSLayoutSizeFit)
 
+#pragma mark - LayoutSizeFitCache
+
+- (id<JSLayoutSizeFitCacheBuilder>)js_fittingSizeCacheBuilder {
+    id<JSLayoutSizeFitCacheBuilder> builder = objc_getAssociatedObject(self, @selector(js_fittingSizeCacheBuilder));
+    if (!builder) {
+        builder = self.js_defaultFittingSizeCache;
+    }
+    return builder;
+}
+
+- (void)setJs_fittingSizeCacheBuilder:(id<JSLayoutSizeFitCacheBuilder>)js_fittingSizeCacheBuilder {
+    objc_setAssociatedObject(self, @selector(js_fittingSizeCacheBuilder), js_fittingSizeCacheBuilder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (JSLayoutSizeFitCacheBuilderDefault *)js_defaultFittingSizeCache {
+    JSLayoutSizeFitCacheBuilderDefault *cache = objc_getAssociatedObject(self, _cmd);
+    if (!cache) {
+        cache = [[JSLayoutSizeFitCacheBuilderDefault alloc] init];
+        objc_setAssociatedObject(self, _cmd, cache, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return cache;
+}
+
 - (JSLayoutSizeFitCache *)js_fittingSizeCache {
-    return self.js_validSizeFitCache;
+    return [self.js_fittingSizeCacheBuilder fittingCacheForContainerView:self];
+}
+
+- (void)js_invalidateFittingSizeForCacheKey:(id<NSCopying>)cacheKey {
+    [self.js_fittingSizeCacheBuilder invalidateFittingCacheForCacheKey:cacheKey];
+}
+
+- (void)js_invalidateAllFittingSize {
+    [self.js_fittingSizeCacheBuilder invalidateAllFittingCache];
 }
 
 #pragma mark - UICollectionReusableView
@@ -72,18 +105,6 @@
                                           contentSize:CGSizeMake(0, contentHeight)
                                            cacheByKey:key
                                         configuration:configuration];
-}
-
-#pragma mark - Cache
-
-- (void)js_invalidateFittingSizeForCacheKey:(id<NSCopying>)cacheKey {
-    [self.js_allSizeFitCaches enumerateKeysAndObjectsUsingBlock:^(NSString *key, JSLayoutSizeFitCache *value, BOOL *stop) {
-        [value removeObjectForKey:cacheKey];
-    }];
-}
-
-- (void)js_invalidateAllFittingSize {
-    [self.js_allSizeFitCaches removeAllObjects];
 }
 
 #pragma mark - Private

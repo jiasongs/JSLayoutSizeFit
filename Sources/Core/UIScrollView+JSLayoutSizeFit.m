@@ -83,45 +83,6 @@
     return CGSizeMake(MAX(width, 0), MAX(height, 0));
 }
 
-- (JSLayoutSizeFitCache *)js_validSizeFitCache {
-    CGSize size = self.js_validViewSize;
-    
-    NSString *key = nil;
-    if ([self isKindOfClass:UITableView.class]) {
-        key = @(size.width).stringValue;
-    } else if ([self isKindOfClass:UICollectionView.class]) {
-        UICollectionView *collectionView = (UICollectionView *)self;
-        if ([collectionView.collectionViewLayout isKindOfClass:UICollectionViewFlowLayout.class]) {
-            UICollectionViewScrollDirection scrollDirection = [(UICollectionViewFlowLayout *)collectionView.collectionViewLayout scrollDirection];
-            if (scrollDirection == UICollectionViewScrollDirectionVertical) {
-                key = @(size.width).stringValue;
-            } else if (scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-                key = @(size.height).stringValue;
-            }
-        }
-    }
-    if (!key) {
-        key = NSStringFromCGSize(size);
-    }
-    
-    JSLayoutSizeFitCache *cache = [self.js_allSizeFitCaches objectForKey:key];
-    if (!cache) {
-        cache = [[JSLayoutSizeFitCache alloc] init];
-        [self.js_allSizeFitCaches setObject:cache forKey:key];
-    }
-    
-    return cache;
-}
-
-- (NSMutableDictionary<NSString *, JSLayoutSizeFitCache *> *)js_allSizeFitCaches {
-    NSMutableDictionary *keyCahces = objc_getAssociatedObject(self, _cmd);
-    if (!keyCahces) {
-        keyCahces = [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self, _cmd, keyCahces, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    return keyCahces;
-}
-
 - (NSMutableDictionary *)js_allTemplateViews {
     NSMutableDictionary *templateViews = objc_getAssociatedObject(self, _cmd);
     if (!templateViews) {

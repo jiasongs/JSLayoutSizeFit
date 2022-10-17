@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class JSLayoutSizeFitCache;
+@protocol JSLayoutSizeFitCacheBuilder;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +18,11 @@ typedef void(^JSConfigurationTableViewSection)(__kindof UITableViewHeaderFooterV
 
 @interface UITableView (JSLayoutSizeFit)
 
+@property (null_resettable, nonatomic, weak) id<JSLayoutSizeFitCacheBuilder> js_fittingHeightCacheBuilder;
 @property (nonatomic, readonly) JSLayoutSizeFitCache *js_fittingHeightCache;
+
+- (void)js_invalidateFittingHeightForCacheKey:(id<NSCopying>)cacheKey;
+- (void)js_invalidateAllFittingHeight;
 
 /// Cell
 - (CGFloat)js_fittingHeightForCellClass:(Class)cellClass
@@ -33,9 +38,6 @@ typedef void(^JSConfigurationTableViewSection)(__kindof UITableViewHeaderFooterV
 - (CGFloat)js_fittingHeightForSectionClass:(Class)sectionClass
                                 cacheByKey:(nullable id<NSCopying>)key
                              configuration:(nullable JSConfigurationTableViewSection)configuration;
-
-- (void)js_invalidateFittingHeightForCacheKey:(id<NSCopying>)cacheKey;
-- (void)js_invalidateAllFittingHeight;
 
 @end
 
