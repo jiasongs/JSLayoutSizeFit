@@ -11,6 +11,7 @@
 #if __has_include(<JSLayoutSizeFit/JSLayoutSizeFit.h>)
 
 #import <JSLayoutSizeFit/JSLayoutSizeFitCache.h>
+#import <JSLayoutSizeFit/JSLayoutSizeFitCacheBuilder.h>
 #import <JSLayoutSizeFit/NSIndexPath+JSLayoutSizeFitKey.h>
 #import <JSLayoutSizeFit/UIScrollView+JSLayoutSizeFit.h>
 #import <JSLayoutSizeFit/UITableView+JSLayoutSizeFit.h>
@@ -20,6 +21,7 @@
 #else
 
 #import "JSLayoutSizeFitCache.h"
+#import "JSLayoutSizeFitCacheBuilder.h"
 #import "NSIndexPath+JSLayoutSizeFitKey.h"
 #import "UIScrollView+JSLayoutSizeFit.h"
 #import "UITableView+JSLayoutSizeFit.h"

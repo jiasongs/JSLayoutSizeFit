@@ -7,8 +7,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class JSLayoutSizeFitCache;
 @protocol JSLayoutSizeFitCacheBuilder;
+@class JSLayoutSizeFitCache;
 
 NS_ASSUME_NONNULL_BEGIN
 

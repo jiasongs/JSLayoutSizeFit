@@ -9,6 +9,14 @@ import UIKit
 
 public extension LayoutSizeFitWrapper where Base: UITableView {
     
+    var fittingHeightCacheBuilder: JSLayoutSizeFitCacheBuilder {
+        return self.base.js_fittingHeightCacheBuilder
+    }
+    
+    func setFittingHeightCacheBuilder(_ builder: JSLayoutSizeFitCacheBuilder?) {
+        self.base.js_fittingHeightCacheBuilder = builder
+    }
+    
     var fittingHeightCache: JSLayoutSizeFitCache {
         return self.base.js_fittingHeightCache
     }

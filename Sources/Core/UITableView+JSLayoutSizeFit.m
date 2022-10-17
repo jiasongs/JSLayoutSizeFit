@@ -202,7 +202,7 @@
         });
         fittingHeight += pixelOne;
     }
-
+    
     return fittingHeight;
 }
 
