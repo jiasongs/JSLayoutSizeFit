@@ -109,4 +109,12 @@
     os_unfair_lock_unlock(&_lock);
 }
 
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+    JSLayoutSizeFitCache *newCache = [[JSLayoutSizeFitCache allocWithZone:zone] init];
+    [newCache.caches addEntriesFromDictionary:self.caches];
+    return newCache;
+}
+
 @end

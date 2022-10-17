@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JSLayoutSizeFitCache : NSObject
+@interface JSLayoutSizeFitCache : NSObject <NSCopying>
 
 - (BOOL)containsKey:(id<NSCopying>)key;
 
