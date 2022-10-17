@@ -17,13 +17,13 @@
 
 @implementation JSLayoutSizeFitCacheBuilderDefault
 
-- (JSLayoutSizeFitCache *)fittingCacheForContainerView:(__kindof UIView *)containerView {
+- (JSLayoutSizeFitCache *)fittingCacheInView:(__kindof UIView *)view {
     NSString *key = nil;
-    if ([containerView isKindOfClass:UITableView.class]) {
-        UITableView *tableView = containerView;
+    if ([view isKindOfClass:UITableView.class]) {
+        UITableView *tableView = view;
         key = @(tableView.js_validViewSize.width).stringValue;
-    } else if ([containerView isKindOfClass:UICollectionView.class]) {
-        UICollectionView *collectionView = containerView;
+    } else if ([view isKindOfClass:UICollectionView.class]) {
+        UICollectionView *collectionView = view;
         if ([collectionView.collectionViewLayout isKindOfClass:UICollectionViewFlowLayout.class]) {
             UICollectionViewScrollDirection scrollDirection = [(UICollectionViewFlowLayout *)collectionView.collectionViewLayout scrollDirection];
             if (scrollDirection == UICollectionViewScrollDirectionVertical) {
@@ -32,12 +32,12 @@
                 key = @(collectionView.js_validViewSize.height).stringValue;
             }
         }
-    } else if ([containerView isKindOfClass:UIScrollView.class]) {
-        UIScrollView *scrollView = containerView;
+    } else if ([view isKindOfClass:UIScrollView.class]) {
+        UIScrollView *scrollView = view;
         key = NSStringFromCGSize(scrollView.js_validViewSize);
     }
     if (!key) {
-        key = NSStringFromCGSize(containerView.bounds.size);
+        key = NSStringFromCGSize(view.bounds.size);
     }
     
     JSLayoutSizeFitCache *cache = [self.allSizeFitCaches objectForKey:key];
@@ -48,13 +48,13 @@
     return cache;
 }
 
-- (void)invalidateFittingCacheForCacheKey:(id<NSCopying>)cacheKey {
+- (void)invalidateFittingCacheForCacheKey:(id<NSCopying>)cacheKey inView:(__kindof UIView *)view {
     [self.allSizeFitCaches enumerateKeysAndObjectsUsingBlock:^(NSString *key, JSLayoutSizeFitCache *value, BOOL *stop) {
         [value removeObjectForKey:cacheKey];
     }];
 }
 
-- (void)invalidateAllFittingCache {
+- (void)invalidateAllFittingCacheInView:(__kindof UIView *)view {
     [self.allSizeFitCaches removeAllObjects];
 }
 

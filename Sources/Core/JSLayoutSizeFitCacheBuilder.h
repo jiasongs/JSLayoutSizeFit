@@ -14,9 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol JSLayoutSizeFitCacheBuilder <NSObject>
 
 @required
-- (JSLayoutSizeFitCache *)fittingCacheForContainerView:(__kindof UIView *)containerView;
-- (void)invalidateFittingCacheForCacheKey:(id<NSCopying>)cacheKey;
-- (void)invalidateAllFittingCache;
+- (JSLayoutSizeFitCache *)fittingCacheInView:(__kindof UIView *)view;
+- (void)invalidateFittingCacheForCacheKey:(id<NSCopying>)cacheKey inView:(__kindof UIView *)view;
+- (void)invalidateAllFittingCacheInView:(__kindof UIView *)view;
 
 @end
 

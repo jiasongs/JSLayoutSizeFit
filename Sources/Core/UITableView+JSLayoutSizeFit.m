@@ -66,15 +66,15 @@
 }
 
 - (JSLayoutSizeFitCache *)js_fittingHeightCache {
-    return [self.js_fittingHeightCacheBuilder fittingCacheForContainerView:self];
+    return [self.js_fittingHeightCacheBuilder fittingCacheInView:self];
 }
 
 - (void)js_invalidateFittingHeightForCacheKey:(id<NSCopying>)cacheKey {
-    [self.js_fittingHeightCacheBuilder invalidateFittingCacheForCacheKey:cacheKey];
+    [self.js_fittingHeightCacheBuilder invalidateFittingCacheForCacheKey:cacheKey inView:self];
 }
 
 - (void)js_invalidateAllFittingHeight {
-    [self.js_fittingHeightCacheBuilder invalidateAllFittingCache];
+    [self.js_fittingHeightCacheBuilder invalidateAllFittingCacheInView:self];
 }
 
 #pragma mark - Cell

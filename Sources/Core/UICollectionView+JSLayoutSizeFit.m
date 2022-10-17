@@ -41,15 +41,15 @@
 }
 
 - (JSLayoutSizeFitCache *)js_fittingSizeCache {
-    return [self.js_fittingSizeCacheBuilder fittingCacheForContainerView:self];
+    return [self.js_fittingSizeCacheBuilder fittingCacheInView:self];
 }
 
 - (void)js_invalidateFittingSizeForCacheKey:(id<NSCopying>)cacheKey {
-    [self.js_fittingSizeCacheBuilder invalidateFittingCacheForCacheKey:cacheKey];
+    [self.js_fittingSizeCacheBuilder invalidateFittingCacheForCacheKey:cacheKey inView:self];
 }
 
 - (void)js_invalidateAllFittingSize {
-    [self.js_fittingSizeCacheBuilder invalidateAllFittingCache];
+    [self.js_fittingSizeCacheBuilder invalidateAllFittingCacheInView:self];
 }
 
 #pragma mark - UICollectionReusableView
