@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
 
   s.default_subspec = "Core"
   s.subspec "Core" do |ss|
-    ss.source_files = "Sources/Core", "Sources/Core/Private/*.{h,m,swift}"
-    ss.private_header_files = "Sources/Core/Private/*.{h,m,swift}"
+    ss.source_files = "Sources/Core/**/*.{h,m,swift}"
+    ss.private_header_files = "Sources/Core/_Private/*.{h,m,swift}"
   end
 
   s.subspec "ExtensionForSwift" do |ss|

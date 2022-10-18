@@ -12,7 +12,7 @@
 
 #import <JSLayoutSizeFit/JSLayoutSizeFitCache.h>
 #import <JSLayoutSizeFit/JSLayoutSizeFitCacheBuilder.h>
-#import <JSLayoutSizeFit/JSLayoutSizeFitCacheBuilderDefault.h>
+#import <JSLayoutSizeFit/JSLayoutSizeFitCacheDictionary.h>
 #import <JSLayoutSizeFit/NSIndexPath+JSLayoutSizeFitKey.h>
 #import <JSLayoutSizeFit/UIScrollView+JSLayoutSizeFit.h>
 #import <JSLayoutSizeFit/UITableView+JSLayoutSizeFit.h>
@@ -23,7 +23,7 @@
 
 #import "JSLayoutSizeFitCache.h"
 #import "JSLayoutSizeFitCacheBuilder.h"
-#import "JSLayoutSizeFitCacheBuilderDefault.h"
+#import "JSLayoutSizeFitCacheDictionary.h"
 #import "NSIndexPath+JSLayoutSizeFitKey.h"
 #import "UIScrollView+JSLayoutSizeFit.h"
 #import "UITableView+JSLayoutSizeFit.h"

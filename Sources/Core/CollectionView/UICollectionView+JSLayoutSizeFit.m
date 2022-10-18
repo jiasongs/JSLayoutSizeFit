@@ -9,7 +9,6 @@
 #import "JSCoreKit.h"
 #import "JSLayoutSizeFitCache.h"
 #import "JSLayoutSizeFitCacheBuilder.h"
-#import "JSLayoutSizeFitCacheBuilderDefault.h"
 #import "UIScrollView+JSLayoutSizeFit_Private.h"
 #import "UIScrollView+JSLayoutSizeFit.h"
 #import "UIView+JSLayoutSizeFit_Private.h"
@@ -19,39 +18,52 @@
 
 #pragma mark - LayoutSizeFitCache
 
-- (id<JSLayoutSizeFitCacheBuilder>)js_fittingSizeCacheBuilder {
-    JSCoreWeakProxy *weakProxy = objc_getAssociatedObject(self, @selector(js_fittingSizeCacheBuilder));
-    id<JSLayoutSizeFitCacheBuilder> builder = weakProxy.target;
-    if (!builder) {
-        builder = self.js_defaultFittingSizeCache;
-    }
-    return builder;
-}
-
-- (void)setJs_fittingSizeCacheBuilder:(id<JSLayoutSizeFitCacheBuilder>)js_fittingSizeCacheBuilder {
-    JSCoreWeakProxy *weakProxy = [JSCoreWeakProxy proxyWithTarget:js_fittingSizeCacheBuilder];
-    objc_setAssociatedObject(self, @selector(js_fittingSizeCacheBuilder), weakProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (JSLayoutSizeFitCacheBuilderDefault *)js_defaultFittingSizeCache {
-    JSLayoutSizeFitCacheBuilderDefault *cache = objc_getAssociatedObject(self, _cmd);
+- (JSLayoutSizeFitCacheBuilder *)js_defaultFittingSizeCache {
+    JSLayoutSizeFitCacheBuilder *cache = objc_getAssociatedObject(self, _cmd);
     if (!cache) {
-        cache = [[JSLayoutSizeFitCacheBuilderDefault alloc] init];
+        cache = [[JSLayoutSizeFitCacheBuilder alloc] init];
         objc_setAssociatedObject(self, _cmd, cache, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return cache;
 }
 
-- (JSLayoutSizeFitCache *)js_fittingSizeCache {
-    return [self.js_fittingSizeCacheBuilder fittingCacheInView:self];
+- (id<JSLayoutSizeFitCache>)js_fittingSizeCache {
+    JSCoreWeakProxy *weakProxy = objc_getAssociatedObject(self, @selector(js_fittingSizeCache));
+    id<JSLayoutSizeFitCache> sizeCache = weakProxy.target;
+    if (!sizeCache) {
+        sizeCache = self.js_defaultFittingSizeCache;
+    }
+    return sizeCache;
+}
+
+- (void)setJs_fittingSizeCache:(id<JSLayoutSizeFitCache>)js_fittingSizeCache {
+    JSCoreWeakProxy *weakProxy = [JSCoreWeakProxy proxyWithTarget:js_fittingSizeCache];
+    objc_setAssociatedObject(self, @selector(js_fittingSizeCache), weakProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)js_containsCacheKey:(id<NSCopying>)cacheKey {
+    return [self.js_fittingSizeCache containsCacheKey:cacheKey inView:self];
+}
+
+- (void)js_setFittingSize:(CGSize)size forCacheKey:(id<NSCopying>)cacheKey {
+    [self.js_fittingSizeCache setValue:[NSValue valueWithSize:size] forCacheKey:cacheKey inView:self];
+}
+
+- (CGSize)js_fittingSizeForCacheKey:(id<NSCopying>)cacheKey {
+    id value = [self.js_fittingSizeCache valueForCacheKey:cacheKey inView:self];
+    if ([value isKindOfClass:NSValue.class]) {
+        return [(NSValue *)value CGSizeValue];
+    } else {
+        return CGSizeZero;
+    }
 }
 
 - (void)js_invalidateFittingSizeForCacheKey:(id<NSCopying>)cacheKey {
-    [self.js_fittingSizeCacheBuilder invalidateFittingCacheForCacheKey:cacheKey inView:self];
+    [self.js_fittingSizeCache invalidateValueForCacheKey:cacheKey inView:self];
 }
 
 - (void)js_invalidateAllFittingSize {
-    [self.js_fittingSizeCacheBuilder invalidateAllFittingCacheInView:self];
+    [self.js_fittingSizeCache invalidateAllValueInView:self];
 }
 
 #pragma mark - UICollectionReusableView
@@ -98,10 +110,8 @@
     NSAssert([viewClass isSubclassOfClass:UICollectionReusableView.class], @"viewClass必须为UICollectionReusableView类或者其子类");
     
     CGSize resultSize = CGSizeZero;
-    JSLayoutSizeFitCache *fittingSizeCache = self.js_fittingSizeCache;
-    
-    if (key != nil && [fittingSizeCache containsKey:key]) {
-        resultSize = [fittingSizeCache CGSizeForKey:key];
+    if (key != nil && [self js_containsCacheKey:key]) {
+        resultSize = [self js_fittingSizeForCacheKey:key];
     } else {
         /// 制作/获取模板View
         __kindof UICollectionReusableView *templateView = [self js_makeTemplateViewIfNecessaryWithViewClass:viewClass nibName:nil inBundle:nil];
@@ -122,7 +132,7 @@
         
         /// 若Key存在时则写入内存
         if (key != nil) {
-            [fittingSizeCache setCGSize:resultSize forKey:key];
+            [self js_setFittingSize:resultSize forCacheKey:key];
         }
     }
     

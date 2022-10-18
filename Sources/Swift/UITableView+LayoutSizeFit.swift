@@ -9,16 +9,32 @@ import UIKit
 
 public extension LayoutSizeFitWrapper where Base: UITableView {
     
-    var fittingHeightCacheBuilder: JSLayoutSizeFitCacheBuilder {
-        return self.base.js_fittingHeightCacheBuilder
-    }
-    
-    func setFittingHeightCacheBuilder(_ builder: JSLayoutSizeFitCacheBuilder?) {
-        self.base.js_fittingHeightCacheBuilder = builder
-    }
-    
     var fittingHeightCache: JSLayoutSizeFitCache {
         return self.base.js_fittingHeightCache
+    }
+    
+    func setFittingHeightCache(_ cache: JSLayoutSizeFitCache?) {
+        self.base.js_fittingHeightCache = cache
+    }
+    
+    func containsCacheKey(_ cacheKey: String) -> Bool {
+        return self.base.js_containsCacheKey(cacheKey as NSString)
+    }
+    
+    func setFittingHeight(_ height: CGFloat, for cacheKey: String) {
+        self.base.js_setFittingHeight(height, forCacheKey: cacheKey as NSString)
+    }
+    
+    func fittingHeight(for cacheKey: String) -> CGFloat {
+        return self.base.js_fittingHeight(forCacheKey: cacheKey as NSString)
+    }
+    
+    func invalidateFittingHeight(for cacheKey: String) {
+        self.base.js_invalidateFittingHeight(forCacheKey: cacheKey as NSString)
+    }
+    
+    func invalidateAllFittingHeight() {
+        self.base.js_invalidateAllFittingHeight()
     }
     
     func fittingHeight<Cell: UITableViewCell>(forCellClass cellClass: Cell.Type,

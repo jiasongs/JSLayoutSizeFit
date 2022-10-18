@@ -10,7 +10,6 @@
 #import "JSCoreKit.h"
 #import "JSLayoutSizeFitCache.h"
 #import "JSLayoutSizeFitCacheBuilder.h"
-#import "JSLayoutSizeFitCacheBuilderDefault.h"
 #import "UIScrollView+JSLayoutSizeFit_Private.h"
 #import "UIScrollView+JSLayoutSizeFit.h"
 #import "UIView+JSLayoutSizeFit_Private.h"
@@ -44,39 +43,52 @@
 
 #pragma mark - LayoutSizeFitCache
 
-- (id<JSLayoutSizeFitCacheBuilder>)js_fittingHeightCacheBuilder {
-    JSCoreWeakProxy *weakProxy = objc_getAssociatedObject(self, @selector(js_fittingHeightCacheBuilder));
-    id<JSLayoutSizeFitCacheBuilder> builder = weakProxy.target;
-    if (!builder) {
-        builder = self.js_defaultFittingHeightCache;
-    }
-    return builder;
-}
-
-- (void)setJs_fittingHeightCacheBuilder:(id<JSLayoutSizeFitCacheBuilder>)js_fittingHeightCacheBuilder {
-    JSCoreWeakProxy *weakProxy = [JSCoreWeakProxy proxyWithTarget:js_fittingHeightCacheBuilder];
-    objc_setAssociatedObject(self, @selector(js_fittingHeightCacheBuilder), weakProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (JSLayoutSizeFitCacheBuilderDefault *)js_defaultFittingHeightCache {
-    JSLayoutSizeFitCacheBuilderDefault *cache = objc_getAssociatedObject(self, _cmd);
+- (JSLayoutSizeFitCacheBuilder *)js_defaultFittingHeightCache {
+    JSLayoutSizeFitCacheBuilder *cache = objc_getAssociatedObject(self, _cmd);
     if (!cache) {
-        cache = [[JSLayoutSizeFitCacheBuilderDefault alloc] init];
+        cache = [[JSLayoutSizeFitCacheBuilder alloc] init];
         objc_setAssociatedObject(self, _cmd, cache, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return cache;
 }
 
-- (JSLayoutSizeFitCache *)js_fittingHeightCache {
-    return [self.js_fittingHeightCacheBuilder fittingCacheInView:self];
+- (id<JSLayoutSizeFitCache>)js_fittingHeightCache {
+    JSCoreWeakProxy *weakProxy = objc_getAssociatedObject(self, @selector(js_fittingHeightCache));
+    id<JSLayoutSizeFitCache> heightCache = weakProxy.target;
+    if (!heightCache) {
+        heightCache = self.js_defaultFittingHeightCache;
+    }
+    return heightCache;
+}
+
+- (void)setJs_fittingHeightCache:(id<JSLayoutSizeFitCache>)js_fittingHeightCache {
+    JSCoreWeakProxy *weakProxy = [JSCoreWeakProxy proxyWithTarget:js_fittingHeightCache];
+    objc_setAssociatedObject(self, @selector(js_fittingHeightCache), weakProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)js_containsCacheKey:(id<NSCopying>)cacheKey {
+    return [self.js_fittingHeightCache containsCacheKey:cacheKey inView:self];
+}
+
+- (void)js_setFittingHeight:(CGFloat)height forCacheKey:(id<NSCopying>)cacheKey {
+    [self.js_fittingHeightCache setValue:@(height) forCacheKey:cacheKey inView:self];
+}
+
+- (CGFloat)js_fittingHeightForCacheKey:(id<NSCopying>)cacheKey {
+    id value = [self.js_fittingHeightCache valueForCacheKey:cacheKey inView:self];
+    if ([value isKindOfClass:NSNumber.class]) {
+        return [(NSNumber *)value doubleValue];
+    } else {
+        return 0.0;
+    }
 }
 
 - (void)js_invalidateFittingHeightForCacheKey:(id<NSCopying>)cacheKey {
-    [self.js_fittingHeightCacheBuilder invalidateFittingCacheForCacheKey:cacheKey inView:self];
+    [self.js_fittingHeightCache invalidateValueForCacheKey:cacheKey inView:self];
 }
 
 - (void)js_invalidateAllFittingHeight {
-    [self.js_fittingHeightCacheBuilder invalidateAllFittingCacheInView:self];
+    [self.js_fittingHeightCache invalidateAllValueInView:self];
 }
 
 #pragma mark - Cell
@@ -122,10 +134,8 @@
                                cacheByKey:(nullable id<NSCopying>)key
                             configuration:(nullable void(^)(__kindof UIView *))configuration {
     CGFloat resultHeight = 0;
-    JSLayoutSizeFitCache *fittingHeightCache = self.js_fittingHeightCache;
-    
-    if (key != nil && [fittingHeightCache containsKey:key]) {
-        resultHeight = [fittingHeightCache CGFloatForKey:key];
+    if (key != nil && [self js_containsCacheKey:key]) {
+        resultHeight = [self js_fittingHeightForCacheKey:key];
     } else {
         /// 制作/获取模板View
         __kindof UIView *templateView = [self js_makeTemplateViewIfNecessaryWithViewClass:viewClass nibName:nil inBundle:nil];
@@ -139,9 +149,9 @@
         /// 写入内存
         if (key != nil) {
             if ([templateView isKindOfClass:UITableViewHeaderFooterView.class]) {
-                [fittingHeightCache setCGFloat:resultHeight forKey:key];
+                [self js_setFittingHeight:resultHeight forCacheKey:key];
             } else if ([templateView isKindOfClass:UITableViewCell.class] && (!indexPath || [templateView js_realTableViewCellForIndexPath:indexPath] != nil)) {
-                [fittingHeightCache setCGFloat:resultHeight forKey:key];
+                [self js_setFittingHeight:resultHeight forCacheKey:key];
             }
         }
     }
