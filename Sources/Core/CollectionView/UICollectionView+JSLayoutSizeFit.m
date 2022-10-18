@@ -46,7 +46,7 @@
 }
 
 - (void)js_setFittingSize:(CGSize)size forCacheKey:(id<NSCopying>)cacheKey {
-    [self.js_fittingSizeCache setValue:[NSValue valueWithSize:size] forCacheKey:cacheKey inView:self];
+    [self.js_fittingSizeCache setValue:[NSValue valueWithCGSize:size] forCacheKey:cacheKey inView:self];
 }
 
 - (CGSize)js_fittingSizeForCacheKey:(id<NSCopying>)cacheKey {
