@@ -10,11 +10,12 @@ import UIKit
 public extension LayoutSizeFitWrapper where Base: UITableView {
     
     var fittingHeightCache: JSLayoutSizeFitCache {
-        return self.base.js_fittingHeightCache
-    }
-    
-    func setFittingHeightCache(_ cache: JSLayoutSizeFitCache?) {
-        self.base.js_fittingHeightCache = cache
+        get {
+            return self.base.js_fittingHeightCache
+        }
+        set {
+            self.base.js_fittingHeightCache = newValue
+        }
     }
     
     func containsCacheKey(_ cacheKey: String) -> Bool {

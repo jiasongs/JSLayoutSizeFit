@@ -7,8 +7,6 @@
 
 import Foundation
 
-extension IndexPath: LayoutSizeFitCompatible {}
-
 public extension LayoutSizeFitWrapper where Base == IndexPath {
     
     var sizeFitCacheKey: String {

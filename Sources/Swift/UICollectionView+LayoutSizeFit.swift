@@ -10,11 +10,12 @@ import UIKit
 public extension LayoutSizeFitWrapper where Base: UICollectionView {
     
     var fittingSizeCache: JSLayoutSizeFitCache {
-        return self.base.js_fittingSizeCache
-    }
-    
-    func setFittingSizeCache(_ cache: JSLayoutSizeFitCache?) {
-        self.base.js_fittingSizeCache = cache
+        get {
+            return self.base.js_fittingSizeCache
+        }
+        set {
+            self.base.js_fittingSizeCache = newValue
+        }
     }
     
     func containsCacheKey(_ cacheKey: String) -> Bool {
