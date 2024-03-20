@@ -41,7 +41,7 @@ public extension LayoutSizeFitWrapper where Base: UICollectionView {
     func fittingSize<ReusableView: UICollectionReusableView>(forReusableViewClass viewClass: ReusableView.Type,
                                                              cacheBy key: String? = nil,
                                                              configuration: ((ReusableView) -> Void)? = nil) -> CGSize {
-        return self.base.js_fittingSize(forReusableViewClass: viewClass, cacheByKey: key as NSString?) { (reusableView) in
+        return self.base.js_fittingSize(forReusableViewClass: viewClass, cacheByKey: key as? NSString) { (reusableView) in
             configuration?(reusableView as! ReusableView)
         }
     }
@@ -50,7 +50,16 @@ public extension LayoutSizeFitWrapper where Base: UICollectionView {
                                                              contentWidth: CGFloat,
                                                              cacheBy key: String? = nil,
                                                              configuration: ((ReusableView) -> Void)? = nil) -> CGSize {
-        return self.base.js_fittingSize(forReusableViewClass: viewClass, contentWidth: contentWidth, cacheByKey: key as NSString?) { (reusableView) in
+        return self.base.js_fittingSize(forReusableViewClass: viewClass, contentWidth: contentWidth, cacheByKey: key as? NSString) { (reusableView) in
+            configuration?(reusableView as! ReusableView)
+        }
+    }
+    
+    func fittingSize<ReusableView: UICollectionReusableView>(forReusableViewClass viewClass: ReusableView.Type,
+                                                             maximumContentWidth: CGFloat,
+                                                             cacheBy key: String? = nil,
+                                                             configuration: ((ReusableView) -> Void)? = nil) -> CGSize {
+        return self.base.js_fittingSize(forReusableViewClass: viewClass, maximumContentWidth: maximumContentWidth, cacheByKey: key as? NSString) { (reusableView) in
             configuration?(reusableView as! ReusableView)
         }
     }
@@ -59,7 +68,16 @@ public extension LayoutSizeFitWrapper where Base: UICollectionView {
                                                              contentHeight: CGFloat,
                                                              cacheBy key: String? = nil,
                                                              configuration: ((ReusableView) -> Void)? = nil) -> CGSize {
-        return self.base.js_fittingSize(forReusableViewClass: viewClass, contentHeight: contentHeight, cacheByKey: key as NSString?) { (reusableView) in
+        return self.base.js_fittingSize(forReusableViewClass: viewClass, contentHeight: contentHeight, cacheByKey: key as? NSString) { (reusableView) in
+            configuration?(reusableView as! ReusableView)
+        }
+    }
+    
+    func fittingSize<ReusableView: UICollectionReusableView>(forReusableViewClass viewClass: ReusableView.Type,
+                                                             maximumContentHeight: CGFloat,
+                                                             cacheBy key: String? = nil,
+                                                             configuration: ((ReusableView) -> Void)? = nil) -> CGSize {
+        return self.base.js_fittingSize(forReusableViewClass: viewClass, maximumContentHeight: maximumContentHeight, cacheByKey: key as? NSString) { (reusableView) in
             configuration?(reusableView as! ReusableView)
         }
     }
