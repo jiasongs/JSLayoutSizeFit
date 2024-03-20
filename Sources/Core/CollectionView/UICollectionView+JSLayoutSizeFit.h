@@ -36,7 +36,17 @@ typedef void(^JSConfigurationReusableView)(__kindof UICollectionReusableView *re
                                configuration:(nullable JSConfigurationReusableView)configuration;
 
 - (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
+                         maximumContentWidth:(CGFloat)maximumContentWidth
+                                  cacheByKey:(nullable id<NSCopying>)key
+                               configuration:(nullable JSConfigurationReusableView)configuration;
+
+- (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
                                contentHeight:(CGFloat)contentHeight
+                                  cacheByKey:(nullable id<NSCopying>)key
+                               configuration:(nullable JSConfigurationReusableView)configuration;
+
+- (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
+                        maximumContentHeight:(CGFloat)maximumContentHeight
                                   cacheByKey:(nullable id<NSCopying>)key
                                configuration:(nullable JSConfigurationReusableView)configuration;
 

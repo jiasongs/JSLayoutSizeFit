@@ -1,36 +1,34 @@
-platform :ios, "12.0"
+platform :ios, '13.0'
 use_frameworks! :linkage => :static
 
-source "https://github.com/CocoaPods/Specs.git"
+source 'https://cdn.cocoapods.org'
 
 def pod_Common
-  pod "JSLayoutSizeFit", :path => "..", :subspecs => ["ExtensionForSwift"]
-  pod "QMUIKit"
-  pod "Masonry"
-  pod "MPITextKit"
-  pod "LookinServer", :subspecs => ['Swift'], :configurations => ["Debug"]
-  pod "MLeaksFinder", :configurations => ["Debug"]
+  pod 'JSLayoutSizeFit', :path => '..', :subspecs => ['ExtensionForSwift']
+  pod 'QMUIKit'
+  pod 'Masonry'
+  pod 'MPITextKit'
+  pod 'LookinServer', :subspecs => ['Swift'], :configurations => ['Debug']
 end
 
-target "JSLayoutSizeFitExample" do
+target 'JSLayoutSizeFitExample' do
   pod_Common
-  pod "FBRetainCycleDetector", :git => "https://github.com/jiasongs/FBRetainCycleDetector.git", :configurations => ["Debug"]
 end
 
-target "JSLayoutSizeFitExampleMacOS" do
+target 'JSLayoutSizeFitExampleMacOS' do
   pod_Common
 end
 
 # https://github.com/CocoaPods/CocoaPods/issues/8891
 def fix_resource_bundle_signing(installer)
   installer.pods_project.targets.each do |target|
-    if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
+    if target.respond_to?(:product_type) and target.product_type == 'com.apple.product-type.bundle'
       target.build_configurations.each do |config|
-        if config.build_settings["DEVELOPMENT_TEAM"].nil?
-          config.build_settings["DEVELOPMENT_TEAM"] = "KJ6AEY5JEH"
+        if config.build_settings['DEVELOPMENT_TEAM'].nil?
+          config.build_settings['DEVELOPMENT_TEAM'] = 'KJ6AEY5JEH'
         end
-        if config.build_settings["CODE_SIGN_IDENTITY[sdk=macosx*]"].nil?
-          config.build_settings["CODE_SIGN_IDENTITY[sdk=macosx*]"] = "-"
+        if config.build_settings['CODE_SIGN_IDENTITY[sdk=macosx*]'].nil?
+          config.build_settings['CODE_SIGN_IDENTITY[sdk=macosx*]'] = '-'
         end
       end
     end

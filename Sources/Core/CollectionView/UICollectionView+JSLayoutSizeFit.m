@@ -73,6 +73,7 @@
                                configuration:(nullable JSConfigurationReusableView)configuration {
     return [self __js_fittingSizeForReusableViewClass:viewClass
                                           contentSize:CGSizeZero
+                                        isMaximumSize:NO
                                            cacheByKey:key
                                         configuration:configuration];
 }
@@ -85,6 +86,20 @@
     
     return [self __js_fittingSizeForReusableViewClass:viewClass
                                           contentSize:CGSizeMake(contentWidth, 0)
+                                        isMaximumSize:NO
+                                           cacheByKey:key
+                                        configuration:configuration];
+}
+
+- (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
+                         maximumContentWidth:(CGFloat)maximumContentWidth
+                                  cacheByKey:(nullable id<NSCopying>)key
+                               configuration:(nullable JSConfigurationReusableView)configuration {
+    NSAssert(maximumContentWidth >= 0, @"maximumContentWidth必须 >= 0");
+    
+    return [self __js_fittingSizeForReusableViewClass:viewClass
+                                          contentSize:CGSizeMake(maximumContentWidth, 0)
+                                        isMaximumSize:YES
                                            cacheByKey:key
                                         configuration:configuration];
 }
@@ -97,6 +112,20 @@
     
     return [self __js_fittingSizeForReusableViewClass:viewClass
                                           contentSize:CGSizeMake(0, contentHeight)
+                                        isMaximumSize:NO
+                                           cacheByKey:key
+                                        configuration:configuration];
+}
+
+- (CGSize)js_fittingSizeForReusableViewClass:(Class)viewClass
+                        maximumContentHeight:(CGFloat)maximumContentHeight
+                                  cacheByKey:(nullable id<NSCopying>)key
+                               configuration:(nullable JSConfigurationReusableView)configuration {
+    NSAssert(maximumContentHeight >= 0, @"maximumContentHeight必须 >= 0");
+    
+    return [self __js_fittingSizeForReusableViewClass:viewClass
+                                          contentSize:CGSizeMake(0, maximumContentHeight)
+                                        isMaximumSize:YES
                                            cacheByKey:key
                                         configuration:configuration];
 }
@@ -105,6 +134,7 @@
 
 - (CGSize)__js_fittingSizeForReusableViewClass:(Class)viewClass
                                    contentSize:(CGSize)contentSize
+                                 isMaximumSize:(BOOL)isMaximumSize
                                     cacheByKey:(nullable id<NSCopying>)key
                                  configuration:(nullable JSConfigurationReusableView)configuration {
     NSAssert([viewClass isSubclassOfClass:UICollectionReusableView.class], @"viewClass必须为UICollectionReusableView类或者其子类");
@@ -123,11 +153,20 @@
         resultSize = [self js_fittingSizeForTemplateView:templateView contentSize:contentSize finallySize:templateView.js_size];
         
         /// 设置外部的宽/高
-        if (contentSize.width > 0) {
-            resultSize.width = contentSize.width;
-        }
-        if (contentSize.height > 0) {
-            resultSize.height = contentSize.height;
+        if (isMaximumSize) {
+            if (contentSize.width > 0) {
+                resultSize.width = MIN(resultSize.width, contentSize.width);
+            }
+            if (contentSize.height > 0) {
+                resultSize.height = MIN(resultSize.height, contentSize.height);
+            }
+        } else {
+            if (contentSize.width > 0) {
+                resultSize.width = contentSize.width;
+            }
+            if (contentSize.height > 0) {
+                resultSize.height = contentSize.height;
+            }
         }
         
         /// 若Key存在时则写入内存
