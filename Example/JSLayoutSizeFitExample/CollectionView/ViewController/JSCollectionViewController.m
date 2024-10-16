@@ -51,7 +51,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.collectionView.qmui_initialContentInset = UIEdgeInsetsMake(self.view.qmui_safeAreaInsets.top, 0, self.view.qmui_safeAreaInsets.bottom, 0);
+    self.collectionView.qmui_initialContentInset = UIEdgeInsetsMake(self.view.safeAreaInsets.top, 0, self.view.safeAreaInsets.bottom, 0);
 }
 
 #pragma mark - UICollectionViewDelegate
